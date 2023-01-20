@@ -1,0 +1,242 @@
+
+
+		<div class="panel panel-">
+                <div class="panel-heading with-border">
+                  <h2 class="text-success "><i class="fa fa-plus-circle"></i> Comprador</h2>
+                </div>
+            <form name="frmComp" novalidate>
+                <div class="panel-body">
+
+				<div class="row"><br>
+                	<div class="col-md-4 col-md-offset-1 ">
+                		<label for="cmp_nombre" class="control-label">Comprador</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-industry"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese Comprador"
+	                    	   name="cmp_nombre"
+	                    	   ng-model="comprador.cmp_nombre"
+	                    	   ng-minlength="4"
+	                    	   ng-maxlength="60"
+	                    	   required>
+	                  </div>
+	                   <div class="">
+								<span class="text-danger" ng-show="!frmComp.$pristine && frmComp.cmp_nombre.$error.required">
+										<strong>Campo Comprador es Requerido!!!</strong>
+								</span>
+								<span class="text-danger" ng-show="frmComp.cmp_nombre.$error.minlength">
+        						<strong>Muy Corto!</strong>
+        				</span>
+      					<span class="text-danger" ng-show="frmComp.cmp_nombre.$error.maxlength">
+        						<strong>Muy Largo!</strong>
+        				</span>
+				        </div>
+	                </div>
+                    
+                    <div class="col-md-4 col-md-offset-1 ">
+                		<label for="comp" class="control-label">Representante Legal</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese un Representante Legal"
+	                    	   name="rep_legal"
+	                    	   ng-model="comprador.rep_legal"
+	                    	   ng-minlength="4"
+	                    	   ng-maxlength="60">
+	                  </div>
+	            <div class="">
+								<span class="text-danger" ng-show="frmComp.rep_legal.$error.minlength">
+        						<strong>Muy Corto!</strong>
+        				</span>
+      					<span class="text-danger" ng-show="frmComp.rep_legal.$error.maxlength">
+        						<strong>Muy Largo</strong>
+        				</span>
+							</div>
+	                </div>
+
+	             </div>
+				<br>
+				<div class="row"><br>
+                	<div class="col-md-4 col-md-offset-1 ">
+                		<label for="localizacion" class="control-label">Dirección</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-address-book"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ej. Av. Tecnológico #312 Colima, Colima"
+	                    	   name="localizacion"
+	                    	   ng-model="comprador.localizacion"
+	                    	   ng-minlength="4"
+	                    	   ng-maxlength="50"
+                               required>
+	                  </div>
+	            <div class="">
+                                <span class="text-danger" ng-show="!frmComp.$pristine && frmComp.localizacion.$error.required">
+								    <strong>Campo Dirección es Requerido!!!</strong>
+								</span>
+								<span class="text-danger" ng-show="frmComp.localizacion.$error.minlength">
+        						<strong>Muy Corto!</strong>
+        				</span>
+      					<span class="text-danger" ng-show="frmComp.localizacion.$error.maxlength">
+        						<strong>Muy Largo</strong>
+        				</span>
+							</div>
+	                </div>
+                    
+                    <div class="col-md-4 col-md-offset-1 ">
+                		<label for="telefono" class="control-label">Teléfono</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese un Teléfono"
+	                    	   name="telefono"
+	                    	   ng-model="comprador.telefono"
+	                    	   ng-minlength="9"
+	                    	   ng-maxlength="15"
+                               required>
+	                  </div>
+	                   <div class="">
+                                <span class="text-danger" ng-show="!frmComp.$pristine && frmComp.telefono.$error.required">
+								    <strong>Campo Teléfono es Requerido!!!</strong>
+								</span>
+								<span class="text-danger" ng-show="frmComp.telefono.$error.minlength">
+        						<strong>Muy Corto!</strong>
+        				</span>
+      					<span class="text-danger" ng-show="frmComp.telefono.$error.maxlength">
+        						<strong>Muy Largo</strong>
+        				</span>
+				        </div>
+	                </div>
+
+	             </div>
+                    
+                <div class="row"><br>
+                	<div class="col-md-4 col-md-offset-1 ">
+                		<label for="correo" class="control-label">Correo</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+	                    <input type="email"
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese un Correo"
+	                    	   name="correo"
+	                    	   ng-model="comprador.correo"
+	                    	   ng-minlength="4"
+	                    	   ng-maxlength="50"
+                               required>
+	                  </div>
+	               <div class="">
+                                <span class="text-danger" ng-show="!frmComp.$pristine && frmComp.correo.$error.required">
+								    <strong>Campo Dirección es Requerido!!!</strong>
+								</span>
+								<span class="text-danger" ng-show="frmComp.correo.$error.minlength">
+        						<strong>Muy Corto!</strong>
+        				</span>
+      					<span class="text-danger" ng-show="frmComp.correo.$error.maxlength">
+        						<strong>Muy Largo</strong>
+        				</span>
+                            <span class="text-danger" ng-show="frmComp.correo.$error.email">
+                                <strong>Correo Inválido!</strong>
+				            </span>
+				    </div>
+	                </div>
+                    
+                    <div class="col-md-4 col-md-offset-1 ">
+                		<label for="marcas" class="control-label">Marca/s de los producto/s</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-copyright"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese una o varias marcas"
+	                    	   name="marcas"
+	                    	   ng-model="comprador.marcas"
+	                    	   ng-minlength="4"
+	                    	   ng-maxlength="100">
+	                  </div>
+	                   <div class="">
+								<span class="text-danger" ng-show="frmComp.marcas.$error.minlength">
+        						<strong>Muy Corto!</strong>
+        				</span>
+      					<span class="text-danger" ng-show="frmComp.marcas.$error.maxlength">
+        						<strong>Muy Largo</strong>
+        				</span>
+				        </div>
+	                </div>
+
+	             </div>
+                    
+                <div class="row"><br>
+                	<div class="col-md-4 col-md-offset-1 ">
+                		<label for="mercado" class="control-label">Mercado Destino</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-map-market"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese uno o varios Mercados de Destino"
+	                    	   name="mercado_destino"
+	                    	   ng-model="comprador.mercado_destino"
+	                    	   ng-minlength="4"
+	                    	   ng-maxlength="50">
+	                  </div>
+	            <div class="">
+								<span class="text-danger" ng-show="frmComp.mercado_destino.$error.minlength">
+        						<strong>Muy Corto!</strong>
+        				</span>
+      					<span class="text-danger" ng-show="frmComp.mercado_destino.$error.maxlength">
+        						<strong>Muy Largo</strong>
+        				</span>
+							</div>
+	                </div>
+                    
+                    <div class="col-md-4 col-md-offset-1 ">
+                		<label for="puntos_distribucion" class="control-label">Puntos Principales de Distribución</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-ship"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese uno o varios puntos de distribución"
+	                    	   name="puntos_distribucion"
+	                    	   ng-model="comprador.puntos_distribucion"
+	                    	   ng-minlength="4"
+	                    	   ng-maxlength="50">
+	                  </div>
+	                   <div class="">
+								<span class="text-danger" ng-show="frmComp.puntos_distribucion.$error.minlength">
+        						<strong>Muy Corto!</strong>
+        				</span>
+      					<span class="text-danger" ng-show="frmComp.puntos_distribucion.$error.maxlength">
+        						<strong>Muy Largo</strong>
+        				</span>
+				        </div>
+	                </div>
+
+	             </div>
+
+
+	            </div><!-- /.box-body -->
+
+        <div class="panel-footer">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button ng-disabled="guardando" ng-disabled="!frmComp.$valid" type="submit" ng-click="guardarComprador(comprador)" class="btn btn-success float-left btn-lg">
+                        <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin" ></i> Guardando</span> 
+                        <span ng-hide="guardando" class="button-text"> <i class="fa fa-save" ></i>  Guardar</span>
+                    </button>
+                    <button style="float: right" type="submit" ng-show="buscar" ng-click="reset(frmComp)" class="btn btn-danger btn-lg"><i class="fa fa-times"></i> <span class="button-text"> Cancelar</span></button>
+                </div>
+            </div>
+        </div>
+
+        </form>
+
+</div>

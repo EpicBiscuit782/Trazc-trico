@@ -1,0 +1,64 @@
+<div class="panel panel-">
+        <div class="panel-heading with-border">
+     	     <h2 class="text-success "><i class="fa fa-plus-circle"></i>Variedad</h2>
+        </div>
+
+            <form name="frmVariedad" novalidate>
+                <div class="panel-body">
+
+					<div class="row"><br>
+                	<div class="col-md-6 col-md-offset-3 ">
+                		<label for="varied" class="control-label">Variedad</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-lemon-o"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese Variedad"
+	                    	   name="varied"
+	                    	   ng-model="variedad.variedad"
+	                    	   ng-minlength="3"
+	                    	   ng-maxlength="40"
+	                    	   required>
+	                  </div>
+	                 		<div class="">
+        								<span class="text-danger" ng-show="!frmVariedad.$pristine && frmVariedad.varied.$error.required">
+        										<strong>Campo Variedad es Requerido!!!</strong>
+        								</span>
+        								<span class="text-danger" ng-show="frmVariedad.varied.$error.minlength">
+                						<strong>Muy Corto!</strong>
+                				</span>
+              					<span class="text-danger" ng-show="frmVariedad.varied.$error.maxlength">
+                						<strong>Muy Largo</strong>
+                				</span>
+        							</div>
+	                </div>
+
+	             </div>
+				<br>
+
+
+
+	             <br>
+		        <div class="text-success" ng-show="actualizado">
+		          <h3>Registro Guardado</h3>
+		        </div>
+            <div class="text-danger" ng-show="error">
+		          <h3>Error al Guardar</h3>
+		        </div>
+
+
+	            </div><!-- /.box-body -->
+
+	            <div class="panel-footer">
+	            	<div class="row">
+
+		             	<div class="col-xs-4 col-xs-offset-4">
+		             		<button type="submit" ng-click="guardarVariedad(variedad)" class="btn btn-success" ng-disabled="!frmVariedad.$valid"><i class="fa fa-save"></i>  Guardar </button>
+		             		<button  class="btn btn-success" ng-click="reset(frmVariedad)" ng-show="buscar"><i class="fa fa-times"></i>  Cancelar </button>
+		            </div>
+	            </div>
+
+        </form>
+
+</div>

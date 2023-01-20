@@ -1,0 +1,247 @@
+<div class="panel ">
+    <div class="panel-heading with-border">
+        <h2 class="text-success"> <i class="fa fa-plus-circle" ></i> Nutrición</h2>
+    </div>
+
+  <div class="panel-body body-text">
+
+		    <form name="frmNutricion" novalidate>
+
+          <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <label for="tipo">Tipo de Aplicación</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                    <select class="form-control"
+                          ng-model="tipo"
+                          ng-change="show()"
+                          >
+                         <option  value="FOLIAR"> FOLIAR </option>
+                         <option  value="SUELO"> SUELO </option>
+                     </select>
+                </div>
+                <div class="">
+                  <span class="text-danger" ng-show="error">
+                    <strong>Selecciona tipo de aplicación !!!</strong>
+                  </span>
+               </div>
+           </div>
+
+					    <div class="col-md-2 col-md-offset-1">
+		              <label for="parcela">Parcela</label>
+			            <div class="input-group">
+			                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+			                <input type="text"
+			                			class="form-control"
+			                			id="parcela"
+			                			ng-model = "dataParcela.alias"
+			                			disabled>
+			            </div>
+                  <div class="">
+										<span class="text-danger" ng-show="errorParc">
+											<strong>Seleccione Parcela!!!</strong>
+										</span>
+									</div>
+
+			        </div>
+
+                    <div class="col-md-3">
+                        <label for="fecha">Fecha</label>
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                        </span> 
+                         <input ng-click="open1()" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="hoy" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" />
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="!frmNutricion.$pristine && frmNutricion.fecha.$error.required">
+                                <strong>Fecha es requerida !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+
+			    </div>
+
+          <form>
+
+<hr>      <fieldset>
+    			<legend>Aplicación de Insumo</legend>
+					<div class="row">
+						      <div class="col-md-2 col-md-offset-2">
+		                	<label for="tg">Tipo Insumo</label>
+			                <div class="input-group">
+			                	<span class="input-group-addon"><i class="fa fa-circle-o"></i></span>
+			                	<select class="form-control"
+			                			ng-model="nutricion.id_tipo_insumo"
+			                			ng-change="getInsumos(nutricion.id_tipo_insumo)"
+			                			>
+								            <option  ng-repeat="tipo in tipo_insumos.tipo_insumos" value="{{ tipo.id_tipo_insumo }}"> {{ tipo.descripcion }}</option>
+								        </select>
+			            	</div>
+			        	</div>
+
+		           <div class="col-md-3 col-md-offset-1">
+		               <label for="insumo">Insumo</label>
+			             <div class="input-group">
+			                <span class="input-group-addon"><i class="fa fa-flask"></i></span>
+			                <select class="form-control"
+			                			ng-model="nutricion.id_insumo"
+			                			ng-required>
+								         <option ng-repeat="insumo in insumos.insumos" value="{{ insumo.id_insumo}}">{{ insumo.nombre_com}} </option>
+								      </select>
+			            </div>
+                  <div class="">
+                    <span class="text-danger" ng-show="errorInsumo">
+                      <strong>Selecciona insumo !!!</strong>
+                    </span>
+                 </div>
+			        </div>
+         </div>
+
+         <div class="row">
+
+              <div class="col-md-2 col-md-offset-2">
+		              <label for="cantidad">Dosis</label>
+			            <div class="input-group">
+			               <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
+			               <input type="number"
+			                			class="form-control"
+                            min="0"
+			                			name="cantidad"
+			                			ng-model="nutricion.cantidad"
+			                    	ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
+			            </div>
+			            <div class="">
+  									<span class="text-danger" ng-show="errorCant">
+  										<strong>Dato Invalido !!!</strong>
+  									</span>
+                    <span class="text-danger" ng-show="!frmNutricion.cantidad.$valid">
+                       Dato Invalido !
+                   </span>
+							   </div>
+
+			      </div>
+
+            <div class="col-md-2">
+                <label for="medida">Medida</label>
+                <div class="input-group">
+                   <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                   <select class="form-control"
+                         ng-model="nutricion.medida"
+                         ng-required>
+                      <option value="LITROS">LITROS </option>
+                      <option value="MILILITROS">MILILITROS</option>
+                      <option value="KILOGRAMOS">KILOGRAMOS</option>
+                      <option value="GRAMOS">GRAMOS</option>
+                   </select>
+               </div>
+               <div class="">
+                 <span class="text-danger" ng-show="errorMedida">
+                   <strong>Selecciona medida !!!</strong>
+                 </span>
+              </div>
+           </div>
+
+           <div class="col-md-2" ng-show="Bsuelo">
+               <label for="metodo">Metodo aplicación</label>
+               <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                  <select class="form-control"
+                        ng-model="nutricion.metodo"
+                        ng-required>
+                     <option value="BOLEO"> BOLEO</option>
+                     <option value="TAPADO">TAPADO </option>
+                     <option value="FERTIRRIGACIÓN">FERTIRRIGACIÓN </option>
+                  </select>
+              </div>
+              <div class="">
+                <span class="text-danger" ng-show="errorMetodo">
+                  <strong>Selecciona Metodo de Aplicacíon !!!</strong>
+                </span>
+             </div>
+          </div>
+
+          <div class="col-md-2 col-md-offset-0" ng-show="Bsuelo">
+              <label for="cant_planta">Cantidad por Planta</label>
+              <div class="input-group">
+                 <span class="input-group-addon"><i class="fa fa-"></i></span>
+                 <input type="number"
+                        class="form-control"
+                        min="0"
+                        name="cant_planta"
+                        ng-model="nutricion.cant_planta"
+                        ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
+              </div>
+              <div class="">
+                <span class="text-danger" ng-show="errorPlanta">
+                  <strong>Dato invalido !!!</strong>
+                </span>
+                <span class="text-danger" ng-show="!frmNutricion.cant_planta.$valid">
+                   Dato Invalido !
+               </span>
+             </div>
+
+        </div>
+
+        <div class="col-md-1">
+            <div class="input-group"><br>
+                <button type="button" class="btn btn-warning btn-fab btn-fab-mini" ng-click="agregar(nutricion)"><i class="fa fa-plus"></i>  </button>
+            </div>
+        </div>
+
+			</div>
+
+      <br>
+      <div class="">
+        <span class="text-danger" ng-show="errorRejilla">
+          <strong>Agregue Insumo(s) !!!</strong>
+        </span>
+     </div>
+     <div class="text-danger" ng-show="encontrado">
+           <h4>Insumo ya Ingresado</h4>
+     </div>
+
+   </fieldset> <hr>
+</form>
+				<div class="row">
+
+          <div class="col-md-7 col-md-offset-2">
+
+              <table class="table table-bordered table-hover">
+                <thead class="success">
+                  <th class="text-center success">Insumo</th>
+                  <th class="text-center success">Cantidad</th>
+                  <th class="text-center success">Medida</th>
+                  <th class="text-center success" ng-show="Bsuelo"> Metodo</th>
+                  <th class="text-center success" ng-show="Bsuelo"> Cantidad Planta</th>
+                </thead>
+
+                <tbody>
+                  <tr ng-repeat="det in detalle track by $index" class="text-center">
+                    <td>{{ det.nombre_com }}</td>
+                    <td>{{ det.cantidad }}</td>
+                    <td>{{ det.medida }}</td>
+                    <td ng-show="Bsuelo">{{ det.metodo }}</td>
+                    <td ng-show="Bsuelo">{{ det.cant_planta}}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+          </div>
+
+				</div>
+        <br>
+            <div class="panel-footer">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button ng-disabled="guardando" ng-disabled="!frmNutricion.$valid" type="submit" ng-click="guardarNutricion(nutricion)" class="btn btn-success float-left btn-lg">
+                        <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin" ></i> Guardando</span> 
+                        <span ng-hide="guardando" class="button-text"> <i class="fa fa-save" ></i>  Guardar</span>
+                    </button>
+                    <button style="float: right" type="submit" ng-show="buscar" ng-click="reset(frmNutricion)" class="btn btn-danger btn-lg"><i class="fa fa-times"></i> <span class="button-text"> Cancelar</span></button>
+                </div>
+            </div>
+            </div>
+    </form>
+</div>
+</div>

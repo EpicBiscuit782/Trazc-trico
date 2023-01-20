@@ -1,0 +1,64 @@
+<div class="panel panel-">
+        <div class="panel-heading with-border">
+     	     <h2 class="text-success "><i class="fa fa-plus-circle"></i>Portainjerto</h2>
+        </div>
+
+            <form name="frmPortainjerto" novalidate>
+                <div class="panel-body">
+
+					<div class="row"><br>
+                	<div class="col-md-4 col-md-offset-4 ">
+                		<label for="nom_portainjerto" class="control-label">Portainjerto</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-lemon-o"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese Portainjerto"
+	                    	   name="nom_portainjerto"
+	                    	   ng-model="portainjerto.nom_portainjerto"
+	                    	   ng-minlength="4"
+	                    	   ng-maxlength="50"
+	                    	   required>
+	                  </div>
+	                 		<div class="">
+        								<span class="text-danger" ng-show="!frmPortainjerto.$pristine && frmPortainjerto.nom_portainjerto.$error.required">
+        										<strong>Campo Portainjerto es Requerido!!!</strong>
+        								</span>
+        								<span class="text-danger" ng-show="frmPortainjerto.nom_portainjerto.$error.minlength">
+                						<strong>Muy Corto!</strong>
+                				</span>
+              					<span class="text-danger" ng-show="frmPortainjerto.nom_portainjerto.$error.maxlength">
+                						<strong>Muy Largo</strong>
+                				</span>
+        							</div>
+	                </div>
+
+	          </div>
+				<br>
+
+
+
+	             <br>
+		        <div class="text-success" ng-show="actualizado">
+		          <h3>Registro Guardado</h3>
+		        </div>
+            <div class="text-danger" ng-show="error">
+		          <h3>Error al Guardar</h3>
+		        </div>
+
+
+	            </div><!-- /.box-body -->
+
+	            <div class="panel-footer">
+	            	<div class="row">
+
+		             	<div class="col-xs-4 col-xs-offset-4">
+		             		<button type="submit" ng-click="guardarPortainjerto(portainjerto)" class="btn btn-success" ng-disabled="!frmPortainjerto.$valid"><i class="fa fa-save"></i>  Guardar </button>
+		             		<button  class="btn btn-success" ng-click="reset(frmPortainjerto)"><i class="fa fa-times"></i>  Cancelar </button>
+		            </div>
+	            </div>
+
+        </form>
+
+</div>

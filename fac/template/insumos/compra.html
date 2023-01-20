@@ -1,0 +1,318 @@
+<div class="panel">
+    <div class="panel-heading with-border">
+        <h2 class="text-success"> <i class="fa fa-plus-circle" ></i> Compra Insumos</h2>
+    </div>
+
+<div class="panel-body body-text">
+
+<form name="frmCompra" novalidate>
+        
+<div class="row">
+
+    <div class="col-md-3 col-md-offset-1">
+        <label for="fecha">Fecha</label>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+            </span>
+            <input ng-click="open1()" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="hoy" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" />
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmCompra.$pristine && frmCompra.fecha.$error.required">
+                <strong>Fecha es requerida !!!</strong>
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <label for="responsable">Responsable</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+            <select class="form-control" ng-model="compra.id_responsable" required>
+                <option ng-repeat="responsable in responsables.responsables" value="{{ responsable.id_responsable }}"> {{ responsable.nombre }}</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="col-md-2">
+        <label for="parcela">Parcela</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-map-o"></i></span>
+            <select class="form-control" ng-model="compra.parcela" required>
+                <option>LIMONERA</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="col-md-2">
+        <label for="destino">Destino</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
+            <select class="form-control" ng-model="compra.destino" required>
+                <option>ALMACÉN PRINCIPAL</option>
+            </select>
+        </div>
+    </div>
+</div>
+<br><br>
+            
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">
+            <label for="tg">Tipo Insumo</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                <select class="form-control" ng-model="compra.id_tipo_insumo" ng-change="cargaInsumos(compra.id_tipo_insumo)" required>
+                    <option ng-repeat="tipo in tipo_insumo.tipo_insumos" value="{{ tipo.id_tipo_insumo }}"> {{ tipo.descripcion }}</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <label for="marca">Casa Comercial</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                <select class="form-control" ng-model="compra.marca" required>
+                    <option>GENEHTIK NUTRIENTS</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <label for="gasto">Insumo</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-flask"></i></span>
+                <select class="form-control" ng-model="compra.id_insumo" ng-required>
+                    <option ng-repeat="insumo in insumo.insumos" value="{{ insumo.id_insumo}}">{{ insumo.nombre_com}} </option>
+                </select>
+            </div>
+            <div class="">
+                <span class="text-danger" ng-show="errorInsumo">
+                    <strong>Seleccione Insumo !!!</strong>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">
+            <label for="tg">Proveedor</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                <select class="form-control" ng-model="compra.id_proveedor" required>
+                    <option ng-repeat="proveedor in proveedores.proveedores" value="{{ proveedor.id_proveedor }}"> {{ proveedor.empresa }}</option>
+                </select>
+            </div>
+            <div class="">
+                <span class="text-danger" ng-show="errorProv">
+                    <strong>Seleccione Proveedor !!!</strong>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="gasto">Número de Lote</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-hashtag"></i></span>
+                <input type="text" class="form-control" id="lote">
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="tg">Fecha de Caducidad</label>
+            <div class="form-group">
+                <div class="form-group">
+                    <input type="date" class="form-control" id="fecha_cad" ng-model="hoy" placeholder="YYYY-MM-DD">
+                </div>
+            </div>
+            <div class="">
+                <span class="text-danger" ng-show="errorCad">
+                    <strong>Seleccione Proveedor !!!</strong>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+            <label for="medida">Medida</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                <select class="form-control" ng-model="compra.medida" ng-required>
+                    <option value="LITROS"> LITROS </option>
+                    <option value="MILILITROS"> MILILITROS </option>
+                    <option value="KILOGRAMOS"> KILOGRAMOS </option>
+                    <option value="GRAMOS"> GRAMOS </option>
+                </select>
+            </div>
+            <div class="">
+                <span class="text-danger" ng-show="errorMedida">
+                    <strong>Seleccione Unidad !!!</strong>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <label for="cantidad">Presentación</label>
+            <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-sort-up"></i></span>
+                <input type="number" min="0" class="form-control" name="cantidad" ng-model="compra.cantidad" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" required>
+            </div>
+            <div class="">
+                <span class="text-danger" ng-show="errorCant">
+                    <strong>Dato no valido !!!</strong>
+                </span>
+                <span class="text-danger" ng-show="!frmCompra.cantidad.$valid">
+                    Dato Invalido !
+                </span>
+            </div>
+
+        </div>
+
+        <div class="col-md-2 ">
+            <label for="precio">Precio</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-usd"></i></span>
+                <input type="number" min="0" class="form-control" name="precio" ng-model="compra.precio" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" required>
+            </div>
+            <div class="">
+                <span class="text-danger" ng-show="errorCost">
+                    <strong>Dato no valido !!!</strong>
+                </span>
+                <span class="text-danger" ng-show="!frmCompra.precio.$valid">
+                    Dato Invalido !
+                </span>
+            </div>
+
+        </div>
+
+        <div class="col-md-2 ">
+            <label for="cantidad">Cantidad</label>
+            <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-sort-up"></i></span>
+                <input type="number" min="1" max="20" class="form-control" name="cant_insumos" ng-model="compra.cant_insumos" ng-pattern="/^[0-9]{1,3}$/" required>
+            </div>
+            <div class="">
+                <span class="text-danger" ng-show="errorInsumos">
+                    <strong>Dato no valido !!!</strong>
+                </span>
+                <span class="text-danger" ng-show="!frmCompra.cant_insumos.$valid">
+                    Dato Invalido !
+                </span>
+            </div>
+
+        </div>
+    </div>
+    
+    <br><br>
+    <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+            <label for="manejo">Manejo de Producto</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-flask"></i></span>
+                <textarea class="form-control" name="manejo" ng-model="compra.manejo"></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <label for="obs">Observaciones</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-sort-up"></i></span>
+                <textarea class="form-control" name="obs" ng-model="compra.obs"></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="input-group"><br>
+                <button type="button" class="btn btn-warning btn-fab" ng-click="buscarInsumo(compra)"><i class="fa fa-plus"></i> </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <span class="text-danger" ng-show="encontrado">
+            <strong> Insumo ya ingresado !!!</strong>
+        </span>
+    </div>
+    <br><br>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Evidencia Técnica</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+                            <input multiple type="file" class="form-control" accept="image/*" onchange="angular.element(this).scope().eviUpload(event)" file-input="filesEvi">
+                            <div class="col-md-4" ng-repeat="evi in eviPrev">
+                                <img class="thumbnail" ng-src="{{evi}}" height="200px" width="200px" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <hr>
+
+    <!--	<pre>{{ compra | json }} </pre> -->
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-2">
+            <table class="table  table-bordered table-hover">
+                <thead>
+                    <tr class="success">
+                        <th class="text-center">Insumo</th>
+                        <th class="text-right">proveedor</th>
+                        <th class="text-center">Presentación</th>
+                        <th class="text-center">Medida</th>
+                        <th class="text-center">Precio</th>
+                        <th class="text-center">Cantidad Insumos</th>
+                        <th class="text-right">Importe</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="detalle in detalle">
+                        <td class="text-center">{{ detalle.nombre_com }}</td>
+                        <td class="text-center">{{ detalle.empresa }}</td>
+                        <td class="text-center">{{ detalle.cantidad }}</td>
+                        <td class="text-center">{{ detalle.medida }}</td>
+                        <td class="text-center">{{ detalle.precio | currency }}</td>
+                        <td class="text-center">{{ detalle.cant_insumos }}</td>
+                        <td class="text-right">{{ detalle.precio * detalle.cant_insumos | currency}}</td>
+
+                    <tr class="success">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right"><strong>Total</strong></td>
+                        <td class="text-right"><strong>{{ total | currency }}</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+        <div class="panel-footer">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button ng-disabled="guardando" ng-disabled="!frmCompra.$valid" type="submit" ng-click="guardarCompra(compra)" class="btn btn-success float-left btn-lg">
+                        <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin" ></i> Guardando</span> 
+                        <span ng-hide="guardando" class="button-text"> <i class="fa fa-save" ></i>  Guardar</span>
+                    </button>
+                    <button style="float: right" type="submit" ng-show="buscar" ng-click="reset(frmCompra)" class="btn btn-danger btn-lg"><i class="fa fa-times"></i> <span class="button-text"> Cancelar</span></button>
+                </div>
+            </div>
+        </div>
+</form>
+</div>

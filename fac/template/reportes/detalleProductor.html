@@ -1,0 +1,162 @@
+<div class="panel ">
+    <div class="panel-heading with-border">
+        <h2 class="text-success"> <i class="fa fa-plus-circle"></i> Gastos</h2>
+    </div>
+    <form name="frmGastos" novalidate>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3 col-md-offset-1">
+                    <label for="alias">Parcela</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input type="text" class="form-control" name="id_parcela" ng-model="gastos.pcl_alias" disabled>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-md-offset-3">
+                    <label for="fecha">Fecha</label>
+                    <div class="input-group">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                    </span>
+                     <input ng-click="open1()" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="gastos.gst_fecha" ng-value="gastos.gst_fecha | date:'dd/MMMM/yyyy'" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" />
+
+                    </div>
+                    <div class="">
+                        <span class="text-danger" ng-show="errorFecha">
+                            <strong>Fecha no valida !!!</strong>
+                        </span>
+                    </div>
+                </div>
+
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-3 col-md-offset-1">
+                    <label for="tg">Tipo Actividad</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-list-alt"></i></span>
+                        <select class="form-control" ng-model="gastos.id_tipo_gasto" ng-change="cargaTipo(gastos.id_tipo_gasto)">
+                            <option ng-repeat="tipo in tipo_gast.tipo_gastos" value="{{ tipo.id_tipo_gasto }}"> {{ tipo.tpgst_act_descripcion }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="gasto">Actividad</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                        <select class="form-control" ng-model="gastos.id_ctl_gasto" ng-change="setInsumo(gastos.id_ctl_gasto)">
+                            <option ng-repeat="act in activ.actividades" value="{{ act.id_ctl_gasto}}">{{ act.ctl_descripcion}} </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2" ng-show="aplicacion">
+                    <label for="gasto">Tipo de Insumo</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-flask"></i></span>
+                        <select class="form-control" ng-model="gastos.id_tipo_insumo">
+                            <option ng-repeat="tipo in tipo_insumo.tipo_insumos" value="{{ tipo.id_tipo_insumo}}">{{ tipo.descripcion}} </option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="col-md-2 ">
+                    <label for="precio">Costo</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-usd"></i></span>
+                        <input type="number" min="0" class="form-control" name="dt_precio" ng-model="gastos.dt_precio" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
+                    </div>
+
+                    <div class="">
+                        <span class="text-danger" ng-show="errorCost">
+                            <strong>Dato invalido !!!</strong>
+                        </span>
+                        <span class="text-danger" ng-show="!frmGastos.dt_precio.$valid">
+                            Dato Invalido !
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-1">
+                    <div class="input-group"><br>
+                        <button type="button" class="btn btn-warning btn-fab btn-fab-mini" ng-click="buscarGasto(gastos)"><i class="fa fa-plus"></i> </button>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="text-danger" ng-show="encontrado">
+                <h4>Actividad ya Ingresada</h4>
+            </div>
+            <br>
+            <hr>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <table class="table  table-bordered table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th class="text-center">Tipo Gasto</th>
+                                <th class="text-center">Actividad</th>
+                                <th class="text-right">Importe</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="detalle in detalle.gastos">
+                                <td class="text-center">{{ detalle.tpgst_act_descripcion }}</td>
+                                <td class="text-center">{{ detalle.ctl_descripcion }}</td>
+                                <td class="text-right">{{ detalle.dt_precio | currency}}</td>
+                                <td style="border:none">
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-warning btn-fab btn-fab-mini" ng-click="eliminarGasto(detalle.id_detalle_gasto,$index,detalle.dt_precio)"><i class="fa fa-minus "></i></button>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr class="success">
+                                <td class="text-right"><strong></strong></td>
+                                <td class="text-right"><strong>Total</strong></td>
+                                <td class="text-right"><strong>{{ total | currency }}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button ng-disabled="eliminando" style="float: right" type="submit" ng-click="eliminarConfirm()" class="btn btn-danger btn-lg">
+                        <span ng-show="eliminando" class="button-text"><i class="fa fa-spinner fa-spin"></i> Eliminando</span>
+                        <span ng-hide="eliminando" class="button-text"> <i class="fa fa-trash"></i> Eliminar</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+    <script type="text/ng-template" id="custom_template.html">
+        <div class="ui-notification custom-template clearfix" style="width: 600px;">
+            <div class="message"><h2>{{nTitle}}</h2>
+            <h4>{{nTitle2}}</h4></div>
+            
+            <div class="message" ng-bind-html="message"></div>
+            <div class="message">
+                <ul ng-repeat="detalle in detalle.gastos">
+                    <li>Tipo de Gasto  {{ detalle.tpgst_act_descripcion }}</li>
+                    <li>Actividad {{ detalle.ctl_descripcion }}</li>
+                    <li>Costo {{ detalle.dt_precio | currency}}</li>
+                </ul>
+            </div>
+            <div class="message">
+                <a class="btn btn-bg btn-info" ng-click="close_noti()" style="float: left"><i class="fa fa-ban"></i> <span class="button-text"> Cancelar</span></a>
+                <a class="btn btn-bg btn-danger" ng-click="eliminarGastos()" style="float: right"><i class="fa fa-trash"></i> <span class="button-text"> Eliminar</span></a>
+            </div>
+        </div>
+    </script>

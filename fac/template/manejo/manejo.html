@@ -1,0 +1,342 @@
+<div class="panel panel-">
+    <div class="panel-heading with-border">
+        <h2 class="text-success"> <i class="fa fa-plus-circle"></i> Manejo Integral</h2>
+    </div>
+
+    <form name="frmManejo" novalidate>
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-md-3 col-md-offset-1">
+                    <label for="fecha">Parcela</label>
+                    <div class="input-group">
+
+                        <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                        <input type="text" class="form-control" id="parcela" ng-model="dataParcela.alias" disabled>
+                    </div>
+                    <div class="">
+                        <span class="text-danger" ng-show="errorParc">
+                            <strong>Seleccione Parcela !!!</strong>
+                        </span>
+                    </div>
+                </div>
+
+	        		<div class="col-md-3 col-md-offset-1">
+                        <label for="fecha">Fecha</label>
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                        </span> 
+                         <input ng-click="open1()" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="fechas.hoy" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" />
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="!frmManejo.$pristine && frmManejo.fecha.$error.required">
+                                <strong>Fecha es requerida !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+
+            </div>
+            <hr>
+            <fieldset>
+                <legend>Problema Fitosanitario a Tratar</legend>
+
+                <div class="row"><br>
+                    <div class="col-md-4 col-md-offset-1">
+                        <label for="tipo">Tipo</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-bug"></i></span>
+                            <select class="form-control" ng-model="integral.id_tipo_enfermedad" ng-change="getEnfermedades(integral.id_tipo_enfermedad)" required>
+                                <option ng-repeat="tipo_enf in tipo_enfermedad.tipo_enfermedades" value="{{ tipo_enf.id_tipo_enfermedad }}">{{ tipo_enf.tipo_enfermedad }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-md-offset-0 ">
+                        <label for="nombre" class="control-label">Problema Fitosanitario</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-bug"></i></span>
+                            <select class="form-control" ng-model="integral.id_enfermedad" ng-change="getRecomendados(integral.id_enfermedad)" required>
+                                <option ng-repeat="enfermedad in enfermedades.enfermedades" value="{{ enfermedad.id_enfermedad }}">{{enfermedad.enfermedad}}</option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorEnferm">
+                                <strong>Seleccione Problema Fitosanitario !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="col-md-10 col-md-offset-1">
+                    <legend>Insumos Recomendados</legend>
+                    <div class="table-responsive">
+                    <table class="table  table-bordered table-hover ">
+                        <thead>
+                            <tr class="success">
+                                <th class="text-center">Insumo</th>
+                                <th class="text-center">Ingrediente Activo</th>
+                                <th class="text-center">Dosis/Ha </th>
+                                <th class="text-center">Intervalo de Cosecha en Días</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="insumos_reco in insumos_reco">
+                                <td class="text-center">{{ insumos_reco.nombre_com }}</td>
+                                <td class="text-center">{{ insumos_reco.ingrediente_act }}</td>
+                                <td class="text-center">{{ insumos_reco.dosis }}</td>
+                                <td class="text-center">{{ insumos_reco.intervalo }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </fieldset>
+            <hr>
+            <fieldset>
+                <legend>Insumo a Aplicar</legend><br>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-1">
+                        <label for="tg">Tipo Insumo</label>
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="fa fa-list-alt"></i></span>
+                            <select class="form-control" ng-model="manejo.id_tipo_insumo" ng-change="getInsumos(manejo.id_tipo_insumo)">
+                                <option ng-repeat="tipo in tipo_insumos.tipo_insumos" value="{{ tipo.id_tipo_insumo }}"> {{ tipo.descripcion }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="gasto">Insumo</label>
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="fa fa-flask"></i></span>
+                            <select class="form-control" ng-model="manejo.id_insumo" ng-required>
+                                <option ng-repeat="insumo in insumos.insumos" value="{{ insumo.id_insumo}}">{{ insumo.nombre_com}} </option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorInsumo">
+                                <strong>Seleccione Insumo !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="gasto">Metodo de aplicación</label>
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                            <select class="form-control" ng-model="manejo.metodo" ng-required>
+                                <option value="Asperso">Aspersor </option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorMetodo">
+                                <strong>Seleccione Metodo de Aplicación !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-2 col-md-offset-1">
+                        <label for="dosis">Dosis</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
+                            <input type="number" class="form-control" name="dosis" min="0" ng-model="manejo.dosis" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorDosis">
+                                <strong>Dato No Valido !!!</strong>
+                            </span>
+                            <span class="text-danger" ng-show="!frmManejo.dosis.$valid">
+                                Dato Invalido !
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <label for="medida">Medida</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                            <select class="form-control" ng-model="manejo.medida" ng-required>
+                                <option value="LITROS">LITROS </option>
+                                <option value="MILILITROS">MILILITROS</option>
+                                <option value="KILOGRAMOS">KILOGRAMOS</option>
+                                <option value="GRAMOS">GRAMOS</option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorMedida">
+                                <strong>Selecciona Medida !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="agua">Volumen Agua</label>
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
+                            <input type="number" min="0" class="form-control" name="agua" ng-model="manejo.agua" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
+                            <div class="input-group-addon">LTS</div>
+                        </div>
+
+                        <div class="">
+                            <span class="text-danger" ng-show="errorAgua">
+                                <strong>Dato Invalido !!!</strong>
+                            </span>
+                            <span class="text-danger" ng-show="!frmManejo.agua.$valid">
+                                Dato Invalido !
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <label for="fecha_aplicacion">Fecha de Aplicación</label>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="fecha_aplicacion" placeholder="YYYY-MM-DD" ng-model="fechas.fecha_aplicacion" ;>
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorFecha_aplicacion">
+                                <strong>Fecha No valida !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                        <div class="input-group"><br>
+                            <button type="button" class="btn btn-warning btn-fab btn-fab-mini" ng-click="agregar(manejo)"><i class="fa fa-plus"></i> </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <span class="text-danger" ng-show="encontrado">
+                        <strong>Insumo ya ingresado !!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="errorReja">
+                        <strong>Ingrese un Insumo !!!</strong>
+                    </span>
+                </div>
+            </fieldset>
+
+            <div class="row">
+
+                <div class="col-md-7 col-md-offset-2">
+
+                    <table class="table table-bordered table-hover">
+                        <thead class="success">
+                            <th class="text-center success">Insumo</th>
+                            <th class="text-center success">Metodo</th>
+                            <th class="text-center success"> Dosis</th>
+                            <th class="text-center success"> Medida</th>
+                            <th class="text-center success"> Volumen Agua </th>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="det in detalle" class="text-center">
+                                <td>{{ det.nombre_com }}</td>
+                                <td>{{ det.metodo }}</td>
+                                <td>{{ det.dosis }}</td>
+                                <td>{{ det.medida }}</td>
+                                <td>{{ det.agua}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <fieldset>
+                <legend>Intervalo de Seguridad</legend>
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-1">
+                        <label for="inicio">Fecha Inicio</label>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="inicio" placeholder="YYYY-MM-DD" ng-model="fechas.inicio" ;>
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorInicio">
+                                <strong>Fecha No valida !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-md-offset-0">
+                        <label for="fin">Fecha Fin</label>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="fin" placeholder="YYYY-MM-DD" ng-model="fechas.fin" ;>
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorFin">
+                                <strong>Fecha No Valida !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-md-offset-0">
+                        <label for="siguiente">Fecha Siguiente Corte</label>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="siguiente" placeholder="YYYY-MM-DD" ng-model="fechas.siguiente" ;>
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorSig">
+                                <strong>Fecha No Valida !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </fieldset>
+
+            <hr>
+            <fieldset>
+                <legend>Responsable</legend>
+
+                <div class="row">
+
+
+                    <div class="col-md-3 col-md-offset-1 ">
+                        <label for="nombre" class="control-label">Responsable</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <select class="form-control" ng-model="integral.id_responsable" required>
+                                <option ng-repeat="responsable in responsables.responsables" value="{{ responsable.id_responsable }}">{{ responsable.nombre }}</option>
+
+                            </select>
+                        </div>
+
+                        <div class="">
+                            <span class="text-danger" ng-show="errorResp">
+                                <strong>Seleccione Responsable !!!</strong>
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </fieldset>
+        </div>
+
+            <div class="panel-footer">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button ng-disabled="guardando" ng-disabled="!frmManejo.$valid" type="submit" ng-click="guardarManejo(manejo)" class="btn btn-success float-left btn-lg">
+                        <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin" ></i> Guardando</span> 
+                        <span ng-hide="guardando" class="button-text"> <i class="fa fa-save" ></i>  Guardar</span>
+                    </button>
+                    <button style="float: right" type="submit" ng-show="buscar" ng-click="reset(frmManejo)" class="btn btn-danger btn-lg"><i class="fa fa-times"></i> <span class="button-text"> Cancelar</span></button>
+                </div>
+            </div>
+            </div>
+
+    </form>
+</div>

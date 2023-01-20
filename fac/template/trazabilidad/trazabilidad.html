@@ -1,0 +1,173 @@
+<div class="row">
+    
+	<div class="col-md-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading with-border">
+
+            	<div class="row">
+            		<div class="col-md-5 col-md-offset-0">
+            			<h2 class="text-success">Trazabilidad</h2>
+            		</div>
+
+              	</div>
+            </div>
+            <div class="panel-body">
+
+              <div class="row">
+                  <div class="col-md-4 col-md-offset-2">
+                     <label for="codigo">Código de Barras</label>
+                     <div class="input-group">
+                         <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                         <input type="text"
+                               class="form-control"
+                               ng-model = "codigo"
+                               >
+                     </div>
+                      <div class="">
+                       <span class="text-danger" ng-show="errorCodigo">
+                         <strong>Codigo no encontrado!!!</strong>
+                       </span>
+                     </div>
+                 </div>
+
+                 <div class="col-md-2 col-md-offset-0">
+                   <button
+                      class="btn btn-success"
+                      ng-click="buscar(codigo)">Buscar</button>
+                </div>
+              </div>
+
+							<br><br><br>
+
+
+			<div class="col-md-12" ng-show="template">
+					<div class="col-md-6 col-md-offset-3" style="border-style: dashed;">
+							<div class="card2">
+								<br><br>
+									<div class="row">
+										<div class="col-md-6 col-md-offset-1">
+											<label>Huerta Origen:</label>
+										</div>
+										<div class="col-md-5 col-md-offset-0">
+											<label class="text-success">{{ produccion.pcl_alias }}</label>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-md-6 col-md-offset-1">
+											<label for="">Huerta Registro:</label>
+										</div>
+										<div class="col-md-5 col-md-offset-0">
+											<label>0001</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6 col-md-offset-1">
+											<label for="">Cultivo:</label>
+										</div>
+										<div class="col-md-5 col-md-offset-0">
+											<label>80530</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6 col-md-offset-1">
+											<label for="">Numero de lote:</label>
+										</div>
+										<div class="col-md-5 col-md-offset-0">
+											<label>{{ lote }}</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6 col-md-offset-1">
+											<label for="">Fecha de cosecha:</label>
+										</div>
+										<div class="col-md-5 col-md-offset-0">
+											<label>{{ produccion.pdc_fecha }}</label>
+										</div>
+									</div><hr>
+									<div class="row">
+										<div class="col-md-6 col-md-offset-1">
+											<label for="">Comprador:</label>
+										</div>
+										<div class="col-md-5 col-md-offset-0">
+											<label class="text-warning">{{ produccion.cmp_nombre }}</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6 col-md-offset-1">
+											<label for="">Registro Comprador:</label>
+										</div>
+										<div class="col-md-5 col-md-offset-0">
+											<label>0007</label>
+										</div>
+									</div>
+									<br>
+						</div>
+					</div>
+				</div>
+
+				<br><br>
+                
+<div class="container col-md-12">
+    <div class="page-header">
+		<h1 id="">Historial de producción</h1>
+	</div>
+<div id="timeline">
+<div class="row timeline-movement" ng-repeat="(key, value) in historial">
+
+    <div class="timeline-badge">
+        <span class="timeline-balloon-date-day">{{key | date : "dd"}}</span>
+        <span class="timeline-balloon-date-month">{{key | date : "MMMM"}}</span>
+    </div>
+
+
+    <div class="col-sm-6  timeline-item" ng-repeat="x in value">
+        <div class="row" ng-if="x.nombre_com">
+            <div class="col-sm-11">
+                <div class="timeline-panel credits">
+                    <ul class="timeline-panel-ul">
+                        <li><span class="importo">Aplicación de insumo</span></li>
+                        <li><span class="causale">Insumo: {{x.nombre_com}} 
+                        <br>Cantidad: {{x.cantidad}} {{x.medida}} </span> </li>
+                        <li><p style="text-align: right;"><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{x.fecha | date : "EEEE, d MMMM, y"}}</small></p> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="x.enfermedad">
+            <div class="col-sm-11">
+                <div class="timeline-panel debits">
+                    <ul class="timeline-panel-ul">
+                        <li><span class="importo">Enfermedad</span></li>
+                        <li><span class="causale">Enfermedad encontrada: {{x.enfermedad}} <br>Responsable: {{x.nombre}}</span> </li>
+                        <li><p style="text-align: right;"><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{x.fecha | date : "EEEE, d MMMM, y"}}</small></p> </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="row" ng-if="x.ctl_descripcion">
+            <div class="col-sm-11">
+                <div class="timeline-panel debits">
+                    <ul class="timeline-panel-ul">
+                        <li><span style="color: #3b83bd; font-size: 2em; text-align: center;">Labor en la Unidad Productiva</span></li>
+                        <li><span class="causale">Labor: {{x.ctl_descripcion}}</span> </li>
+                        <li><p style="text-align: right;"><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{x.fecha | date : "EEEE, d MMMM, y"}}</small></p> </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+      	</div>
+        	<div class="panel-footer clearfix"></div>
+
+            </div>
+		</div>
+</div>
+

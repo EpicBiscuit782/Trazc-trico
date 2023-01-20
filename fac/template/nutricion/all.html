@@ -1,0 +1,78 @@
+<div class="row">
+
+	<div class="col-md-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading with-border">
+            	<div class="row">
+            		<div style="float: left" class="col-md-3">
+            			<h2 class="text-success">Nutrición</h2>
+            		</div>
+            		<div style="float: right" class="col-md-1">
+	                  	<a href="#/nutricion" class="btn btn-success btn-fab"><i class="fa fa-plus"></i>  </a>
+	                </div>
+              	</div>
+            </div>
+            <!-- /.box-header -->
+            <div class="panel-body">
+
+            	<div class="row">
+            		<div class="col-md-4 col-md-offset-8">
+
+	                  <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="buscar"
+	                    	   name="buscar"
+	                    	   ng-model="buscar"
+	                    	   >
+	                  </div>
+            		</div>
+            	</div>
+              	<br><br>
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover">
+					<thead >
+						<th class="text-center success">#</th>
+						<th class="text-center success">Fecha</th>
+						<th class="text-center success"><a ng-click="col='tipo_aplicacion'; reverse = !reverse;">Aplicación</a></th>
+						<th class="text-center success">Parcela</th>
+						<th class="text-center success">Detalle</th>
+						<!--<th class="text-center success">Acción</th>-->
+					</thead>
+
+					<tbody>
+						<tr ng-repeat="nutricion in nutricions.nutricions | filter:buscar | orderBy:col:reverse" class="text-center">
+							<td>{{ $index + 1 }}</td>
+							<td>{{ nutricion.fecha }}</td>
+							<td>{{ nutricion.tipo_aplicacion }}</td>
+							<td>{{ nutricion.pcl_alias }}</td>
+							<td>
+								<a href="#/nutricion/{{ nutricion.id_nutricion }}" class="btn btn-warning btn-fab btn-fab-mini"><i class="fa fa-edit"></i> </a>
+							</td>
+						</tr>
+					</tbody>
+        </table>
+                </div>
+        	</div>
+        	<div class="panel-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a ng-click="moverA(1)">«</a></li>
+
+                <li ng-repeat="pag in nutricions.paginas"
+                ng-class="{
+                'active': nutricions.pag_actual === pag}">
+                	<a ng-click="moverA(pag)">{{ pag }}</a>
+                </li>
+
+
+                <li><a ng-click="moverA(nutricions.total_paginas)">»</a></li>
+              </ul>
+         </div>
+
+		</div>
+	</div>
+
+</div>

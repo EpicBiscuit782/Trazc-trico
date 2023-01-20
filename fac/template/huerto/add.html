@@ -1,0 +1,129 @@
+	<div class="panel panel-default">
+        <div class="panel-heading with-border">
+            <h2 class="text-success "><i class="fa fa-th"></i>  Parcela</h2>
+        </div>
+        <form name="frmHuerto" novalidate>
+            <div class="panel-body">
+                <br><br>
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-2">
+                        <label for="alias">Parcela</label>
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="fa fa-sticky-note-o "></i></span>
+                            <input type="text" class="form-control" placeholder="Parcela" name="alias" ng-model="dataParcela.alias" required disabled>
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorParcela">
+                                <strong>Seleccione Parcela !!</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="fecha">Fecha</label>
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                        </span>
+                         <input ng-click="open1()" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="huerto.fecha" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" />
+                        </div>
+                        <div class="">
+                        <span class="text-danger" ng-show="errorFecha">
+                            <strong>Fecha no valida !!!</strong>
+                        </span>
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="responsable">Responsable de Inocuidad</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <select class="form-control" ng-model="huerto.id_responsable" required>
+                                <option ng-repeat="responsable in responsables.responsables" value="{{ responsable.id_responsable }}"> {{ responsable.nombre }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-2">
+                        <label for="cultivo">Cultivo</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-file-text-o "></i></span>
+                            <input type="text" class="form-control" placeholder="Nombre del cultivo" name="cultivo" ng-model="huerto.cultivo" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="variedad">Variedad</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lemon-o"></i></span>
+                            <select class="form-control" ng-model="huerto.id_variedad" required>
+                                <option ng-repeat="tipo in variedades.variedades" value="{{ tipo.id_variedad }}">{{ tipo.variedad }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="tipo">Tipo de Riego</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-tint"></i></span>
+                            <select class="form-control" ng-model="huerto.tipo_riego" required>
+                                <option ng-repeat="riego in riego" value="{{ riego.tipo }}"> {{ riego.tipo }} </option>
+
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <br><br>
+
+                <div class="row">
+
+                    <div class="col-md-3 col-md-offset-2">
+                        <label for="portainjerto">Portainjerto</label>
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                            <select class="form-control" ng-model="huerto.id_portainjerto" required>
+                                <option ng-repeat="portainjerto in portainjertos.portainjertos" value="{{ portainjerto.id_portainjerto }}">{{ portainjerto.nom_portainjerto }}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="origen">Origen de Plántula o Semilla</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-leaf"></i></span>
+                            <select class="form-control" ng-model="huerto.id_origen" required>
+                                <option ng-repeat="proveedor in proveedores.proveedores" value="{{ proveedor.id_proveedor }}"> {{ proveedor.empresa }}</option>
+                            </select>
+                        </div>
+                    </div>
+				</div>
+				<br><br>
+
+					<br><br>
+					<div class="text-success" ng-show="actualizado">
+          		<h3>Registro Guardado</h3>
+        	</div>
+					<div class="text-danger" ng-show="error">
+	          		<h3>Registro Guardado</h3>
+	        </div>
+
+        </div><!-- /.box-body -->
+        <div class="panel-footer">
+            <div class="row clearfix">
+            <div class="col-md-12">
+                <button ng-disabled="guardando" type="submit" ng-click="guardarHuerto(huerto)" class="btn btn-success float-left btn-lg">
+                    <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin" ></i> Guardando</span> 
+                    <span ng-hide="guardando" class="button-text"> <i class="fa fa-save" ></i>  Guardar</span>
+                </button>
+                <button style="float: right" type="submit" class="btn btn-success padding-btn btn-lg" ng-click="reset(frmHuerto)" ng-show="buscar"><i class="fa fa-times "></i><span class="button-text"> Cancelar </span></button>
+                <button style="float: right" type="submit" ng-click="eliminarHuerto(huerto)" ng-show="eliminar" class="btn btn-danger btn-lg"><i class="fa fa-trash"></i> <span class="button-text"> Eliminar</span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

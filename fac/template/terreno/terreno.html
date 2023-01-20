@@ -1,0 +1,70 @@
+<div class="panel panel-">
+        <div class="panel-heading with-border">
+     	     <h2 class="text-success "><i class="fa fa-plus-circle"></i>Terreno</h2>
+        </div>
+        
+            <form name="frmTerreno" >	
+                <div class="panel-body">
+                		
+					<div class="row"><br>
+                	<div class="col-md-4 col-md-offset-4 "> 
+                		<label for="tipo" class="control-label">Terreno</label>
+	                  <div class="input-group">
+	                  	
+	                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+	                    <input type="text" 
+	                    	   class="form-control" 
+	                    	   placeholder="Ingrese Tipo de Terreno" 
+	                    	   name="tipo" 
+	                    	   ng-model="terreno.tipo"
+	                    	   ng-minlength="4"
+	                    	   ng-maxlength="25"
+	                    	   required>
+	                  </div>
+	                 		<div class="">
+								<span class="text-danger" ng-show="!frmTerreno.$pristine && frmTerreno.tipo.$error.required">
+										<strong>Campo Terreno es Requerido!!!</strong>
+								</span>
+								<span class="text-danger" ng-show="frmTerreno.tipo.$error.minlength">
+        								<strong>Muy Corto!</strong>
+        						</span>
+      							<span class="text-danger" ng-show="frmTerreno.tipo.$error.maxlength">
+        								<strong>Muy Largo</strong>
+        						</span>
+							</div>
+	                </div>
+	                  
+	             </div>
+				<br>
+
+				
+
+
+	            
+	       
+		
+	             <br>
+		        <div class="text-success" ng-show="actualizado">
+		          <h3>Registro Guardado</h3>
+		        </div>      
+					
+	                 
+	            </div><!-- /.box-body -->
+
+	            <div class="panel-footer">
+	            	<div class="row">
+					 
+		             	<div class="col-md-1 col-md-offset-4">
+		             		<button type="submit" ng-click="guardarTerreno(terreno)" class="btn btn-success" ng-disabled="!frmTerreno.$valid"><i class="fa fa-save"></i>  Guardar </button>
+		             	</div>
+		             	<div class="col-md-1 col-md-offset-1">
+		             		<button  class="btn btn-success" ng-click="reset(frmTerreno)" ng-disabled="!frmTerreno.$valid"><i class="fa fa-times"></i>  Cancelar </button>
+		             	</div>
+		             	
+
+		            </div>
+	            </div>
+              
+        </form>
+
+</div>

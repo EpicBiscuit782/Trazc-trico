@@ -1,0 +1,99 @@
+<div class="panel panel-">
+    <div class="panel-heading with-border">
+        <h2 class="text-success "><i class="fa fa-plus-circle"></i> Antecedentes de la Parcela</h2>
+    </div>
+    <div class="box-body body-text">
+        <form name="frmAnt" novalidate>
+            <div class="panel-body">
+                <div class="row"><br>
+                    <div class="col-md-4 col-md-offset-2">
+                        <label for="alias">Parcela</label>
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="fa fa-lemon-o"></i></span>
+                            <input type="text" class="form-control" name="alias" ng-value="dataParcela.alias" disabled>
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorParc">
+                                <strong>Seleccione Parcela!!!</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="croquis">Croquis</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+                            <input multiple type="file" class="form-control" accept="image/*"  onchange="angular.element(this).scope().croquisUpload(event)" file-input="filesCroquis">
+                            <div class="col-md-4" ng-repeat="croquis in croquisPrev">
+                                <img class="thumbnail" ng-src="{{croquis}}" height="200px" width="200px" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-2">
+                        <label for="anti">Constancia de Antigüedad</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+                            <input multiple type="file" class="form-control" accept="image/*"  onchange="angular.element(this).scope().antUpload(event)" file-input="filesAnt">
+                            <div class="col-md-4" ng-repeat="ant in antPrev">
+                                <img class="thumbnail" ng-src="{{ant}}" height="200px" width="200px" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-2">
+                        <label for="peligros" class="control-label">Peligros de Contaminación</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-list-alt"></i></span>
+                            <textarea class="form-control" placeholder="Análisis de peligros físicos, químicos y biológicos" name="peligros" ng-model="antecedente.peligros" cols="9" rows="10">
+	                   	</textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="acciones" class="control-label">Acciones Correctivas Aplicadas</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-list-alt"></i></span>
+                            <textarea class="form-control" placeholder="Registro de las acciones correctivas aplicadas: solarización, drenaje, encalado de suelos agrícolas, zanjas de contención de derrames, cercado perimetrales, puertas, cubiles, guardaganados, entre otros." name="acciones" ng-model="antecedente.acciones" cols="9" rows="10">
+	                   	</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-md-offset-2">
+                    <label for="evi">Evidencia Fotográfica</label>
+				    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+                        <input multiple type="file" class="form-control" accept="image/*"  onchange="angular.element(this).scope().eviUpload(event)" file-input="filesEvi">
+                        <div class="col-md-4" ng-repeat="evi in eviPrev">
+                            <img class="thumbnail" ng-src="{{evi}}" height="200px" width="200px" />
+                        </div>
+                    </div>
+                </div>
+                
+            </div><!-- /.box-body -->
+
+            <div class="panel-footer">
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <button ng-show="new" ng-disabled="guardando" type="submit" ng-click="upload()" class="btn btn-success float-left btn-lg">
+                            <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin"></i> Guardando</span>
+                            <span ng-hide="guardando" class="button-text"> <i class="fa fa-save"></i> Guardar</span>
+                        </button>
+                        <button ng-hide="new" ng-disabled="editando" type="submit" ng-click="upload()" class="btn btn-success float-left btn-lg">
+                            <span ng-show="editando" class="button-text"><i class="fa fa-spinner fa-spin"></i> Editando</span>
+                            <span ng-hide="editando" class="button-text"> <i class="fa fa-pencil"></i> Editar</span>
+                        </button>
+                         <button style="float: right" type="submit" class="btn btn-danger btn-lg" ng-click="reset(frmAnt)"><i class="fa fa-times "></i><span class="button-text"> Cancelar </span></button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>

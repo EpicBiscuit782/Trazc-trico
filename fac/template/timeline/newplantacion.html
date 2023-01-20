@@ -1,0 +1,62 @@
+<div class="panel-body">
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-8">
+
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            <input type="text"
+                   class="form-control"
+                   placeholder="buscar"
+                   name="buscar"
+                   ng-model="buscar"
+                   >
+          </div>
+        </div>
+    </div>
+      <br><br>
+<div class="table-responsive">
+
+<table class="table table-bordered table-hover">
+        <thead >
+            <th class="text-center success">#</th>
+            <th class="text-center success">Fecha</th>
+            <th class="text-center success">Parcela</th>
+            <th class="text-center success"><a ng-click="col='tipo_riego'; reverse = !reverse;">Tipo de Riego</a></th>
+            <th class="text-center success"><a ng-click="col='variedad'; reverse = !reverse;">Variedad</a></th>
+            <th class="text-center success"><a ng-click="col='tipo'; reverse = !reverse;">Portainjerto</a></th>
+
+            <th class="text-center success">Editar</th>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="huerto in huertos.huertos | filter:buscar | orderBy:col:reverse" class="text-center">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ huerto.fecha }}</td>
+                <td>{{ huerto.pcl_alias }}</td>
+                <td>{{ huerto.tipo_riego }}</td>
+                <td>{{ huerto.variedad }}</td>
+                <td>{{ huerto.nom_portainjerto }}</td>
+
+                <td>
+                    <a href="#/huerto/{{ huerto.id_huerto}}" class="btn btn-warning btn-fab btn-fab-mini"><i class="fa fa-edit "></i> </a>
+                </td>
+            </tr>
+        </tbody>
+</table>
+    </div>
+</div>
+<div class="panel-footer clearfix">
+  <ul class="pagination pagination-sm no-margin pull-right">
+    <li><a ng-click="moverA(1)">«</a></li>
+
+    <li ng-repeat="pag in huertos.paginas"
+    ng-class="{
+    'active': huertos.pag_actual === pag}">
+        <a ng-click="moverA(pag)">{{ pag }}</a>
+    </li>
+
+
+    <li><a ng-click="moverA(huertos.total_paginas)">»</a></li>
+  </ul>
+</div>

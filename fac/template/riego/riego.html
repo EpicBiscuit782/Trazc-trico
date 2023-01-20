@@ -1,0 +1,182 @@
+<div class="panel ">
+        <div class="panel-heading with-border">
+            <h2 class="text-success"> <i class="fa fa-plus-circle" ></i> Riego </h2>
+        </div>
+
+        <div class="panel-body">
+
+		    <form name="frmRiego" novalidate>
+
+
+		    	<div class="row">
+                    <div class="col-md-2 col-md-offset-0">
+		                	<label for="parcela">Parcela</label>
+			                <div class="input-group">
+
+			                	<span class="input-group-addon"><i class="fa fa-"></i></span>
+			                	<input type="text"
+			                			class="form-control"
+			                			id="parcela"
+			                			ng-model = "dataParcela.alias"
+			                			disabled>
+			            	</div>
+                    <div class="">
+  										<span class="text-danger" ng-show="errorParc">
+  											<strong>Seleccione Parcela!!!</strong>
+  										</span>
+  									</div>
+			          </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <label for="fecha">Fecha</label>
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                        </span> 
+                         <input ng-click="open1()" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="hoy" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" />
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="!frmAnalisis.$pristine && frmAnalisis.fecha.$error.required">
+                                <strong>Fecha es requerida !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+
+		    	</div> <br><br><br>
+
+				   <div class="row">
+					      <div class="col-md-2 col-md-offset-0">
+		                	<label for="cantidad">Cantidad</label>
+			                <div class="input-group">
+
+			                	<span class="input-group-addon"><i class="fa fa-"></i></span>
+			                	<input type="number"
+			                			class="form-control"
+                            min="0"
+			                			name="cantidad"
+			                			ng-model = "riego.cantidad"
+			                			ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
+                             <div class="input-group-addon">M3</div>
+			            	</div>
+                    <div class="">
+											<span class="text-danger" ng-show="errorCant">
+												<strong>Dato no valido !!!</strong>
+											</span>
+                      <span class="text-danger" ng-show="!frmRiego.cantidad.$valid">
+	 											 Dato Invalido !
+	 									 </span>
+										</div>
+			         </div>
+
+               <div class="col-md-2" >
+                <label for="tipo">Tipo</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-lemon-o"></i></span>
+                  <select class="form-control"
+                      ng-model="riego.tipo_riego"
+                      required>
+                    <option  value="TURNO"> TURNO </option>
+                    <option  value="HORAS"> HORAS </option>
+                  </select>
+                </div>
+                <div class="">
+                  <span class="text-danger" ng-show="errorTipo">
+                    <strong>Dato no valido !!!</strong>
+                  </span>
+                </div>
+              </div>
+
+		            <div class="col-md-3 col-md-offset-0">
+		                	<label for="obs">Observaciones</label>
+			                <div class="input-group">
+
+			                	<textarea class="form-control"
+			                			ng-model = "riego.observacion"
+			                			rows="4" cols="40">
+			                	</textarea>
+			            	</div>
+
+			        </div>
+
+              <div class="col-md-2 col-md-offset-0">
+                    <label for="costo">Costo</label>
+                    <div class="input-group">
+
+                      <span class="input-group-addon"><i class="fa fa-"></i></span>
+                      <input type="number"
+                          class="form-control"
+                          min="0"
+                          step="100"
+                          name="costo"
+                          ng-model = "riego.costo"
+                          ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
+                  </div>
+                  <div class="">
+                    <span class="text-danger" ng-show="errorCost">
+                      <strong>Dato no valido !!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="!frmRiego.costo.$valid">
+                       Dato Invalido !
+                   </span>
+                  </div>
+             </div>
+
+			        <div class="col-md-1">
+			        	 	<div class="input-group"><br>
+			             		<button type="button" class="btn btn-warning btn-fab btn-fab-mini" ng-click="agregar(riego)"><i class="fa fa-plus"></i>  </button>
+			            </div>
+			        </div>
+
+			    </div>
+
+          <div class="text-danger" ng-show="encontrado">
+			          <h4>Parcela ya Ingresada</h4>
+			    </div>
+
+		       	<br><br><br>
+
+		       	<div class="row">
+
+		       		<div class="col-md-7 col-md-offset-2">
+
+				       	<table class="table table-bordered table-hover">
+							<thead >
+								<th class="text-center success">Parcela</th>
+								<th class="text-center success">Tipo</th>
+								<th class="text-center success">Observación</th>
+                <th class="text-center success">Cantidad</th>
+								<th class="text-center success">Costo</th>
+							</thead>
+
+							<tbody>
+								<tr ng-repeat="det in detalle " class="text-center">
+									<td>{{ det.alias }}</td>
+									<td>{{ det.tipo_riego }}</td>
+									<td>{{ det.observacion }}</td>
+                  <td class="text-right">{{ det.cantidad }}</td>
+									<td class="text-right">{{ det.costo | currency }}</td>
+								</tr>
+								 <tr class="success">
+						      	<td class="text-right"><strong></strong></td>
+						      	<td class="text-right"><strong></strong></td>
+						      	<td class="text-right"><strong>TOTAL</strong></td>
+                    					<td class="text-right"><strong>{{ total + " M3"}}</strong></td>
+						      	<td class="text-right"><strong>{{ total_costo | currency }}</strong></td>
+						      </tr>
+							</tbody>
+		              	</table>
+		            </div>
+
+    	</div><!-- /.box-body -->
+            <div class="panel-footer">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button ng-disabled="guardando" ng-disabled="!frmRiego.$valid" type="submit" ng-click="guardarRiego(riego)" class="btn btn-success float-left btn-lg">
+                        <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin" ></i> Guardando</span> 
+                        <span ng-hide="guardando" class="button-text"> <i class="fa fa-save" ></i>  Guardar</span>
+                    </button>
+                    <button style="float: right" type="submit" ng-show="buscar" ng-click="reset(frmRiego)" class="btn btn-danger btn-lg"><i class="fa fa-times"></i> <span class="button-text"> Cancelar</span></button>
+                </div>
+            </div>
+            </div>
+    </form>
+</div>

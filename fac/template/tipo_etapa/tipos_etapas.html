@@ -1,0 +1,73 @@
+<div class="row">
+
+	<div class="col-md-12">
+		<div class="panel panel-">
+
+			<div class="panel-heading with-border">
+				<div class="row">
+					<div style="float: left" class="col-md-3">
+						<h2 class="text-success">Etapa de Producción</h2>
+					</div>
+					<div style="float: right" class="col-md-2">
+						<a href="#/tipo_etapa/new" class="btn btn-success btn-fab"><i class="fa fa-plus"></i> </a>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="panel-body">
+
+				<div class="row">
+					<div class="col-md-4 col-md-offset-8">
+
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-search"></i></span>
+							<input type="text" 
+							class="form-control" 
+							placeholder="buscar" 
+							name="buscar" 
+							ng-model="buscar">
+						</div>
+					</div>
+				</div>
+				<br><br>
+				<div class="table-responsive">
+
+					<table class="table table-bordered table-hover">
+						<thead>
+							<th class="text-center success">#</th>
+							<th class="text-center success"> <a ng-click="reverse = !reverse;">Etapa de Producción</a>
+							</th>
+							<th class="text-center success">Editar</th>
+						</thead>
+
+						<tbody>
+							<tr ng-repeat="tipo_etapa in tipo_etapas.tipo_etapas | filter:buscar | orderBy:'tpeta_act_descripcion':reverse" class="text-center">
+								<td>{{ $index + 1 }}</td>
+								<td>{{ tipo_etapa.tpeta_act_descripcion }}</td>
+
+								<td>
+									<a href="#/tipo_etapa/{{ tipo_etapa.id_tipo_etapa}}" class="btn btn-warning btn-fab btn-fab-mini"><i class="fa fa-edit"></i> </a>
+								</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer clearfix">
+				<ul class="pagination pagination-sm no-margin pull-right">
+					<li><a ng-click="moverA(1)">«</a></li>
+
+					<li ng-repeat="pag in tipo_etapas.paginas" ng-class="{
+                'active': tipo_etapas.pag_actual === pag}">
+						<a ng-click="moverA(pag)">{{ pag }}</a>
+					</li><li><a ng-click="moverA(compradores.total_paginas)">»</a></li>
+					
+					<li><a ng-click="moverA(compradores.total_paginas)">»</a></li>
+					
+				</ul>
+			</div>
+
+		</div>
+	</div>
+
+</div>

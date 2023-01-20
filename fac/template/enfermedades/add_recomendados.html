@@ -1,0 +1,125 @@
+<div class="panel panel-">
+        <div class="panel-heading with-border">
+            <h2 class="text-success"><i class="fa fa-flask"></i> Insumos Recomendados</h2>
+            <h4 class="text-danger"><b>{{ enfermedad.enfermedad }}</b></h4>
+        </div>
+
+      <form name="frmRecomendados" novalidate>
+          <div class="panel-body">
+            <div class="row">
+                    <div class="col-md-2 col-md-offset-1">
+                        <label for="tg">Tipo Insumo</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                            <select class="form-control" ng-model="recomendados.id_tipo_insumo" ng-change="cargaInsumos(recomendados.id_tipo_insumo)" required>
+                                <option ng-repeat="tipo in tipo_insumo.tipo_insumos" value="{{ tipo.id_tipo_insumo }}"> {{ tipo.descripcion }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-md-offset-0">
+                        <label for="gasto">Insumo</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-flask"></i></span>
+                            <select class="form-control" ng-model="recomendados.id_insumo" ng-required>
+                                <option ng-repeat="insumo in insumo.insumos" value="{{ insumo.id_insumo}}">{{ insumo.nombre_com}} </option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="errorInsumo">
+                                <strong>Seleccione Insumo !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+                <div class="col-md-2 col-md-offset-0">
+                		 <label for="dosis" class="control-label">Dosis/Ha</label>
+	                   <div class="input-group">
+	                     <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+	                     <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ej 2.5ML"
+	                    	   name="dosis"
+	                    	   ng-model="recomendados.dosis"
+	                    	   ng-maxlength="60"
+	                    	   required>
+	                  </div>
+    	             <div class="">
+        				<span class="text-danger" ng-show="!frmRecomendados.$pristine && frmRecomendados.dosis.$error.required">
+        				<strong>Campo  Dosis es Requerido!!!</strong>
+        				</span>
+          						<span class="text-danger" ng-show="frmRecomendados.dosis.$error.maxlength">
+            						<strong>Muy Largo</strong>
+            					</span>
+    				</div>
+	             </div>
+                <div class="col-md-3 col-md-offset-0">
+                		 <label for="intervalo" class="control-label">Intervalo de Cosecha en Días</label>
+	                   <div class="input-group">
+	                     <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+	                     <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Intervalo Ej: 2 días"
+	                    	   name="intervalo"
+	                    	   ng-model="recomendados.intervalo"
+	                    	   ng-maxlength="60"
+	                    	   required>
+	                  </div>
+    	           <div class="">
+        				<span class="text-danger" ng-show="!frmRecomendados.$pristine && frmRecomendados.intervalo.$error.required">
+        				<strong>Campo  Intervalo es Requerido!!!</strong>
+        				</span>
+          						<span class="text-danger" ng-show="frmRecomendados.intervalo.$error.maxlength">
+            						<strong>Muy Largo</strong>
+            					</span>
+    				</div>
+	             </div>
+                <div class="col-md-1">
+                    <div class="input-group">
+                        <button type="button" class="btn btn-success btn-fab btn-fab-mini" ng-click="guardarRecomendados(recomendados)"><i class="fa fa-plus"></i> </button>
+                    </div>
+                </div>
+                <br><br><br>
+        <div class="col-md-10 col-md-offset-1">
+            <table class="table  table-bordered table-hover">
+                <thead>
+                    <tr class="success">
+                        <th class="text-center">Insumo</th>
+                        <th class="text-center">Ingrediente Activo</th>
+                        <th class="text-center">Dosis/Ha </th>
+                        <th class="text-center">Intervalo de Cosecha en Días</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="insumos_reco in insumos_reco">
+                        <td class="text-center">{{ insumos_reco.nombre_com }}</td>
+                        <td class="text-center">{{ insumos_reco.ingrediente_act }}</td>
+                        <td class="text-center">{{ insumos_reco.dosis }}</td>
+                        <td class="text-center">{{ insumos_reco.intervalo }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+</div>
+	             <br>
+		        <div class="text-success" ng-show="actualizado">
+		          <h3>Registro Guardado</h3>
+		        </div>
+            <div class="text-error" ng-show="error">
+		          <h3>Error al Guardar</h3>
+		        </div>
+
+
+	            </div><!-- /.box-body -->
+
+	            <div class="panel-footer">
+	            	<div class="row">
+		             	<div class="col-xs-4 col-xs-offset-4">
+		             		<button  class="btn btn-success" ng-click="reset(frmRecomendados)" ng-show="buscar"><i class="fa fa-times"></i>  Cancelar </button>
+		            </div>
+	            </div>
+          </div>
+    </form>
+</div>

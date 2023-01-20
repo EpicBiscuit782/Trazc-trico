@@ -1,0 +1,96 @@
+<div class="panel ">
+    <div class="panel-heading with-border">
+        <h2 class="text-success"> <i class="fa fa-file" ></i> Bitácora de Compras</h2>
+    </div>
+
+    <div class="panel-body">
+
+<form name="frmCompras" novalidate>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-0">
+            <label for="tg">Seleccione Insumo</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-flask"></i></span>
+                <select class="form-control" ng-model="buscarinsumo" ng-options="det.nombre_com for det in detalle | unique: 'nombre_com'" required>
+                    <option value="">TODOS</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-offset-0">
+            <label for="tg">Seleccione Proveedor</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <select class="form-control" ng-model="buscarempresa" ng-options="det.empresa for det in detalle | unique: 'empresa'" required>
+                    <option value="">TODOS</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1 ">
+	       <button ng-click="export(filtrados)" type="submit" class="btn btn-success" ><i class="fa fa-file "></i> Imprimir</button>
+	   </div>
+    </div>
+    
+        <div class="col-md-3 form-group">
+            <label for="f_i">Fecha Inicio</label>
+            <input id="f_i" type="date" class="form-control" ng-model="fecha_inicio" date-format="DD-MM-YYYY">
+        </div>
+        <div class="col-md-3 form-group">
+            <label for="f_f">Fecha Fin</label>
+            <input id="f_f" type="date" class="form-control" ng-model="fecha_final" date-format="DD-MM-YYYY">
+        </div>
+
+</form>
+<br><br>
+<div class="col-md-12">
+<div class="row">
+    <div class="col-md-12 table-responsive" id="exportthis">
+        <table class="table  table-bordered table-hover">
+            <thead>
+                <tr class="success">
+                    <th class="text-center" style="width: 10%;"><a ng-click="col='fecha'; reverse = !reverse;">Fecha</a></th>
+                    <th class="text-center"><a ng-click="col='empresa'; reverse = !reverse;">Proveedor</a></th>
+                    <th class="text-center" style="width: 10%;"><a ng-click="col='nombre_com'; reverse = !reverse;">Nombre Comercial</a></th>
+                    <th class="text-center" style="width: 10%;">Ingrediente Activo</th>
+                    <th class="text-center">Presentación</th>
+                    <th class="text-center">Lote</th>
+                    <th class="text-center" style="width: 10%;">Fecha Caducidad</th>
+                    <th class="text-center" style="width: 10%;">Responsable</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="det in (filtrados = (detalle | filter:buscarinsumo.nombre_com:true | filter:buscarempresa.empresa:true | rango_fechas2:fecha_inicio:fecha_final | orderBy:col:reverse))">
+
+                    <td class="text-center">{{ det.fecha | date:'dd-MM-yyyy'}}</td>
+                    <td class="text-center">{{ det.empresa }}</td>
+                    <td class="text-center">{{ det.nombre_com }}</td>
+                    <td class="text-center">{{ det.ingrediente_act }}</td>
+                    <td class="text-center">{{ det.cantidad }} {{ det.medida }}</td>
+                    <td class="text-center">{{ det.id_compra }}</td>
+                    <td class="text-center">{{ det.fecha | date:'dd-MM-yyyy'}}</td>
+                    <td class="text-center">{{ det.nombre }}</td>
+
+                <tr class="success">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+</div>
+<br><br>
+</div><!-- /.box-body -->
+<div class="panel-footer">
+
+</div>
+
+</div>

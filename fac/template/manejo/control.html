@@ -1,0 +1,193 @@
+<div class="panel panel-">
+        <div class="panel-heading with-border">
+            <h2 class="text-success "><i class="fa fa-plus-circle"></i> Control</h2>
+        </div>
+
+        <form name="frmControl" novalidate>
+             <div class="panel-body">
+
+				<div class="row"><br>
+
+                	<div class="col-md-3 col-md-offset-2">
+                	<label for="alias">Parcela</label>
+	                	<div class="input-group">
+
+	                		<span class="input-group-addon"><i class="fa fa-lemon-o"></i></span>
+	                		<input type="text"
+	                			class="form-control"
+	                			name="alias"
+	                			ng-value="dataParcela.alias"
+	                			disabled
+	                			>
+	            		</div>
+	            		<div class="">
+      							<span class="text-danger" ng-show="errorParc">
+      								<strong>Seleccione Parcela!!!</strong>
+      							</span>
+      						</div>
+	        		</div>
+
+	        		<div class="col-md-3 col-md-offset-1">
+                        <label for="fecha">Fecha</label>
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                        </span> 
+                         <input ng-click="open1()" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="control.fecha" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" />
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="!frmControl.$pristine && frmControl.fecha.$error.required">
+                                <strong>Fecha es requerida !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+	        		</div>
+	            </div>
+				<br><br><br>
+
+				<div class="row">
+
+					     <div class="col-md-2 col-md-offset-2">
+                		<label for="tipo_enfermed">Tipo</label>
+		                <div class="input-group">
+
+		                	<span class="input-group-addon"><i class="fa fa-bug"></i></span>
+		                	<select class="form-control"
+		                			ng-model="control.id_tipo_enfermedad"
+		                			ng-change="getEnfermedades(control.id_tipo_enfermedad)"
+		                			>
+							            <option ng-repeat="tipo_enf in tipo_enfermedad.tipo_enfermedades" value="{{ tipo_enf.id_tipo_enfermedad }}">{{ tipo_enf.tipo_enfermedad }}</option>
+
+							        </select>
+		            	 </div>
+	        		</div>
+
+	        		 <div class="col-md-3 col-md-offset-1">
+                		<label for="tipo">Problema Fitosanitario</label>
+		                <div class="input-group">
+
+		                	<span class="input-group-addon"><i class="fa fa-bug"></i></span>
+		                	<select class="form-control"
+		                			ng-model="control.id_enfermedad"
+		                			>
+							            <option ng-repeat="enfermedad in enfermedades.enfermedades" value="{{ enfermedad.id_enfermedad }}">{{enfermedad.enfermedad}}</option>
+							        </select>
+		            	</div>
+                  <div class="">
+                     <span class="text-danger" ng-show="errorEnfermedad">
+                          <strong>Seleccione Problema Fitosanitario!!!</strong>
+                     </span>
+                  </div>
+	        	 </div>
+
+
+				</div>  <br><br><br>
+
+
+				<div class="row">
+
+					   <div class="col-md-2 col-md-offset-2 ">
+                	<label for="muestra" class="control-label"># Muestras</label>
+	                <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-eyedropper"></i></span>
+	                    <input type="number"
+	                    	   class="form-control"
+	                    	   name="muestras"
+                           min="1"
+	                    	   ng-model="control.muestras"
+	                    	   ng-pattern="/^[0-9]{1,3}$/">
+	                </div>
+	                <div class="">
+								     <span class="text-danger" ng-show="errorMuestra">
+										      <strong>Dato Incorrecto!!!</strong>
+								     </span>
+                     <span class="text-danger" ng-show="!frmControl.muestras.$valid">
+                        Dato Invalido !
+                    </span>
+							    </div>
+	          </div>
+
+	                <div class="col-md-2 col-md-offset-1 ">
+                		<label for="individuo" class="control-label"># Individuos Encontrados</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-list-ol"></i></span>
+	                    <input type="number"
+	                    	   class="form-control"
+	                    	   name="individuos"
+                           min="0"
+	                    	   ng-model="control.individuos"
+	                    	   ng-pattern="/^[0-9]{1,3}$/">
+	                  </div>
+	                 	<div class="">
+      								<span class="text-danger" ng-show="errorInd">
+      										<strong>Dato Incorrecto!!!</strong>
+      								</span>
+                      <span class="text-danger" ng-show="!frmControl.individuos.$valid">
+	 											 Dato Invalido !
+	 									 </span>
+							      </div>
+	                </div>
+
+				</div><br><br><br>
+
+
+				<div class="row">
+
+	              <div class="col-md-4 col-md-offset-2 ">
+                		<label for="decision" class="control-label">Desición Tomada</label>
+	                	<div class="input-group">
+
+	                    	<span class="input-group-addon"><i class="fa fa-list-alt"></i></span>
+	                    	<textarea
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese Desición"
+	                    	   name="decision"
+	                    	   ng-model="control.decision"
+	                    	   cols="9"
+	                    	   rows="10"
+	                    	   >
+	                   	</textarea>
+	                  </div>
+	                 	<div class="">
+      								<span class="text-danger" ng-show="errorDesicion">
+      										<strong>Campo desición es Requerido!!!</strong>
+      								</span>
+							      </div>
+	             </div>
+
+               <div class="col-md-2 col-md-offset-0">
+                 		<label for="nombre">Responsable</label>
+ 		                <div class="input-group">
+
+ 		                	<span class="input-group-addon"><i class="fa fa-user"></i></span>
+ 		                	<select class="form-control"
+ 		                			ng-model="control.id_responsable"
+ 		                			required>
+ 							            <option ng-repeat="responsable in responsables.responsables" value="{{ responsable.id_responsable }}">{{ responsable.nombre }}</option>
+
+ 							        </select>
+ 		            	   </div>
+                     <div class="">
+       								<span class="text-danger" ng-show="errorResp">
+       										<strong>Seleccione un responsable!!!</strong>
+       								</span>
+ 							      </div>
+ 	        		</div>
+	            </div><!-- /.box-body -->
+
+            <div class="panel-footer">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button ng-disabled="guardando" ng-disabled="!frmControl.$valid" type="submit" ng-click="guardarControl(control)" class="btn btn-success float-left btn-lg">
+                        <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin" ></i> Guardando</span> 
+                        <span ng-hide="guardando" class="button-text"> <i class="fa fa-save" ></i>  Guardar</span>
+                    </button>
+                    <button style="float: right" type="submit" ng-show="buscar" ng-click="reset(frmControl)" class="btn btn-danger btn-lg"><i class="fa fa-times"></i> <span class="button-text"> Cancelar</span></button>
+                </div>
+            </div>
+            </div>
+
+        </form>
+
+</div>

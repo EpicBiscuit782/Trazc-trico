@@ -1,0 +1,141 @@
+<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar fondo">
+
+  <!-- Sidebar user panel (optional) -->
+  <div class="user-panel">
+    <div class="pull-left image">
+      <img src="dist/img/user.png" class="img-circle" alt="User Image">
+    </div>
+    <div class="pull-left info">
+      <p>{{ usuario.productor.usr_nombre_completo || usuario.productor.pdt_nombre_completo }}</p>
+    </div>
+  </div>
+
+
+
+  <!-- Sidebar Menu -->
+  <ul class="sidebar-menu">
+    <li class="header"><h4><b>Menú</b></h4></li>
+    
+    <li><a href="#/"><i class="fa fa-home"></i> <span><b>Inicio</b></span></a></li>
+    <li><a href="#/tablero"><i class="fa fa-dashboard"></i> <span><b>Tablero Indicadores</b></span></a></li>
+    <li ng-show="!isUser"><a href="#/miembros"><i class="fa fa-eyedropper"></i> <span><b>HACCP</b></span></a></li>
+    <li ng-show="isUser"><a href="#/cosechaGral"><i class="fa fa-lemon-o"></i> <span><b>Cosecha y Venta</b></span></a></li>
+    <li ng-show="isUser"><a href="#/gastosGral"><i class="fa fa-usd"></i> <span><b>Gastos</b></span></a></li>
+    <li class="treeview" ng-show="isUser">
+        <a href="#/huertos"><i class="fa fa-th"></i> <span><b>Parcela</b></span> <i class="fa fa-angle-right pull-right"></i></a>
+        <ul class="treeview-menu">
+            <li><a href="#/antecedentes"><i class="fa fa-info"></i><b>Antecedentes</b></a></li>
+            <li class="treeview">
+               <a href=""><i class="fa fa-search"></i> <span><b>Análisis</b></span> <i class="fa fa-angle-right pull-right"></i></a>
+                 <ul class="treeview-menu">
+                    <li ng-class="mSuelo"><a href="#/analisis_suelos"><i class="fa fa-eyedropper"></i><b>Análisis Suelo</b></a></li>
+                    <li><a href="#/foliar"><i class="fa fa-eyedropper"></i><b>Análisis Foliar</b> </a></li>
+                    <li><a href="#/agua"><i class="fa fa-eyedropper"></i><b>Análisis Agua</b> </a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li ng-show="isUser"><a href="#/riegos"><i class="fa fa-tint"></i> <span><b>Riego</b></span></a></li>
+    <li ng-show="isUser"><a href="#/nutricions"><i class="fa fa-lemon-o"></i> <span><b>Nutrición</b></span></a></li>
+
+     <li class="treeview" ng-show="isUser">
+      <a href="#/enfermedades"><i class="fa fa-bug"></i> <span><b>Manejo Enfermedades</b></span> <i class="fa fa-angle-right pull-right"></i></a>
+      <ul class="treeview-menu">
+        <li><a href="#/controles"><i class="fa fa-list-ul"></i><b>Controles</b></a></li>
+        <li><a href="#/manejos"><i class="fa fa-bug"></i><b>Manejo Integral</b> </a></li>
+      </ul>
+    </li>
+    
+    <li class="treeview" ng-show="isUser">
+     <a href="#/insumosP"><i class="fa fa-flask"></i> <span><b>Insumos</b></span> <i class="fa fa-angle-right pull-right"></i></a>
+     <ul class="treeview-menu">
+       <li><a href="#/compras"><i class="fa fa-shopping-bag"></i><b>Compras</b></a></li>
+     </ul>
+   </li>
+
+    <li ng-show="isUser"><a href="#/trazabilidad"><i class="fa fa-barcode"></i> <span><b>Trazabilidad</b></span></a></li>
+
+    <li class="treeview" ng-show="isUser">
+      <a href="#/reportes"><i class="fa fa-line-chart"></i> <span><b>Reportes</b></span> <i class="fa fa-angle-right pull-right"></i></a>
+      <ul class="treeview-menu">
+
+          <li class="treeview">
+           <a href=""><i class="fa fa-lemon-o"></i> <span><b>Cosecha</b></span> <i class="fa fa-angle-right pull-right"></i></a>
+             <ul class="treeview-menu">
+              <!--<li><a href="#/parcelasProductor">Cosecha Gral</a></li>-->
+              <li><a href="#/cosechaParc">Cosecha por Parcela</a></li>
+              <li><a href="#/cosechAnual">Cosecha Anual</a></li>
+            </ul>
+          </li>
+
+          <li class="treeview">
+           <a href=""><i class="fa fa-usd"></i> <span><b>Gastos</b></span> <i class="fa fa-angle-right pull-right"></i></a>
+             <ul class="treeview-menu">
+              <!--<li><a href="#/gastosGrales">Gastos Gral</a></li>-->
+              <!--<li><a href="#/gastosParc">Gastos por Parcela</a></li>-->
+              <li><a href="#/cosechaProductor">Gastos Cosecha Anual</a></li>
+            </ul>
+          </li>
+
+        <li class="treeview">
+          <a href=""><i class="fa fa-money"></i> <span><b>Venta</b></span> <i class="fa fa-angle-right pull-right"></i></a>
+           <ul class="treeview-menu">
+            <!--  <li><a href="#/ventasP">Ventas Gral</a></li>-->
+              <li><a href="#/ventasParcela">Ventas por parcela</a></li>
+              <li><a href="#/ventasAnual">Ventas Anuales</a></li>
+            </ul>
+          </li>
+        <li><a href="#/expediente"><i class="fa fa-file-o"></i><b>Expediente Técnico</b> </a></li>
+        <li><a href="#/reporteCompras"><i class="fa fa-file-o"></i><b>Reporte de Compras</b> </a></li>
+          
+        <li><a href="#/reporteCosechas"><i class="fa fa-file-o"></i><b>Reporte de Cosechas</b> </a></li>
+        <li><a href="#/reporteGastos"><i class="fa fa-file-o"></i><b>Reporte de Gastos</b> </a></li>
+        <li><a href="#/reporteAplicacion"><i class="fa fa-file-o"></i><b>Reporte de Aplicaciones</b> </a></li>
+      </ul>
+
+    </li>
+    <li ng-show="isUser"><a href="#/inversion"><i class="fa fa-usd"></i> <span><b>Utilidad</b></span></a></li>
+
+    <li class="treeview" ng-show="!isUser">
+      <a href=""><i class="fa fa-line-chart"></i> <span><b>Reportes</b></span> <i class="fa fa-angle-right pull-right"></i></a>
+      <ul class="treeview-menu">
+      <!--  <li><a href="#/inversion">Gastos Gral</a></li> -->
+        <li><a href="#/cosechaAdmin">Cosecha Gral</a></li>
+        <li><a href="#/cosecMunicipio">Cosecha municipio</a></li>
+      </ul>
+    </li>
+
+
+
+
+    <li class="treeview">
+      <a href=""><i class="fa fa-book"></i> <span><b>Catálogos</b></span> <i class="fa fa-angle-right pull-right"></i></a>
+      <ul class="treeview-menu">
+        <li ng-show="!isUser"><a href="#/noticias"><i class="fa fa-newspaper-o"></i><b>Noticia</b></a></li>
+        <li ng-show="isUser"><a href="#/proveedores"><i class="fa fa-user"></i><b>Proveedor</b></a></li>
+        <li ng-show="!isUser"><a href="#/tipo_insumos"><i class="fa fa-square"></i><b>Tipo de Insumo</b></a></li>
+        <li ng-show="!isUser"><a href="#/insumos"><i class="fa fa-flask"></i><b>Insumo</b></a></li>
+        <li ng-show="!isUser"><a href="#/portainjertos"><i class="fa fa-th"></i><b>Portainjerto</b></a></li>
+        <li ng-show="!isUser"><a href="#/variedades"><i class="fa fa-lemon-o"></i><b>Variedad</b></a></li>
+        <li ng-show="!isUser"><a href="#/productores"><i class="fa fa-user"></i><b>Productor</b></a></li>
+        <li ng-show="isUser"><a href="#/parcelas"><i class="fa fa-th"></i><b>Parcela</b></a></li>
+        <li ng-show="isUser"><a href="#/compradores"><i class="fa fa-users"></i><b>Comprador</b></a></li>
+        <li ng-show="!isUser"><a href="#/tipo_gastos"><i class="fa fa-sticky-note-o"></i><b>Tipo de Actividad</b></a></li>
+        
+        <!--EpicBiscuit782-->
+        <li ng-sow="!isUser"><a href="#/tipo_etapas"><i class="fa fa-arrow-right"></i><b>Tipo de Etapa</b></a></li>
+
+        <li ng-show="!isUser"><a href="#/ctl_gastos"><i class="fa fa-usd"></i> <b>Actividad</b></a></li>
+        <li ng-show="!isUser"><a href="#/propiedades"><i class="fa fa-industry"></i> <b>Regimen Propiedad</b></a></li>
+        <li ng-show="!isUser"><a href="#/tipo_enfermedades"><i class="fa fa-square"></i> <b>Tipo de Enfermedad</b></a></li>
+        <li ng-show="!isUser"><a href="#/enfermedades"><i class="fa fa-ambulance"></i> <b>Enfermedad</b></a></li>
+        <li ng-show="!isUser"><a href="#/enfermedades_insumos"><i class="fa fa-flask"></i><b>Insumos Recomendados</b></a></li>
+        <li ng-show="isUser"><a href="#/responsables"><i class="fa fa-user"></i><b> Responsable</b></a></li>
+        <li ng-show="!isUser"><a href="#/administradores"><i class="fa fa-user"></i><b> Administrador</b></a></li>
+      </ul>
+    </li>
+      <li><a href="#/miembros"><i class="fa fa-eyedropper"></i> <span><b>HACCP</b></span></a></li>
+  </ul><!-- /.sidebar-menu -->
+</section>
+<!-- /.sidebar -->

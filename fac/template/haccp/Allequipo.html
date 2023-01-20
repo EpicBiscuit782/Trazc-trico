@@ -1,0 +1,1462 @@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="panel panel-">
+            <div class="panel-heading with-border">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" data-target="#miembros">Equipo HACCP</a></li>
+                    <li><a data-toggle="tab" data-target="#producto">Descripción del Producto</a></li>
+                    <li><a data-toggle="tab" data-target="#diagrama">Diagrama de Flujo</a></li>
+                    <!---->
+                    <li><a data-toggle="tab" data-target="#pp">Peligro Potencial</a></li>
+                    <li><a data-toggle="tab" data-target="#pcc">Puntos Críticos de Control</a></li>
+                    <li><a data-toggle="tab" data-target="#peligros">Peligros Fitosanitarios</a></li>
+                    <li><a data-toggle="tab" data-target="#analisis">Análisis</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+<!--======>._.<EpicBiscuit782=========-->
+<!--===============Se muestra la tabla con los PP=====================-->
+<div id="pp" class="tab-pane fade">
+    <div class="panel-body">
+        <div class="row">
+            <div style="float: left" class="col-md-6">
+                <h2 class="text-success">Lista de Peligros Potenciales</h2>
+            </div>
+            <div style="float: right" class="col-md-2">
+                <a data-toggle="tab" data-target="#addpp" class="btn btn-success btn-fab"><i class="fa fa-plus"></i> </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-8">
+
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    <input type="text" class="form-control" placeholder="buscar" name="buscar" ng-model="buscar">
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <th class="text-center success">#</th>
+                    <th class="text-center success"><a ng-click="reverse = !reverse;">Peligro Potencial</a></th>
+                    <th class="text-center success">Descripcion</th>
+                    <th class="text-center success">Acción</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pp in peligros_potenciales.peligros_potenciales | filter:buscar | orderBy:'nombre':reverse" class="text-center">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ pp.nombre_pp }}</td>
+                        <td>{{ pp.descripcion_pp}}</td>
+                        <td>
+                            <a href="#/pp/{{ pp.id_pp }}" class="btn btn-warning btn-fab btn-fab-mini"><i class="fa fa-edit"></i> </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="panel-footer clearfix">
+    <ul class="pagination pagination-sm no-margin pull-right">
+        <li><a ng-click="moverA(1)">«</a></li>
+
+        <li ng-repeat="pag in peligros_potenciales.paginas" ng-class="{
+    'active': peligros_potenciales.pag_actual === pag}">
+            <a ng-click="moverA(pag)">{{ pag }}</a>
+        </li>
+        <li><a ng-click="moverA(peligros_potenciales.total_paginas)">»</a></li>
+    </ul>
+</div>
+</div>
+<!--========================Se agregan los Peligros Potenciales==============================-->
+    <div id="addpp" class="tab-pane fade">
+    <form name="frmPP" novalidate>
+
+<div class="panel-body"><br>
+    <div class="row">             
+        <div class="col-md-4 col-md-offset-2">
+    <label for="nombre_pp">Peligro Potencial</label>
+    <div class="input-group">
+       <span class="input-group-addon"><i class="fa fa-list"></i></span>
+       <input type="text"
+             class="form-control"
+             placeholder="Ingrese el Peligro Potencial"
+             name="nombre_pp"
+             ng-model="pp.nombre_pp"
+             ng-minlength="7"
+             ng-maxlength="50"
+             required>
+    </div>
+    <div class="">
+                    <span class="text-danger" ng-show="!frmPP.$pristine && frmPP.nombre_pp.$error.required">
+                            <strong>Peligro Potencial es Requerido!!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmPP.nombre_pp.$error.minlength">
+                    <strong>Muy Corto!</strong>
+            </span>
+              <span class="text-danger" ng-show="frmPP.nombre_pp.$error.maxlength">
+                    <strong>Muy Largo</strong>
+            </span>
+                </div>
+</div>
+
+<div class="col-md-4">
+<label for="descripcion_pp">Descripcion del PP</label>
+<div class="input-group">
+
+<span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+<input type="text"
+      class="form-control"
+      name="descripcion_pp"
+      placeholder="Ingrese Descripcion del PP"
+      ng-model="pp.descripcion_pp"
+      ng-minlength="7"
+      ng-maxlength="200"
+      required>
+</div>
+<div class="">
+<span class="text-danger" ng-show="!frmPP.$pristine && frmPP.descripcion_pp.$error.required">
+   <strong>Descripcion es Requerida!!!</strong>
+</span>
+<span class="text-danger" ng-show="frmPP.descripcion_pp.$error.minlength">
+   <strong>Muy Corto!</strong>
+</span>
+<span class="text-danger" ng-show="frmPP.descripcion_pp.$error.maxlength">
+  <strong>Muy Largo</strong>
+</span>
+</div>
+</div>
+</div>
+</div>
+  <!--/.box-body-->
+<div class="panel-footer">
+<div class="row clearfix">
+    <div class="col-md-12">
+        <button ng-disabled="guardandoPE" type="submit" ng-click="guardarPP(pp)" class="btn btn-success float-left btn-lg">
+            <span ng-show="guardandoPE" class="button-text"><i class="fa fa-spinner fa-spin"></i> Guardando</span>
+            <span ng-hide="guardandoPE" class="button-text"> <i class="fa fa-save"></i> Guardar</span>
+        </button>
+         <button style="float: right" type="submit" class="btn btn-success padding-btn btn-lg" data-toggle="tab"  data-target="#pp"><i class="fa fa-times "></i><span class="button-text"> Cancelar </span></button>
+    </div>
+</div>
+</div>     
+</form>  
+</div>
+<!--========================Se Agregan los Puntos Criticos====================================-->
+<div id="addpcc" class="tab-pane fade">
+    <form name="frmPCC" novalidate>
+
+<div class="panel-body"><br>
+
+    <div class="row">
+<div class="col-md-4 col-md-offset-2">
+    <label for="tipo_etapa">Etapa</label>
+    
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-list-alt"></i></span>
+        <select class="form-control"
+                ng-model="pcc.tpeta_act_descripcion" required>
+                            <option ng-repeat="tipo in tipo_et.tipo_etapas" value="{{ tipo.tpeta_act_descripcion }}">{{ tipo.tpeta_act_descripcion }}</option>
+
+                  </select>
+    </div>
+<!--a1-->
+    
+    <div class="">
+                    <span class="text-danger" ng-show="!frmPCC.$pristine && frmPCC.etapa.$error.required">
+                            <strong>Etapa es Requerida!!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmPCC.etapa.$error.minlength">
+                    <strong>Muy Corto!</strong>
+            </span>
+              <span class="text-danger" ng-show="frmPCC.etapa.$error.maxlength">
+                    <strong>Muy Largo</strong>
+            </span>
+                </div>
+</div>              
+        
+        <div class="col-md-4">
+    <label for="limite">Límites Críticos</label>
+    <div class="input-group">
+       <span class="input-group-addon"><i class="fa fa-list"></i></span>
+       <input type="text"
+             class="form-control"
+             placeholder="Ingrese los límites críticos"
+             name="limite"
+             ng-model="pcc.limites"
+             ng-minlength="4"
+             ng-maxlength="150"
+             required>
+    </div>
+    <div class="">
+                    <span class="text-danger" ng-show="!frmPCC.$pristine && frmPCC.limite.$error.required">
+                            <strong>Limites es Requerido!!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmPCC.limite.$error.minlength">
+                    <strong>Muy Corto!</strong>
+            </span>
+              <span class="text-danger" ng-show="frmPCC.limite.$error.maxlength">
+                    <strong>Muy Largo</strong>
+            </span>
+                </div>
+</div>
+
+</div>
+<br>
+
+<div class="row">
+
+
+<div class="col-md-4 col-md-offset-2">
+<label for="vigi">Vigiliancia / Frecuencia</label>
+<div class="input-group">
+   <span class="input-group-addon"><i class="fa fa-search"></i></span>
+   <input type="text"
+        class="form-control"
+        placeholder="Ingrese los métodos de vigilancia / frecuencia"
+        name="vigi"
+        ng-model="pcc.vigi"
+        ng-minlength="4"
+        ng-maxlength="150"
+        required>
+</div>
+<div class="">
+                <span class="text-danger" ng-show="!frmPCC.$pristine && frmPCC.vigi.$error.required">
+                        <strong>Métodos de Vigilancia es Requerido!!!</strong>
+                </span>
+                <span class="text-danger" ng-show="frmPCC.vigi.$error.minlength">
+                <strong>Muy Corto!</strong>
+        </span>
+          <span class="text-danger" ng-show="frmPCC.vigi.$error.maxlength">
+                <strong>Muy Largo</strong>
+        </span>
+     </div>
+</div>
+
+<div class="col-md-4 ">
+<label for="medi">Medidas Correctivas</label>
+<div class="input-group">
+
+<span class="input-group-addon"><i class="fa fa-wrench"></i></span>
+<input type="text"
+      class="form-control"
+      name="medi"
+      placeholder="Ingrese Medidas Correctivas"
+      ng-model="pcc.medi"
+      ng-minlength="7"
+      ng-maxlength="150"
+      required>
+</div>
+<div class="">
+<span class="text-danger" ng-show="!frmPCC.$pristine && frmAdmin.medi.$error.required">
+   <strong>Medidas es Requerido!!!</strong>
+</span>
+<span class="text-danger" ng-show="frmPCC.medi.$error.minlength">
+   <strong>Muy Corto!</strong>
+</span>
+<span class="text-danger" ng-show="frmPCC.medi.$error.maxlength">
+  <strong>Muy Largo</strong>
+</span>
+</div>
+</div>
+    
+    <div class="col-md-4 col-md-offset-2">
+<label for="reg">Registros Asociados</label>
+<div class="input-group">
+
+<span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+<input type="text"
+      class="form-control"
+      name="reg"
+      placeholder="Ingrese Registros Asociados"
+      ng-model="pcc.reg"
+      ng-minlength="7"
+      ng-maxlength="150"
+      required>
+</div>
+<div class="">
+<span class="text-danger" ng-show="!frmPCC.$pristine && frmAdmin.reg.$error.required">
+   <strong>Registros es Requerido!!!</strong>
+</span>
+<span class="text-danger" ng-show="frmPCC.reg.$error.minlength">
+   <strong>Muy Corto!</strong>
+</span>
+<span class="text-danger" ng-show="frmPCC.reg.$error.maxlength">
+  <strong>Muy Largo</strong>
+</span>
+</div>
+</div>
+
+<div class="col-md-4">
+<label for="eti">Punto Critico de Control</label>
+<div class="input-group">
+<span class="input-group-addon"><i class="fa fa-tag"></i></span>
+<input type="text"
+class="form-control"
+name="eti"
+placeholder="Ingrese Etiqueta de PPC"
+ng-model="pcc.eti"
+ng-minlength="7"
+ng-maxlength="150"
+required>
+</div>
+<div class="">
+<span class="text-danger" ng-show="!frmPCC.$pristine && frmAdmin.eti.$error.required">
+<strong>Descripcion es Requerida!!!</strong>
+</span>
+<span class="text-danger" ng-show="frmPCC.eti.$error.minlength">
+<strong>Muy Corto!</strong>
+</span>
+<span class="text-danger" ng-show="frmPCC.eti.$error.maxlength">
+<strong>Muy Largo</strong>
+</span>
+</div>
+</div> 
+</div>
+
+</div><!-- /.box-body -->
+<div class="panel-footer">
+<div class="row clearfix">
+    <div class="col-md-12">
+        <button ng-disabled="guardandoP" type="submit" ng-click="guardarPCC(pcc)" class="btn btn-success float-left btn-lg">
+            <span ng-hide="guardandoP" class="button-text"> <i class="fa fa-save"></i> Guardar</span>
+        </button>
+         <button style="float: right" type="submit" class="btn btn-success padding-btn btn-lg" data-toggle="tab" ng-click="reset(frmPCC)"  data-target="#pcc"><i class="fa fa-times "></i><span class="button-text"> Cancelar </span></button>
+    </div>
+</div>
+</div>     
+</form>  
+</div>
+<!--========================Se Muestran los historiales de Produccion=======================-->
+<div id="diagrama" class="tab-pane fade">
+    <div class="container col-md-12">
+<div class="page-header">
+<h1 id="">Historial de producción</h1>
+</div>
+<div id="timeline" class="container">
+<ul class="timeline" >
+<!--Nueva Plantacion-->
+<li>
+<div class="timeline-badge primary"><i class="glyphicon glyphicon-time"></i></div>
+<div class="timeline-panel">
+<div class="timeline-heading">
+<h4 class="timeline-title">Nueva Plantación</h4>
+</div>
+<div class="timeline-body">
+<p>Esta etapa comprende la fase inicial de una huerta de limon mexicano, 
+dicha en dicha fase se recopila información de los huertos y parcelas.
+</p>
+</div>
+
+<body>
+<!--Parcelas-->
+<div >
+<input type="checkbox" id="click">
+<label for="click" class="btn btn-primary fa fa-search"> Parcelas</label>
+
+<div class="cont">
+<div class="header">
+    <h2>Parcelas</h2>
+    <label for="click" class="fas fa-times"></label>
+</div>
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-hover">
+                <thead class="success">
+                    <th class="text-center success">#</th>
+                    <th class="text-center success"><a ng-click="col='cod_parcela'; reverse = !reverse;">Código de la Unidad Productiva</a></th>
+                    <th class="text-center success"><a ng-click="col='pcl_fecha_plantacion'; reverse = !reverse;">Fecha de plantación</a></th>
+                    <th class="text-center success"><a ng-click="col='pcl_alias'; reverse = !reverse;">Alias</a></th>
+                    <th class="text-center success"><a ng-click="col='pcl_municipio'; reverse = !reverse;">Municipio</a></th>
+                    <th class="text-center success">Localidad</th>
+                    <th class="text-center success">Marco de Plantación </th>
+                    <th class="text-center success">Hectareas</th>
+                    <th class="text-center success">Arboles</th>
+                    <th class="text-center success">Primera Cosecha</th>
+                    <th class="text-center success">Ejido </th>
+                    <th class="text-center success"><a ng-click="col='pcl_estado'; reverse = !reverse;">Estatus</a></th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="parcela in parcelas.parcelas | filter:buscar | orderBy:col:reverse" class="text-center">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ parcela.cod_parcela }}</td>
+                        <td>{{ parcela.pcl_fecha_plantacion }}</td>
+                        <td>{{ parcela.pcl_alias }}</td>
+                        <td>{{ parcela.pcl_municipio }}</td>
+                        <td>{{ parcela.pcl_localidad }}</td>
+                        <td>{{ parcela.pcl_marco_plantacion }}</td>
+                        <td>{{ parcela.pcl_hectareas }}</td>
+                        <td>{{ parcela.pcl_arboles }}</td>
+                        <td>{{ parcela.pcl_primera_cosecha }}</td>
+                        <td>{{ parcela.pcl_ejido }}</td>
+                        <td>{{ parcela.pcl_estado }}</td>
+                        <td>
+                            <a href="#/parcela/{{ parcela.id_parcela}}" class="btn btn-warning btn-fab btn-fab-mini"><i class="fa fa-edit"></i> </a>
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="panel-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a ng-click="moverApar(1)">«</a></li>
+
+                <li ng-repeat="pag in parcelas.paginas"
+                ng-class="{
+                'active': parcelas.pag_actual === pag}">
+                    <a ng-click="moverApar(pag)">{{ pag }}</a>
+                </li>
+                <li><a ng-click="moverApar(parcelas.total_paginas)">»</a></li>
+              </ul>
+            </div>
+
+
+</div>
+</div>
+</body>
+
+<body>
+<!--Huertos-->
+<div >
+<input type="checkbox" id="click2">
+<label for="click2" class="btn btn-primary fa fa-search"> Huertos</label>
+
+<div class="cont2">
+<div class="header">
+    <h2>Huertos</h2>
+    <label for="click2" class="fas fa-times"></label>
+</div>
+<div class="col-md-12">
+<!--trabajando aqui-->
+    <table class="table ">
+              <thead >
+                <tr>
+                    <th scope="col" class="text-center success">#</th>
+                    <th scope="col" class="text-center success">Fecha</th>
+                    <th scope="col" class="text-center success">Parcela</th>
+                    <th scope="col" class="text-center success">Tipo de Riego</th>
+                    <th scope="col" class="text-center success">Variedad</th>
+                    <th scope="col" class="text-center success">Portainjerto</th>
+                </tr>
+              </thead>
+              
+              <tbody id='cuerpo'>
+                <tr>
+                    <th scope="row"></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+              </tbody>
+
+<tbody>
+                  <tr ng-repeat="huerto in huertos.huertos | filter:buscar | orderBy:col:reverse" class="text-center">
+                      <td>{{ $index + 1 }}</td>
+                      <td>{{ huerto.fecha }}</td>
+                      <td>{{ huerto.pcl_alias }}</td>
+                      <td>{{ huerto.tipo_riego }}</td>
+                      <td>{{ huerto.variedad }}</td>
+                      <td>{{ huerto.nom_portainjerto }}</td>
+
+                      <td>
+                          <a href="#/huerto/{{ huerto.id_huerto}}" class="btn btn-warning btn-fab btn-fab-mini"><i class="fa fa-edit "></i> </a>
+                      </td>
+                  </tr>
+              </tbody>
+    </table>
+          </div>
+            <div class="panel-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a ng-click="moverA(1)">«</a></li>
+
+                <li ng-repeat="pag in parcelas.paginas"
+                ng-class="{
+                'active': parcelas.pag_actual === pag}">
+                    <a ng-click="moverA(pag)">{{ pag }}</a>
+                </li>
+                <li><a ng-click="moverA(parcelas.total_paginas)">»</a></li>
+              </ul>
+            </div>
+
+
+</div>
+</div>
+</body>
+</li>
+<!--Nutricion-->
+<li class="timeline-inverted">
+<div class="timeline-badge success"><i class="fa fa-wrench"></i></div>
+<div class="timeline-panel">
+<div class="timeline-heading">
+<h4 class="timeline-title">Nutrición</h4>
+</div>
+<div class="timeline-body">
+<p>Esta fase comprende la parte intermedia de la producción de limon mexicano,
+siendo asi la mas importante ya que en esta se realiza la aplicación de
+nutrientes, asi como el control de plaga y enfermedades.
+</p>
+</div>
+<!--Nutricion-->
+<body>
+<div >
+<input type="checkbox" id="click3">
+<label for="click3" class="btn btn-primary fa fa-search"> Nutrición</label>
+
+<div class="cont3">
+<div class="header">
+    <h2>Nutrición</h2>
+    <label for="click3" class="fas fa-times"></label>
+</div>
+<div class="table-responsive">
+
+    <table class="table table-bordered table-hover">
+                <thead >
+                    <th class="text-center success">#</th>
+                    <th class="text-center success">Fecha</th>
+                    <th class="text-center success"><a ng-click="col='tipo_aplicacion'; reverse = !reverse;">Aplicación</a></th>
+                    <th class="text-center success">Parcela</th>
+                    <th class="text-center success">Detalle</th>
+                    <!--<th class="text-center success">Acción</th>-->
+                </thead>
+                
+
+                <tbody>
+                    <tr ng-repeat="nutricion in nutricions.nutricions | filter:buscar | orderBy:col:reverse" class="text-center">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ nutricion.fecha }}</td>
+                        <td>{{ nutricion.tipo_aplicacion }}</td>
+                        <td>{{ nutricion.pcl_alias }}</td>
+                        <td>
+                            <a href="#/nutricion/{{ nutricion.id_nutricion }}" class="btn btn-warning btn-fab btn-fab-mini"><i class="fa fa-edit"></i> </a>
+                        </td>
+                    </tr>
+                </tbody>
+    </table>
+            </div>
+            <div class="panel-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a ng-click="moverA(1)">«</a></li>
+
+                <li ng-repeat="pag in parcelas.paginas"
+                ng-class="{
+                'active': parcelas.pag_actual === pag}">
+                    <a ng-click="moverA(pag)">{{ pag }}</a>
+                </li>
+                <li><a ng-click="moverA(parcelas.total_paginas)">»</a></li>
+              </ul>
+            </div>
+
+
+</div>
+</div>
+</body>
+<!--Riego-->
+<body>
+    <div >
+    <input type="checkbox" id="click4">
+    <label for="click4" class="btn btn-primary fa fa-search"> Riego</label>
+    
+    <div class="cont4">
+    <div class="header">
+        <h2>Riego</h2>
+        <label for="click4" class="fas fa-times"></label>
+    </div>
+<div class="table-responsive">
+
+<table class="table table-bordered table-hover">
+    <thead >
+        <th class="text-center success">#</th>
+        <th class="text-center success"><a ng-click="col='fecha'; reverse = !reverse;">Fecha</a></th>
+        <th class="text-center success">Parcela</th>
+        <th class="text-center success">Tipo</th>
+        <th class="text-center success">Observación</th>
+        <th class="text-center success">Cantidad</th>
+        <th class="text-center success">Costo</th>
+    </thead>
+
+    <tbody>
+        <tr ng-repeat="riego in riegos.riegos | filter:buscar | orderBy:col:reverse" class="text-center">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ riego.fecha }}</td>
+            <td>{{ riego.pcl_alias }}</td>
+            <td>{{ riego.tipo }}</td>
+            <td>{{ riego.observacion }}</td>
+            <td>{{ riego.cantidad + " M3" }}</td>
+            <td>{{ riego.costo | currency }}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+                <div class="panel-footer clearfix">
+                  <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a ng-click="moverA(1)">«</a></li>
+    
+                    <li ng-repeat="pag in parcelas.paginas"
+                    ng-class="{
+                    'active': parcelas.pag_actual === pag}">
+                        <a ng-click="moverA(pag)">{{ pag }}</a>
+                    </li>
+                    <li><a ng-click="moverA(parcelas.total_paginas)">»</a></li>
+                  </ul>
+                </div>
+
+
+    </div>
+    </div>
+    </body>
+<!--Control de Enfermedades-->
+    <body>
+        <div >
+        <input type="checkbox" id="click5">
+        <label for="click5" class="btn btn-primary fa fa-search"> Control de Enfermedades</label>
+        
+        <div class="cont5">
+        <div class="header">
+            <h2>Control de Enfermedades</h2>
+            <label for="click5" class="fas fa-times"></label>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                        <thead class="success">
+                            <th class="text-center success">#</th>
+                            <th class="text-center success"><a ng-click="col='fecha'; reverse = !reverse;">Fecha</a></th>
+                            <th class="text-center success"><a ng-click="col='pcl_alias'; reverse = !reverse;">Parcela</a></th>
+                            <th class="text-center success"><a ng-click="col='tipo_enfermedad'; reverse = !reverse;">Tipo</a></th>
+                            <th class="text-center success"> Problema Fitosanitario</th>
+                            <th class="text-center success"> # Muestras</th>
+                            <th class="text-center success"> # Encontrados</th>
+                            <th class="text-center success"> Decisión Tomada</th>
+                            <th class="text-center success"> Responsable</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="control in controles.controles |filter:buscar | orderBy:col:reverse" class="text-center">
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ control.fecha }}</td>
+                                <td>{{ control.pcl_alias }}</td>
+                                <td>{{ control.tipo_enfermedad }}</td>
+                                <td>{{ control.enfermedad }}</td>
+                                <td>{{ control.muestras }}</td>
+                                <td>{{ control.individuos }}</td>
+                                <td>{{ control.decision }}</td>
+                                <td>{{ control.nombre }}</td>
+                            </tr>
+                        </tbody>
+            </table>
+        </div>
+                    <div class="panel-footer clearfix">
+                      <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a ng-click="moverA(1)">«</a></li>
+        
+                        <li ng-repeat="pag in parcelas.paginas"
+                        ng-class="{
+                        'active': parcelas.pag_actual === pag}">
+                            <a ng-click="moverA(pag)">{{ pag }}</a>
+                        </li>
+                        <li><a ng-click="moverA(parcelas.total_paginas)">»</a></li>
+                      </ul>
+                    </div>
+
+
+        </div>
+        </div>
+        </body>
+</div>
+</li>
+<!--Cosecha-->
+<li>
+<div class="timeline-badge warning"><i class="fa fa-lemon-o"></i></div>
+<div class="timeline-panel">
+<div class="timeline-heading">
+<h4 class="timeline-title">Cosecha</h4>
+</div>
+<div class="timeline-body">
+<p>La cosecha es una de las fases finales del proceso de producción, en esta fase se recolecta el fruto
+que llegara a los diferentes industrias consumidoras del limon mexicano.
+</p>
+</div>
+<!--Cosecha por Parcelas-->
+<body>
+<div >
+<input type="checkbox" id="click7">
+<label for="click7" class="btn btn-primary fa fa-search"> Cosecha por Parcela</label>
+<div class="cont7">
+<div class="header">
+    <h2>Cosecha por Parcela</h2>
+    <label for="click7" class="fas fa-times"></label>
+</div>
+<table class="table  table-bordered table-hover">
+    <thead>
+        <tr class="success">
+            <th class="text-center" style="width: 10%;"><a ng-click="col='pdc_fecha'; reverse = !reverse;">Fecha de corte</a></th>
+            <th class="text-center">Lote del Cultivo</th>
+            <th class="text-center">U. P.</th>
+            <th class="text-center">Sección</th>
+            <th class="text-center" style="width: 10%;"><a ng-click="col='env_fecha'; reverse = !reverse;">Fecha de Envío</a></th>
+            <th class="text-center" style="width: 10%;">Uso del Cultivo</th>
+            <th class="text-center">Rejas</th>
+            <th class="text-center">Kgrs.</th>
+            <th class="text-center" style="width: 10%;">Empresa Destino</th>
+            <th class="text-center" style="width: 10%;">Responsable del Envío</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="det in (filtrados = (cosechas | filter:buscarparcela.pcl_alias:true | rango_fechas:fecha_inicio:fecha_final | orderBy:col:reverse))">
+            <td class="text-center">{{ det.pdc_fecha | date:'dd-MM-yyyy'}}</td>
+            <td class="text-center">03808</td>
+            <td class="text-center">{{ det.pcl_alias }}</td>
+            <td class="text-center">01</td>
+            <td class="text-center">{{ det.pdc_fecha | date:'dd-MM-yyyy'}}</td>
+            <td class="text-center">Consumo en fresco</td>
+            <td class="text-center">{{ det.pdc_rejas }}</td>
+            <td class="text-center">{{ det.pdc_kilos }}</td>
+            <td class="text-center">Empresa Prueba</td>
+            <td class="text-center">Responsable</td>
+    </tbody>
+</table>
+            <div class="panel-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a ng-click="moverA(1)">«</a></li>
+                <li ng-repeat="pag in parcelas.paginas"
+                ng-class="{
+                'active': parcelas.pag_actual === pag}">
+                    <a ng-click="moverA(pag)">{{ pag }}</a>
+                </li>
+                <li><a ng-click="moverA(parcelas.total_paginas)">»</a></li>
+              </ul>
+            </div>
+</div>
+</div>
+</body>
+</div>
+</li>
+<!--Empacado-->
+<li class="timeline-inverted">
+<div class="timeline-badge danger"><i class="fa fa-shopping-bag"></i></div>
+<div class="timeline-panel">
+<div class="timeline-heading">
+<h4 class="timeline-title">Empacado</h4>
+</div>
+<div class="timeline-body">
+<p>Proceso escencial para el transporte del fruto recolectado durante la cosecha, 
+el empacado del limón sera de acuerdo al consumidor final.
+</p>
+
+</div>
+</div>
+</li>
+<!--Consumidor Final-->
+<li>
+<div class="timeline-badge info"><i class="fa fa-users"></i></div>
+<div class="timeline-panel">
+<div class="timeline-heading">
+<h4 class="timeline-title">Consumidor Final</h4>
+</div>
+<div class="timeline-body">
+<p>Los consumidores finales del proceso de produccion del limón mexicano
+comprendes tres sectores importantes, la exportación, la industria y la venta a granel.
+</p>
+</div>
+<body>
+<!--Consumidor Final-->
+<div >
+<input type="checkbox" id="click6">
+<label for="click6" class="btn btn-primary fa fa-search"> Consumidor Final </label>
+
+<div class="cont6">
+<div class="header">
+    <h2>Cosecha y Venta</h2>
+    <label for="click6" class="fas fa-times"></label>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+                <thead class="success">
+                    <th class="text-center success">#</th>
+                    <th class="text-center success"><a ng-click="col='fecha'; reverse = !reverse;">Fecha</a></th>
+                    <th class="text-center success"><a ng-click="col='pcl_alias'; reverse = !reverse;">Parcela</a></th>
+                    <th class="text-center success"><a ng-click="col='tipo_enfermedad'; reverse = !reverse;">Tipo</a></th>
+                    <th class="text-center success"> Problema Fitosanitario</th>
+                    <th class="text-center success"> # Muestras</th>
+                    <th class="text-center success"> # Encontrados</th>
+                    <th class="text-center success"> Decisión Tomada</th>
+                    <th class="text-center success"> Responsable</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="control in controles.controles |filter:buscar | orderBy:col:reverse" class="text-center">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ control.fecha }}</td>
+                        <td>{{ control.pcl_alias }}</td>
+                        <td>{{ control.tipo_enfermedad }}</td>
+                        <td>{{ control.enfermedad }}</td>
+                        <td>{{ control.muestras }}</td>
+                        <td>{{ control.individuos }}</td>
+                        <td>{{ control.decision }}</td>
+                        <td>{{ control.nombre }}</td>
+                    </tr>
+                </tbody>
+    </table>
+</div>
+            <div class="panel-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a ng-click="moverA(1)">«</a></li>
+
+                <li ng-repeat="pag in parcelas.paginas"
+                ng-class="{
+                'active': parcelas.pag_actual === pag}">
+                    <a ng-click="moverA(pag)">{{ pag }}</a>
+                </li>
+                <li><a ng-click="moverA(parcelas.total_paginas)">»</a></li>
+              </ul>
+            </div>
+
+
+</div>
+</div>
+</body>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!--========================Se muestran los Peligros Potenciales============================-->
+<div id="pcc" class="tab-pane fade">
+    <div class="panel-body">
+        <div class="row">
+            <div style="float: left" class="col-md-6">
+                <h2 class="text-success">Puntos Críticos de Control</h2>
+            </div>
+            <div style="float: right" class="col-md-2">
+                <a data-toggle="tab" data-target="#addpcc" class="btn btn-success btn-fab"><i class="fa fa-plus"></i> </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-8">
+
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    <input type="text" class="form-control" placeholder="buscar" name="buscar" ng-model="buscar">
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <th class="text-center success">#</th>
+                    <th class="text-center success"><a ng-click="reverse = !reverse;">PPC</a></th>
+                    <th class="text-center success">Etapa(PPC)</th>
+                    <th class="text-center success">Límites Críticos</th>
+                    <th class="text-center success">Vigilancia/Frecuencia</th>
+                    <th class="text-center success">Medidas Correctivas</th>
+                    <th class="text-center success">Registros asociados</th>
+                    <th class="text-center success">Editar</th>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="critico in críticos" class="text-center">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ critico.etiquetappc}}</td>
+                        <td>{{ critico.etapa }}</td>
+                        <td>{{ critico.limite}}</td>
+                        <td>{{ critico.vigilancia}}</td>
+                        <td>{{ critico.medidas}}</td>
+                        <td>{{ critico.registros}}</td> 
+                        <td>
+                            <a href="#/pcc/{{ critico.id_pcc}}" class="btn btn-warning btn-fab btn-fab-mini"><i class="fa fa-edit"></i> </a>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="panel-footer clearfix">
+    <ul class="pagination pagination-sm no-margin pull-right">
+        <li><a ng-click="moverACP(1)">«</a></li>
+
+        <li ng-repeat="pag in criticos.paginas" ng-class="{
+    'active': criticos.pag_actual === pag}">
+            <a ng-click="moverACP(pag)">{{ pag }}</a>
+        </li>
+        <li><a ng-click="moverACP(criticos.total_paginas)">»</a></li>
+    </ul>
+</div>
+</div>
+<!--==========================================================================================-->
+                <div id="miembros" class="tab-pane fade in active">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div style="float: left" class="col-md-6">
+                                <h2 class="text-success">Miembros del Equipo HACCP</h2>
+                            </div>
+                            <div style="float: right" class="col-md-2">
+                                <a data-toggle="tab" data-target="#addmiembros" class="btn btn-success btn-fab"><i class="fa fa-plus"></i> </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-8">
+
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="buscar" name="buscar" ng-model="buscar">
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <th class="text-center success">#</th>
+                                    <th class="text-center success"><a ng-click="reverse = !reverse;">Nombre</a></th>
+                                    <th class="text-center success">Correo</th>
+                                    <th class="text-center success">Acción</th>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="equipo in miembros.miembros | filter:buscar | orderBy:'nombre':reverse" class="text-center">
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ equipo.usr_nombre_completo }}</td>
+                                        <td>{{ equipo.usr_email}}</td>
+                                        <td>
+                                            <a href="#/equipo/{{ equipo.id_usuario }}" class="btn btn-warning btn-fab btn-fab-mini"><i class="fa fa-edit"></i> </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <div class="panel-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a ng-click="moverA(1)">«</a></li>
+
+                        <li ng-repeat="pag in miembros.paginas" ng-class="{
+                    'active': miembros.pag_actual === pag}">
+                            <a ng-click="moverA(pag)">{{ pag }}</a>
+                        </li>
+                        <li><a ng-click="moverA(miembros.total_paginas)">»</a></li>
+                    </ul>
+                </div>
+                </div>
+                <div id="addmiembros" class="tab-pane fade">
+                    <form name="frmMiembro" novalidate>
+
+                <div class="panel-body"><br>
+
+					<div class="row">
+              <div class="col-md-4 col-md-offset-2">
+                	<label for="nombre">Nombre</label>
+	                <div class="input-group">
+	                   <span class="input-group-addon"><i class="fa fa-user"></i></span>
+	                   <input type="text"
+	                    	 class="form-control"
+	                    	 placeholder="Ingrese Nombre"
+	                    	 name="nombre"
+	                    	 ng-model="miembro.usr_nombre_completo"
+	                    	 ng-minlength="4"
+	                    	 ng-maxlength="70"
+	                    	 required>
+	                </div>
+	                <div class="">
+    								<span class="text-danger" ng-show="!frmMiembro.$pristine && frmMiembro.nombre.$error.required">
+    										<strong>Nombre es Requerido!!!</strong>
+    								</span>
+    								<span class="text-danger" ng-show="frmMiembro.nombre.$error.minlength">
+            						<strong>Muy Corto!</strong>
+            				</span>
+          					<span class="text-danger" ng-show="frmMiembro.nombre.$error.maxlength">
+            						<strong>Muy Largo</strong>
+            				</span>
+							    </div>
+	           </div>              
+                        
+                        <div class="col-md-4">
+                	<label for="resp">Responsabilidades</label>
+	                <div class="input-group">
+	                   <span class="input-group-addon"><i class="fa fa-user"></i></span>
+	                   <input type="text"
+	                    	 class="form-control"
+	                    	 placeholder="Ingrese Responsabilidades"
+	                    	 name="resp"
+	                    	 ng-model="miembro.usr_resp"
+	                    	 ng-minlength="4"
+	                    	 ng-maxlength="150"
+	                    	 required>
+	                </div>
+	                <div class="">
+    								<span class="text-danger" ng-show="!frmMiembro.$pristine && frmMiembro.resp.$error.required">
+    										<strong>Responsabilidades es Requerido!!!</strong>
+    								</span>
+    								<span class="text-danger" ng-show="frmMiembro.resp.$error.minlength">
+            						<strong>Muy Corto!</strong>
+            				</span>
+          					<span class="text-danger" ng-show="frmMiembro.resp.$error.maxlength">
+            						<strong>Muy Largo</strong>
+            				</span>
+							    </div>
+	           </div>
+
+	      </div>
+				<br>
+
+				<div class="row">
+
+
+        <div class="col-md-4 col-md-offset-2">
+            <label for="correo">Correo</label>
+	          <div class="input-group">
+	               <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+	               <input type="email"
+	                    class="form-control"
+	                 	  placeholder="Ingrese Dirección Electronica"
+	                    name="correo"
+	                    ng-model="miembro.usr_email"
+	                    ng-minlength="6"
+	                    ng-maxlength="80">
+	          </div>
+	          <div class="">
+								<span class="text-danger" ng-show="!frmMiembro.$pristine && frmMiembro.correo.$error.required">
+										<strong>Correo es Requerido!!!</strong>
+								</span>
+								<span class="text-danger" ng-show="frmMiembro.correo.$error.minlength">
+        						<strong>Muy Corto!</strong>
+        				</span>
+                <span class="text-danger" ng-show="frmMiembro.correo.$error.email">
+                    <strong>Correo Invalido!</strong>
+                </span>
+      					<span class="text-danger" ng-show="frmMiembro.correo.$error.maxlength">
+        						<strong>Muy Largo</strong>
+        				</span>
+					 </div>
+	      </div>
+
+        <div class="col-md-4 ">
+             <label for="pass">Contraseña</label>
+             <div class="input-group">
+
+               <span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span>
+               <input type="password"
+                      class="form-control"
+                      name="pass"
+                      placeholder="*********"
+                      ng-model="miembro.usr_password"
+                      ng-minlength="7"
+                      ng-maxlength="30"
+                      required>
+           </div>
+           <div class="">
+               <span class="text-danger" ng-show="!frmMiembro.$pristine && frmAdmin.pass.$error.required">
+                   <strong>Contraseña es Requerido!!!</strong>
+               </span>
+               <span class="text-danger" ng-show="frmMiembro.pass.$error.minlength">
+                   <strong>Muy Corto!</strong>
+               </span>
+               <span class="text-danger" ng-show="frmMiembro.pass.$error.maxlength">
+                  <strong>Muy Largo</strong>
+               </span>
+         </div>
+       </div>
+
+        </div>
+
+        </div><!-- /.box-body -->
+            <div class="panel-footer">
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <button ng-disabled="guardandoM" type="submit" ng-click="guardarMiembro(miembro)" class="btn btn-success float-left btn-lg">
+                            <span ng-show="guardandoM" class="button-text"><i class="fa fa-spinner fa-spin"></i> Guardando</span>
+                            <span ng-hide="guardandoM" class="button-text"> <i class="fa fa-save"></i> Guardar</span>
+                        </button>
+                         <button style="float: right" type="submit" class="btn btn-success padding-btn btn-lg" data-toggle="tab"  data-target="#miembros"><i class="fa fa-times "></i><span class="button-text"> Cancelar </span></button>
+                    </div>
+                </div>
+            </div>     
+                </form>  
+                </div>
+                <div id="producto" class="tab-pane fade">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div style="float: left" class="col-md-6">
+                                <h2 class="text-success">Descripciones de los productos</h2>
+                            </div>
+                            <div style="float: right" class="col-md-2">
+                                <a data-toggle="tab" href="#/descripcion/new" class="btn btn-success btn-fab"><i class="fa fa-plus"></i> </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-8">
+
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="buscar" name="buscar" ng-model="buscar">
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <th class="text-center success">#</th>
+                                    <th class="text-center success"><a ng-click="reverse = !reverse;">Nombre</a></th>
+                                    <th class="text-center success">Descripción</th>
+                                    <th class="text-center success">Acción</th>
+                                </thead>
+
+                                <tbody>
+                                    <tr class="text-center">
+                                        <td> 1 </td>
+                                        <td> Limón Mexicano </td>
+                                        <td class="text-left"> El limonero por tener un sistema radicular poco
+profundo (Menos de 1 m.), se desarrolla en suelos de textura ligera
+(arenosos), media (francos) y fina (arcillosos); moderadamente
+profundos; buen drenaje y bajo contenido de sales.  </td>
+                                        <td>
+                                            <a href="#/descripcion/{{ desc.id_usuario }}" class="btn btn-warning btn-fab btn-fab-mini"><i class="fa fa-edit"></i> </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <div class="panel-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a ng-click="moverA(1)">«</a></li>
+
+                        <li ng-repeat="pag in miembros.paginas" ng-class="{
+                    'active': miembros.pag_actual === pag}">
+                            <a ng-click="moverA(pag)">{{ pag }}</a>
+                        </li>
+                        <li><a ng-click="moverA(miembros.total_paginas)">»</a></li>
+                    </ul>
+                </div>
+                </div>
+                <div id="peligros" class="tab-pane fade">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div style="float: left" class="col-md-6">
+                                <h2 class="text-success">Peligros Fitosanitarios</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="buscar" name="buscar" ng-model="buscar">
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <th class="text-center success">#</th>
+                                    <th class="text-center success"><a ng-click="reverse = !reverse;">Fecha</a></th>
+                                    <th class="text-center success">Enfermedad</th>
+                                    <th class="text-center success">Parcela</th>
+                                    <th class="text-center success">Muestras</th>
+                                    <th class="text-center success">Individuos</th><th class="text-center success">Decisión Tomada</th><th class="text-center success">Responsable</th>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="control in controles" class="text-center">
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ control.fecha }}</td>
+                                        <td>{{ control.enfermedad}}</td>
+                                        <td>{{ control.pcl_alias}}</td>
+                                        <td>{{ control.muestras}}</td>
+                                        <td>{{ control.individuos}}</td>
+                                        <td>{{ control.decision}}</td>
+                                        <td>{{ control.nombre}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <div class="panel-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a ng-click="moverAC(1)">«</a></li>
+
+                        <li ng-repeat="pag in controles.paginas" ng-class="{
+                    'active': controles.pag_actual === pag}">
+                            <a ng-click="moverAC(pag)">{{ pag }}</a>
+                        </li>
+                        <li><a ng-click="moverAC(controles.total_paginas)">»</a></li>
+                    </ul>
+                </div>
+                </div>
+    <div id="analisis" class="tab-pane fade">
+	<div class="col-md-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading with-border">
+
+            	<div class="row">
+            		<div style="float: left" class="col-md-3">
+            			<h2 class="text-success">Análisis Agua</h2>
+            		</div>
+              	</div>
+            </div>
+            <!-- /.box-header -->
+            <div class="panel-body">
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover">
+					<thead class="success">
+						<th class="text-center success">#</th>
+						<th class="text-center success"><a ng-click="col='fecha'; reverse = !reverse;">Fecha</a></th>
+						<th class="text-center success"> Parcela </th>
+						<th class="text-center success"> Calcio </th>
+						<th class="text-center success"> Magnesio </th>
+						<th class="text-center success">Sodio</th>
+						<th class="text-center success"> Potasio </th>
+					</thead>
+
+					<tbody>
+						<tr ng-repeat="analisis_agua in analisis_agua.analisis_agua | orderBy:col:reverse" class="text-center">
+							<td>{{ $index + 1 }}</td>
+							<td>{{ analisis_agua.fecha}}</td>
+							<td>{{ analisis_agua.pcl_alias}}</td>
+							<td>{{ analisis_agua.calcio}}</td>
+							<td>{{ analisis_agua.magnesio }}</td>
+							<td>{{ analisis_agua.sodio }}</td>
+							<td>{{ analisis_agua.potasio }}</td>
+						</tr>
+					</tbody>
+        </table>
+    </div>
+     </div>
+
+        	<div class="panel-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a ng-click="moverA(1)">«</a></li>
+
+                <li ng-repeat="pag in analisis_agua.paginas"
+                ng-class="{
+                'active': analisis_agua.pag_actual === pag}">
+                	<a ng-click="moverA(pag)">{{ pag }}</a>
+                </li>
+
+
+                <li><a ng-click="moverA(analisis_agua.total_paginas)">»</a></li>
+              </ul>
+         </div>
+
+		</div>
+	</div>
+        <!--===========-->
+        <!--===========-->
+        	<div class="col-md-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading with-border">
+
+            	<div class="row">
+            		<div style="float: left" class="col-md-3">
+            			<h2 class="text-success">Análisis Foliar</h2>
+            		</div>
+              	</div>
+            </div>
+            <!-- /.box-header -->
+            <div class="panel-body">
+
+    <div class="table-responsive">
+
+          <table class="table table-bordered table-hover">
+					<thead class="success">
+						<th class="text-center success">#</th>
+						<th class="text-center success">Fecha</th>
+						<th class="text-center success">Parcela</th>
+						<th class="text-center success">Fosforo</th>
+						<th class="text-center success">Potasio </th>
+						<th class="text-center success">Calcio</th>
+						<th class="text-center success">Magnesio</th>
+					</thead>
+
+					<tbody>
+						<tr ng-repeat="analisis_foliar in analisis_foliar.analisis_foliar" class="text-center">
+							<td>{{ $index + 1 }}</td>
+							<td>{{ analisis_foliar.fecha}}</td>
+							<td>{{ analisis_foliar.pcl_alias}}</td>
+							<td>{{ analisis_foliar.fosforo}}</td>
+							<td>{{ analisis_foliar.potasio }}</td>
+							<td>{{ analisis_foliar.calcio }}</td>
+							<td>{{ analisis_foliar.magnesio }}</td>
+						</tr>
+					</tbody>
+          </table>
+                </div>
+        	</div>
+        	<div class="panel-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a ng-click="moverA(1)">«</a></li>
+
+                <li ng-repeat="pag in analisis_foliar.paginas"
+                ng-class="{
+                'active': analisis_foliar.pag_actual === pag}">
+                	<a ng-click="moverA(pag)">{{ pag }}</a>
+                </li>
+
+
+                <li><a ng-click="moverA(analisis_foliar.total_paginas)">»</a></li>
+              </ul>
+            </div>
+
+		</div>
+	</div>
+        	<div class="col-md-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading with-border">
+
+            	<div class="row">
+            		<div style="float: left" class="col-md-3">
+            			<h2 class="text-success">Análisis Suelos</h2>
+            		</div>
+              	</div>
+            </div>
+            <!-- /.box-header -->
+            <div class="panel-body">
+
+    <div class="table-responsive">
+
+          <table class="table table-bordered table-hover">
+					<thead class="success">
+						<th class="text-center success">#</th>
+						<th class="text-center success">Fecha</th>
+						<th class="text-center success">Parcela</th>
+						<th class="text-center success">Ph</th>
+						<th class="text-center success">Nitrógeno</th>
+						<th class="text-center success">Fosforo</th>
+						<th class="text-center success">Potasio</th>
+						<th class="text-center success">Calcio</th>
+						<th class="text-center success">Magnesio</th>
+						<th class="text-center success">Sodio</th>
+					</thead>
+
+					<tbody>
+						<tr ng-repeat="analisis_suelo in analisis_suelos.analisis_suelo" class="text-center">
+							<td>{{ $index + 1}}</td>
+							<td>{{ analisis_suelo.fecha}}</td>
+							<td>{{ analisis_suelo.pcl_alias}}</td>
+							<td>{{ analisis_suelo.ph}}</td>
+							<td>{{ analisis_suelo.nitrogeno}}</td>
+							<td>{{ analisis_suelo.fosforo }}</td>
+							<td>{{ analisis_suelo.potasio }}</td>
+							<td>{{ analisis_suelo.calcio }}</td>
+							<td>{{ analisis_suelo.magnesio }}</td>
+							<td>{{ analisis_suelo.sodio }}</td>
+						</tr>
+					</tbody>
+          </table>
+                </div>
+        	</div>
+        	<div class="panel-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a ng-click="moverA(1)">«</a></li>
+
+                <li ng-repeat="pag in analisis_suelos.paginas"
+                ng-class="{
+                'active': analisis_suelos.pag_actual === pag}">
+                	<a ng-click="moverA(pag)">{{ pag }}</a>
+                </li>
+
+
+                <li><a ng-click="moverA(analisis_suelos.total_paginas)">»</a></li>
+              </ul>
+            </div>
+
+		</div>
+	</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	                <!--
+
+<div class="btn-group">
+    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+      <i class="fa fa-book"></i> <span class="caret"></span>
+    </button>
+
+<button type="button" class="btn btn-primary fa fa-apple" id="" > Parcelas
+</button>
+<button type="button" class="btn btn-primary fa fa-lemon-o"> Huertos
+  </button>
+  
+  <li><a href="#parcelas">Parcelas</a></li>
+  
+
+aqui
+<ul class="dropdown-menu" role="menu">
+  <li><a href="#huertos">Huertos</a></li>
+  <li><a href="#parcelas">Parcelas</a></li>
+</ul>
+</div>
+-->
+
+
+<!--
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <th class="text-center success">#</th>
+            <th class="text-center success"><a ng-click="reverse = !reverse;">Nombre</a></th>
+            <th class="text-center success">Correo</th>
+            <th class="text-center success">Acción</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="equipo in miembros.miembros | filter:buscar | orderBy:'nombre':reverse" class="text-center">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ equipo.usr_nombre_completo }}</td>
+                <td>{{ equipo.usr_email}}</td>
+                <td>
+                    <a href="#/equipo/{{ equipo.id_usuario }}" class="btn btn-warning btn-fab btn-fab-mini"><i class="fa fa-edit"></i> </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const tabla = document.querySelector('#cuerpo');
+    const opciones = {
+        method : 'POST'
+    }
+
+    fetch(  'fac/model/equipo/timeline.php', opciones)
+        .then(respuesta => respuesta.json())
+        .then(resultado => {
+            resultado.forEach(elemento => {
+                tabla.innerHTML += `
+                <tr>
+                    <th scope ="row">${elemento.id_huerto}</th>
+                    <td>${elemento.fecha}</td>
+                    <td>${elemento.id_parcela}</td>
+                    <td>${elemento.tipo_riego}</td>
+                    <td>${elemento.variedad }</td>
+                    <td>${elemento.nom_portainjerto }</td>
+                </tr>
+                `
+            });
+        });
+</script>
+
+                        <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-list-alt"></i></span>
+                        
+                        <select class="form-control" ng-model="compra.id_insumo" ng-required>
+                            <option ng-repeat="insumo in insumo.insumos" value="{{ insumo.id_insumo}}">{{ insumo.nombre_com}} </option>
+                        </select>
+                       
+                    </select>
+
+                        <option ng-repeat="comprad in comp.compradores" value="{{ comprad.id_comprador }}">{{ comprad.cmp_nombre }}</option>
+                       <select name="etapa" class="form-control" ng-model="ppc.etapa" required>
+
+                            </div>
+                            --> 

@@ -1,0 +1,14 @@
+RewriteEngine on
+
+RewriteCond %{HTTP_REFERER} !^http://tracelemon.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://tracelemon.net$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.tracelemon.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.tracelemon.net$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://tracelemon.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://tracelemon.net$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.tracelemon.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.tracelemon.net$      [NC]
+RewriteRule .*\.(jpg|jpeg|gif|png|bmp)$ - [F,NC]
+
+
+

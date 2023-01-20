@@ -1,0 +1,300 @@
+<div class="panel panel-default">
+    <div class="panel-heading with-border">
+        <h2 class="text-success "><i class="fa fa-plus-circle" ></i> Parcela</h2>
+    </div>
+
+<form name="frmParcela" novalidate>
+<div class="panel-body">
+
+<div class="row"><br>
+    <div class="col-md-3 col-md-offset-2">
+        <label for="alias">Alias</label>
+        <div class="input-group">
+
+            <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+            <input type="text" class="form-control" name="alias" placeholder="Ingrese Alias de Parcela" ng-model="parcela.pcl_alias" ng-minlength="4" ng-maxlength="60" required>
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmParcela.$pristine && frmParcela.alias.$error.required">
+                <strong>Alias es Requerido!!!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmParcela.alias.$error.minlength">
+                <strong>Muy Corto!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmParcela.alias.$error.maxlength">
+                <strong>Muy Largo</strong>
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-md-offset-0">
+        <label for="corte">Municipio</label>
+        <div class="input-group">
+
+            <span class="input-group-addon"><i class="fa fa-circle"></i></span>
+
+            <select class="form-control" ng-change="set_cod()" ng-model="parcela.pcl_municipio" required>
+                <option value="ARMERÍA">Armería</option>
+                <option value="COLIMA">Colima</option>
+                <option value="COMALA">Comala</option>
+                <option value="COQUIMATLÁN">Coquimatlán</option>
+                <option value="CUAUHTÉMOC">Cuauhtémoc</option>
+                <option value="MANZANILLO">Manzanillo</option>
+                <option value="MINATITLÁN">Minatitlán</option>
+                <option value="TECOMÁN">Tecomán</option>
+                <option value="VILLA DE ÁLVAREZ">Villa de Álvarez</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3 col-md-offset-0">
+
+        <label for="cod_parcela">Código de la Unidad Productiva</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-hashtag"></i></span>
+            <input type="text" class="form-control" id="cod_parcela" ng-model="parcela.cod_parcela" placeholder="Código de la unidad Productiva">
+        </div>
+    </div>
+</div><br>
+
+<div class="row">
+    <div class="col-md-3 col-md-offset-2">
+        <label for="localidad">Localidad</label>
+        <div class="input-group">
+
+            <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+            <input type="text" class="form-control" name="localidad" placeholder="Ingrese localidad de Parcela" ng-model="parcela.pcl_localidad" ng-minlength="4" ng-maxlength="60" required>
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmParcela.$pristine && frmParcela.localidad.$error.required">
+                <strong>localidad es Requerido!!!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmParcela.localidad.$error.minlength">
+                <strong>Muy Corto!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmParcela.localidad.$error.maxlength">
+                <strong>Muy Largo</strong>
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-md-offset-0">
+        <label for="corte">Regimen de Propiedad</label>
+        <div class="input-group">
+
+            <span class="input-group-addon"><i class="fa fa-industry"></i></span>
+            <select class="form-control" ng-model="parcela.nombre" ng-change="isEjido(parcela.nombre)" required>
+                <option ng-repeat="regimen in regim.propiedades" value="{{ regimen.nombre}}">{{ regimen.nombre }}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-md-offset-0" ng-if="ejido">
+
+        <label for="ejido">Nombre Ejido</label>
+        <div class="input-group date">
+
+            <span class="input-group-addon"><i class="fa fa-circle"></i></span>
+            <input type="text" class="form-control" name="ejido" ng-model="parcela.pcl_ejido" ng-minlength="4" ng-maxlength="30" required>
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmParcela.$pristine && frmParcela.ejido.$error.required">
+                <strong>Nombre de Ejido es Requerido!!!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmParcela.ejido.$error.minlength">
+                <strong>Muy Corto!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmParcela.ejido.$error.maxlength">
+                <strong>Muy Largo</strong>
+            </span>
+        </div>
+
+    </div>
+</div><br>
+
+<div class="row">
+    <div class="col-md-3 col-md-offset-2">
+
+        <label for="fecha_plant">Fecha de Plantación</label>
+        <div class="input-group date">
+
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            <input type="date" class="form-control" name="fecha_plant" placeholder="yyyy-mm-dd" ng-model="parcela.pcl_fecha_plantacion" ng-minlength="10" ng-maxlength="10" required>
+
+
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmParcela.$pristine && frmParcela.fecha_plant.$error.required">
+                <strong>Fecha de Plantación es Requerido!!!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmParcela.fecha_plant.$error.minlength">
+                <strong>Muy Corto!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmParcela.fecha_plant.$error.maxlength">
+                <strong>Muy Largo</strong>
+            </span>
+            <span class="text-danger" ng-show="errorPlantacion">
+                <strong>Fecha Incorrecta !!!</strong>
+            </span>
+            <!--  <br>
+                    <span class="text-danger" ng-show="!frmParcela.fecha_plant.$valid">
+                        Fecha Incorrecta yyyy-mm-dd
+                    </span>-->
+        </div>
+</div>
+</div><br>
+
+<div class="row">
+    <div class="col-md-3 col-md-offset-2">
+        <label for="latitud">Latitud</label>
+        <div class="input-group">
+
+            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+            <input type="text" class="form-control" name="latitud" ng-model="parcela.pcl_latitud" ng-minlength="1" ng-maxlength="20" ng-pattern="/^(\-?\d+(\.\d+)?)$/" required>
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmParcela.latitud.$valid">
+                Dato Invalido !
+            </span>
+        </div>
+    </div>
+    <div class="col-md-3 ">
+        <label for="longitud">Longitud</label>
+        <div class="input-group">
+
+            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+            <input type="text" class="form-control" name="longitud" ng-model="parcela.pcl_longitud" ng-minlength="1" ng-maxlength="20" ng-pattern="/^(\-?\d+(\.\d+)?)$/" required>
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmParcela.longitud.$valid">
+                Dato Invalido !
+            </span>
+        </div>
+    </div>
+</div><br>
+
+
+<div class="row">
+<div class="col-md-2 col-md-offset-2">
+    <label for="ancho">Ancho</label>
+    <div class="input-group">
+
+        <span class="input-group-addon"><i class="fa fa-th"></i></span>
+        <input type="text" class="form-control" placeholder="0.0" name="ancho" ng-value="0" ng-model="parcela.pcl_ancho" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" required>
+    </div>
+    <div class="">
+        <span class="text-danger" ng-show="!frmParcela.ancho.$valid">
+            Dato Invalido !
+        </span>
+    </div>
+</div>
+
+<div class="col-md-1 col-md-offset-0">
+
+    <label for="">X</label>
+</div>
+<div class="col-md-2 col-md-offset-0">
+    <label for="largo">Largo</label>
+    <div class="input-group">
+
+        <span class="input-group-addon"><i class="fa fa-th"></i></span>
+        <input type="text" class="form-control" placeholder="0.0" name="largo" ng-value="0" ng-model="parcela.pcl_largo" ng-minlength="1" ng-maxlength="8" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" required>
+    </div>
+    <div class="">
+        <span class="text-danger" ng-show="!frmParcela.largo.$valid">
+            Dato Invalido !
+        </span>
+    </div>
+</div>
+
+<div class="col-md-3 col-md-offset-0">
+    <label for="plant">Marco de Plantación</label>
+    <div class="input-group">
+
+        <span class="input-group-addon"><i class="fa fa-th"></i></span>
+        <input type="text" class="form-control" placeholder="000" id="plant" ng-value="parcela.pcl_largo * parcela.pcl_ancho" ng-model="parcela.marco_plantacion" disabled>
+    </div>
+</div>
+</div><br>
+    
+<div class="row">
+    <div class="col-md-2 col-md-offset-2">
+        <label for="hectareas">Hectareas</label>
+        <div class="input-group">
+
+            <span class="input-group-addon"><i class="fa fa-th"></i></span>
+            <input type="text" class="form-control" placeholder="00" name="hectareas" ng-model="parcela.pcl_hectareas" ng-minlength="1" ng-maxlength="8" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" required>
+
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmParcela.hectareas.$valid">
+                Dato Invalido !
+            </span>
+        </div>
+    </div>
+    <div class="col-md-2 ">
+        <label for="arboles">Total de Arboles</label>
+        <div class="input-group">
+
+            <span class="input-group-addon"><i class="fa fa-lemon-o"></i></span>
+            <input type="text" class="form-control" id="arboles" placeholder="0,000" ng-value="(parcela.pcl_hectareas * 10000)/(parcela.pcl_largo * parcela.pcl_ancho) || 0 | number:2" disabled>
+        </div>
+    </div>
+</div><br>
+
+
+<div class="row">
+    <div class="col-md-3 col-md-offset-2 ">
+        <label for="prime_cos">Primera Cosecha</label>
+        <div class="input-group date">
+
+            <span class="input-group-addon fecha"><i class="fa fa-calendar"></i></span>
+            <input type="date" class="form-control" name="prime_cos" placeholder="yyyy-mm-dd" ng-model="parcela.pcl_primera_cosecha" ng-minlength="10" ng-maxlength="11" required>
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmParcela.$pristine && frmParcela.prime_cos.$error.required">
+                <strong>Primera Cosecha es Requerido!!!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmParcela.prime_cos.$error.minlength">
+                <strong>Muy Corto!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmParcela.prime_cos.$error.maxlength">
+                <strong>Muy Largo</strong>
+            </span>
+            <span class="text-danger" ng-show="errorCosecha">
+                <strong>Fecha Incorrecta !!!</strong>
+            </span>
+            <!--  <br>
+                    <span class="text-danger" ng-show="!frmParcela.prime_cos.$valid">
+                        Fecha Incorrecta yyyy-mm-dd
+                    </span> -->
+        </div>
+    </div>
+    <div class="col-md-3 col-md-offset-0">
+        <label for="corte">Estatus</label>
+        <div class="input-group">
+
+            <span class="input-group-addon"><i class="fa fa-circle"></i></span>
+            <select class="form-control" ng-model="parcela.pcl_estado" required>
+                <option value="Propia">Propia</option>
+                <option value="Rentada">Rentada</option>
+
+            </select>
+        </div>
+    </div>
+</div><br>
+
+</div><!-- /.box-body -->
+
+        <div class="panel-footer">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button ng-disabled="guardando" ng-disabled="!frmParcela.$valid" type="submit" ng-click="guardarParcela(parcela)" class="btn btn-success float-left btn-lg">
+                        <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin" ></i> Guardando</span> 
+                        <span ng-hide="guardando" class="button-text"> <i class="fa fa-save" ></i>  Guardar</span>
+                    </button>
+                    <button style="float: right" type="submit" ng-show="buscar" ng-click="reset(frmParcela)" class="btn btn-danger btn-lg"><i class="fa fa-times"></i> <span class="button-text"> Cancelar</span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

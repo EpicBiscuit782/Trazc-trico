@@ -1,0 +1,444 @@
+<div class="panel panel-">
+        <div class="panel-heading with-border">
+            <h2 class="text-success "><i class="fa fa-plus-circle"></i> Análisis de Suelo</h2>
+        </div>
+            <form name="frmAnalisis" novalidate>
+                <div class="panel-body">
+
+                	<div class="row">
+
+
+                    <div class="col-md-3 col-md-offset-2 ">
+  			            	<label for="alias">Parcela</label>
+                  			<div class="input-group">
+
+  	                    		<span class="input-group-addon"><i class="fa fa-th"></i></span>
+  	                    		<input type="text"
+  	                    	   		class="form-control"
+  	                    	   		name="alias"
+                                placeholder="Parcela"
+  	                    	   		ng-model="dataParcela.alias"
+  	                    	   		required
+                                disabled>
+  	                  		</div>
+                          <div class="">
+            								<span class="text-danger" ng-show="errorParcela">
+            										<strong> Seleccione Parcela!!!</strong>
+            								</span>
+
+                          </div>
+  	                  	</div>
+
+                    <div class="col-md-3 col-md-offset-1">
+                        <label for="fecha">Fecha</label>
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                        </span> 
+                         <input ng-click="open1()" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="analisis_suelo.fecha" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" />
+                        </div>
+                        <div class="">
+                            <span class="text-danger" ng-show="!frmAnalisis.$pristine && frmAnalisis.fecha.$error.required">
+                                <strong>Fecha es requerida !!!</strong>
+                            </span>
+                        </div>
+                    </div>
+                	</div>
+                	<br>
+
+            <div class="row"><br>
+              <div class="col-md-6 col-md-offset-0 ">
+
+                <div class="panel panel-default">
+                	<div class="panel-heading">Químicos</div>
+  								<div class="panel-body">
+
+			            				<label for="ph">Ph</label>
+                						<div class="input-group">
+
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="ph"
+			                    	   		ng-model="analisis_suelo.ph"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.ph.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="organica">Materia Orgánica</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="organica"
+			                    	   		ng-model="analisis_suelo.materia_org"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">%</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.organica.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="n"> Nitrógeno Nitrico (N-NO3)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="nitrogeno"
+			                    	   		ng-model="analisis_suelo.nitrogeno"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">ppm</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.nitrogeno.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="fosforo">Fosforo(P)</label>
+                						<div class="input-group">
+
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="fosforo"
+			                    	   		ng-model="analisis_suelo.fosforo"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">ppm</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.fosforo.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="potasio">Potasio(K)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="potasio"
+			                    	   		ng-model="analisis_suelo.potasio"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">ppm</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.potasio.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="calcio">Calcio(Ca)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="calcio"
+			                    	   		ng-model="analisis_suelo.calcio"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">ppm</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.calcio.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="magnesio">Magnesio(Mg)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="magnesio"
+			                    	   		ng-model="analisis_suelo.magnesio"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">ppm</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.magnesio.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+
+	                  					<label for="sodio">Sodio(Na)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="sodio"
+			                    	   		ng-model="analisis_suelo.sodio"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">ppm</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.sodio.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+                              <label for="cobre">Cobre(Cu)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="cobre"
+			                    	   		ng-model="analisis_suelo.cobre"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">ppm</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.cobre.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="fierro">Fierro(Fe)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="fierro"
+			                    	   		ng-model="analisis_suelo.fierro"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">ppm</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.fierro.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+                              <label for="manganeso">Manganeso(Mn)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="manganeso"
+			                    	   		ng-model="analisis_suelo.manganeso"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">ppm</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.manganeso.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="zinc">Zinc(Zn)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="zinc"
+			                    	   		ng-model="analisis_suelo.zinc"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">ppm</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.zinc.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="carbonatos">Carbonatos Totales</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="carbonatos"
+			                    	   		ng-model="analisis_suelo.carbonatos"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+			                    	   		<div class="input-group-addon">ppm</div>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.carbonatos.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+
+	                  	</div>
+
+  								<div class="panel-footer"></div>
+						</div>
+					</div>
+
+
+
+	                <div class="col-md-6 col-md-offset-0 ">
+                			<div class="panel panel-default">
+                				<div class="panel-heading">Físicos</div>
+  								          <div class="panel-body">
+
+    								        <label for="arcilla">Arcilla</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="arcilla"
+			                    	   		ng-model="analisis_suelo.arcilla"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.arcilla.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="arena">Arena(%)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="arena"
+			                    	   		ng-model="analisis_suelo.arena"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.arena.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="limo">Limo(%)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="limo"
+			                    	   		ng-model="analisis_suelo.limo"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.limo.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="kilos">Textura(%)</label>
+						                <div class="input-group">
+
+						                	<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						                	<select class="form-control"
+						                			ng-model="analisis_suelo.textura"
+						                			required>
+          											  <option ng-repeat="tipo in tipos" value="{{ tipo.textura}}">{{ tipo.textura}}</option>
+
+											        </select>
+						            	</div>
+
+
+	                  					<label for="capacidad">Capacidad de Campo(%)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="capacidad"
+			                    	   		ng-model="analisis_suelo.capacidad"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.capacidad.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+	                  					<label for="humedad">Humedad Aprovechable (H.A)%</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="humedad"
+			                    	   		ng-model="analisis_suelo.humedad"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+	                  					</div>
+                              <div class="">
+                                <span class="text-danger" ng-show="!frmAnalisis.humedad.$valid">
+                                  Dato Invalido !
+                                </span>
+                              </div>
+
+                              <label for="punto">Punto de Marchitamiento Permanente(%)</label>
+                						<div class="input-group">
+	                    					<span class="input-group-addon"><i class="fa fa-circle-thin"></i></span>
+	                    					<input type="text"
+	                    	   				class="form-control"
+			                    	   		name="punto"
+			                    	   		ng-model="analisis_suelo.punto"
+                                  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+			                    	   		required>
+	                  				</div>
+                            <div class="">
+                              <span class="text-danger" ng-show="!frmAnalisis.punto.$valid">
+                                Dato Invalido !
+                              </span>
+                            </div>
+  								</div>
+  								<div class="panel-footer"> </div>
+							</div>
+                	</div>
+
+                	   <div class="col-md-6">
+                			<div class="panel panel-default">
+                				<div class="panel-heading">Evidencia Técnica                                <button ng-click="agregar_evidencia()" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Agregar Nueva Evidencia</button>
+                                </div>
+  								  <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+                                                <input multiple type="file" class="form-control" accept="image/*"  onchange="angular.element(this).scope().eviUpload(event)" file-input="filesEvi">
+                                                <div class="col-md-4" ng-repeat="evi in eviPrev">
+                                                    <img class="thumbnail" ng-src="{{evi}}" height="200px" width="200px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+  								</div>
+  								<div class="panel-footer"> </div>
+							</div>
+                        </div>
+                     </div>
+                    <br>
+	            </div><!-- /.box-body -->
+
+            <div class="panel-footer">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button ng-disabled="guardando" ng-disabled="!frmAnalisis.$valid" type="submit" ng-click="guardar(analisis_suelo)" class="btn btn-success float-left btn-lg">
+                        <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin" ></i> Guardando</span> 
+                        <span ng-hide="guardando" class="button-text"> <i class="fa fa-save" ></i>  Guardar</span>
+                    </button>
+                    <button style="float: right" type="submit" ng-show="buscar" ng-click="reset(frmAnalisis)" class="btn btn-danger btn-lg"><i class="fa fa-times"></i> <span class="button-text"> Cancelar</span></button>
+                </div>
+            </div>
+            </div>
+
+        </form>
+
+</div>

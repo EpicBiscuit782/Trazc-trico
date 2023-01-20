@@ -1,0 +1,81 @@
+<div class="row">
+
+	<div class="col-md-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading with-border">
+            	<div class="row">
+            		<div class="col-md-4 col-md-offset-0">
+            			<h2 class="text-success">Consulta General Gastos</h2>
+            		</div>
+
+              	</div>
+            </div>
+            <!-- /.box-header -->
+            <div class="panel-body">
+
+            	<div class="row">
+            		<br>
+            		<div class="col-md-4 col-md-offset-0">
+            			<div class="info-box">
+                			<span class="info-box-icon bg-yellow"><i class="fa fa-lemon-o"></i></span>
+                			<div class="info-box-content">
+                  				<span class="info-box-number">Gastos Totales</span>
+                  				<span class="info-box-text">Total: <b>{{ total | currency }}</b></span>
+
+                			</div><!-- /.info-box-content -->
+              			</div>
+            		</div>
+              </div>
+
+              <br><br>
+
+              <div class="row">
+                <div class="col-md-5 col-md-offset-2">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+        					<thead >
+        						<th class="text-center success">ACTIVIDAD</th>
+        						<th class="text-right success">COSTO TOTAL</th>
+        					</thead>
+
+        					<tbody>
+        						<tr ng-repeat="gasto in gastos" class="text-center">
+        							<td>{{ gasto.ctl_descripcion }}</td>
+        							<td class="text-right">{{ gasto.costo | currency}}</td>
+        						</tr
+                    <tr>
+                      <th class="success text-right">TOTAL</th>
+                      <th class="success text-right">{{ total | currency }}</th>
+                    </tr>
+        					</tbody>
+                </table>
+            </div>
+                </div>
+            	</div>
+            	<br><br><br>
+
+              <div class="row">
+                <div class="col-md-6 col-md-offset-0" >
+                  <div google-chart chart="myChartObject" style="height:350px;"></div>
+                </div>
+
+                <div class="col-md-6 col-md-offset-0">
+                  <div google-chart chart="myChartObjectBarra" style="height:350px;"></div>
+                </div>
+              </div>
+
+
+              	<br><br>
+
+
+        	</div>
+        	<div class="panel-footer clearfix">
+
+              </ul>
+            </div>
+
+		</div>
+	</div>
+
+</div>

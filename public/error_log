@@ -1,0 +1,2 @@
+[08-Sep-2017 18:00:23 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/coeplim/public_html/public/index.php on line 3
+[08-Sep-2017 18:00:25 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/coeplim/public_html/public/index.php on line 3

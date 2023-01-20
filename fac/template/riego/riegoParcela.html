@@ -1,0 +1,111 @@
+<div class="panel ">
+    <div class="panel-heading with-border">
+        <h2 class="text-success"> <i class="fa fa-plus-circle" ></i> Riego Parcelas</h2>
+    </div>
+
+    <div class="panel-body">
+
+		  <form name="frmVentas" novalidate>
+
+
+			<div class="row">
+
+          <div class="col-md-3 col-md-offset-1">
+               <label for="tg">Seleccione Parcela</label>
+               <div class="input-group">
+                   <span class="input-group-addon"><i class="fa fa-lemon-o"></i></span>
+                   <select class="form-control"
+                          ng-model="info.id_parcela"
+                          required>
+                      <option ng-repeat="parcela in parcelas" value="{{ parcela.id_parcela}}"> {{parcela.pcl_alias}} </option>
+
+                   </select>
+              </div>
+         </div>
+
+						<div class="col-md-3 col-md-offset-1">
+		             <label for="tg">Año</label>
+			           <div class="input-group">
+			               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			               <select class="form-control"
+			                			ng-model="info.year"
+                            ng-change="consulta(info)"
+			                			required>
+      								  <option value="2017"> 2017 </option>
+      								  <option value="2018"> 2018 </option>
+      								  <option value="2019"> 2019 </option>
+								     </select>
+			          </div>
+			     </div>
+
+		</div>
+
+	</form>
+
+			<br><br><br><br>
+
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <label for="">Parcela</label>
+          <h3>{{ alias }}</h3>
+        </div>
+        <div class="col-md-3 col-md-offset-1">
+          <label for="">Año</label>
+          <h3>{{ fecha }}</h3>
+        </div>
+      </div>
+
+      <br><br>
+
+
+				<div class="row">
+					<div class="col-md-4 col-md-offset-4">
+					  <table class="table  table-bordered table-hover">
+					    <thead>
+					      <tr class="success">
+
+					        <th class="text-right">MES</th>
+					        <th class="text-right">TOTAL</th>
+
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr ng-repeat="riego in riegos | filter:buscar">
+					        <td class="text-right">{{ riego.mes }}</td>
+					        <td class="text-right">{{ riego.total + "  LTS"}}</td>
+					      </tr>
+                <tr>
+                  <th class="text-right success">TOTAL</th>
+                  <th class="text-right success">{{ total + ' LTS' }}</th>
+                </tr>
+					    </tbody>
+					  </table>
+					</div>
+				</div>
+
+				<br><br>
+
+
+              <div class="row">
+                <div class="col-md-6 col-md-offset-0" >
+                  <div google-chart chart="myChartObject" style="height:350px;"></div>
+                </div>
+
+                <div class="col-md-6 col-md-offset-0">
+                  <div google-chart chart="myChartObjectBarra" style="height:350px;"></div>
+                </div>
+              </div>
+
+
+              	<br><br>
+
+
+
+
+
+    	</div><!-- /.box-body -->
+    	<div class="panel-footer">
+
+    	</div>
+
+	</div>

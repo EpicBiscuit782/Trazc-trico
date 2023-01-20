@@ -1,0 +1,131 @@
+<div class="box box-success ">
+    <div class="box-header with-border">
+        <h2 class="text-success "> <i class="fa fa-plus-circle"></i> Utilidad </h2>
+    </div>
+    <div class="box-body">
+        <form name="frmRepGral">
+			       <div class="row">
+
+               <div class="col-md-3 col-md-offset-1">
+                    <label for="tg">Seleccione Parcela</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lemon-o"></i></span>
+                        <select class="form-control"
+                               ng-model="info.id_parcela"
+                               required>
+                           <option ng-repeat="parcela in parcelas" value="{{ parcela.id_parcela}}"> {{parcela.pcl_alias}} </option>
+
+                        </select>
+                   </div>
+              </div>
+                <div class="col-md-2 col-md-offset-1">
+                	<label for="fecha">Fecha Inicio</label>
+	                <div class="input-group date" >
+	                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	                	<input type="date"
+	                			class="form-control"
+	                			name="fechaInicio"
+	                			ng-model="info.inicio">
+	            	  </div>
+                  <div class="">
+      							<span class="text-danger" ng-show="errorInicio">
+      								<strong>Fecha Invalida!!!</strong>
+      							</span>
+      						</div>
+	        	   </div>
+
+	        	   <div class="col-md-2 col-md-offset-1">
+                	<label for="fecha">Fecha Fin</label>
+	                <div class="input-group date" >
+	                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	                	<input type="date"
+	                			class="form-control"
+	                			name="fechaFin"
+	                			ng-model="info.fin">
+	            	  </div>
+                  <div class="">
+      							<span class="text-danger" ng-show="errorFin">
+      								<strong>Fecha Invalida!!!</strong>
+      							</span>
+      						</div>
+
+	        	  </div>
+
+	        	  <div class="col-md-1 ">
+	             	<button type="submit" ng-click="consultar(info)" class="btn btn-success" ><i class="fa fa-search "></i> Buscar</button>
+	            </div>
+
+	        </div>
+
+        <br><br>
+
+        <div class="row" ng-show="parcela">
+          <div class="col-md-1 col-md-offset-5">
+            <h3 for="">Parcela:</h3>
+          </div>
+          <div class="col-md-2 col-md-offset-0">
+            <h3 class="">{{ alias }}</h3>
+          </div>
+        </div>
+
+        <br><br>
+
+
+        	<div class="row">
+
+        		<div class="col-md-4 col-md-offset-1">
+        			  <table class="table  table-bordered table-hover">
+        			    <thead>
+        			      <tr class="success">
+
+        			        <th class="text-right">ACTIVIDADES</th>
+        			        <th class="text-right">COSTOS</th>
+
+        			      </tr>
+        			    </thead>
+        			    <tbody>
+        			      <tr ng-repeat="rep in reportes">
+        			        <td class="text-right">{{ rep.ctl_descripcion }}</td>
+                      <td class="text-right">{{ rep.costo | currency }}</td>
+        			      </tr>
+                    <tr class="success">
+                      <th class="text-right">TOTAL</th>
+                      <th class="text-right">{{ totalGastos | currency }}</th>
+                    </tr>
+        			    </tbody>
+        			  </table>
+
+        		</div>
+
+            <div class="col-md-5 col-md-offset-1">
+        			  <table class="table  table-bordered table-hover">
+        			    <thead>
+        			      <tr class="success">
+
+        			        <th class="text-right">VENTAS TOTALES</th>
+        			        <th class="text-right">COSTOS TOTALES</th>
+        			        <th class="text-right">UTILIDAD</th>
+
+        			      </tr>
+        			    </thead>
+        			    <tbody>
+                    <tr class="">
+                      <th class="text-right">{{ subTotal | currency }}</th>
+                      <th class="text-right">{{ totalGastos | currency }}</th>
+                      <th class="text-right"
+                          ng-class="{'text-danger':(subTotal-totalGastos)< 0,
+                                     'text-success':(subTotal-totalGastos)> 0}">
+                            {{ subTotal - totalGastos | currency }}
+                      </th>
+                    </tr>
+        			    </tbody>
+        			  </table>
+        		</div>
+        	</div>
+
+      </form>
+
+    </div><!-- /.box-body -->
+
+
+	</div>

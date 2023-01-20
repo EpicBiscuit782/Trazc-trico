@@ -1,0 +1,64 @@
+<div class="panel panel-">
+        <div class="panel-heading with-border">
+            <h2 class="text-success "><i class="fa fa-plus-circle"></i> Tipo de Enfermedad</h2>
+        </div>
+
+        <form name="frmTipoEnf" novalidate>
+             <div class="panel-body">
+
+				<div class="row"><br>
+                	<div class="col-md-3 col-md-offset-4 ">
+                		<label for="nombre" class="control-label">Tipo</label>
+	                  <div class="input-group">
+
+	                    <span class="input-group-addon"><i class="fa fa-bug"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese Tipo de Enfermedad"
+	                    	   name="tipo_enfermedad"
+	                    	   ng-model="tipo_enfermedad.tipo_enfermedad"
+	                    	   ng-minlength="4"
+	                    	   ng-maxlength="40"
+	                    	   required>
+	                  </div>
+	                 		<div class="">
+        								<span class="text-danger" ng-show="!frmTipoEnf.$pristine && frmTipoEnf.tipo_enfermedad.$error.required">
+        										<strong>Campo Tipo Enfermedad es Requerido!!!</strong>
+        								</span>
+        								<span class="text-danger" ng-show="frmTipoEnf.tipo_enfermedad.$error.minlength">
+                								<strong>Muy Corto!</strong>
+                				</span>
+              					<span class="text-danger" ng-show="frmTipoEnf.tipo_enfermedad.$error.maxlength">
+                						<strong>Muy Largo</strong>
+                				</span>
+							</div>
+	                </div>
+
+
+	             </div>
+				<br>
+
+
+	             <br>
+		        <div class="text-success" ng-show="actualizado">
+		          <h3>Registro Guardado</h3>
+		        </div>
+            <div class="text-danger" ng-show="error">
+		          <h3>Error al Guardar</h3>
+		        </div>
+
+
+	            </div><!-- /.box-body -->
+
+	            <div class="panel-footer">
+	            	<div class="row">
+
+		             	<div class="col-xs-4 col-xs-offset-4">
+		             		<button type="submit" ng-click="guardarTipoEnfermedad(tipo_enfermedad)" class="btn btn-success" ng-disabled="!frmTipoEnf.$valid"><i class="fa fa-save"></i>  Guardar </button>
+		             		<button  class="btn btn-success" ng-click="reset(frmTipoEnf)" ng-show="buscar"><i class="fa fa-times"></i>  Cancelar </button>
+		            </div>
+	            </div>
+
+        </form>
+
+</div>

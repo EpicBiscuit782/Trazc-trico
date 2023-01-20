@@ -1,0 +1,123 @@
+<div class="panel panel-">
+        <div class="panel-heading with-border">
+            <h2 class="text-success "><i class="fa fa-plus-circle"></i> Noticia</h2>
+        </div>
+
+        <form name="frmNoticia" novalidate>
+             <div class="panel-body">
+
+				<div class="row"><br>
+
+          <div class="col-md-4 col-md-offset-2">
+              <label for="titulo">Titulo</label>
+                <div class="input-group text" >
+                  <span class="input-group-addon"><i class="fa fa-newspaper-o"></i></span>
+                  <input type="text"
+                    class="form-control"
+                    name="titulo"
+                    ng-minlength="3"
+                    ng-maxlength="70"
+                    placeholder="Titulo de Noticia"
+                    ng-model="noticia.titulo"
+                    required>
+              </div>
+              <div class="">
+               <span class="text-danger" ng-show="!frmNoticia.$pristine && frmNoticia.titulo.$error.required">
+                   <strong> Titulo es Requerido!!!</strong>
+               </span>
+               <span class="text-danger" ng-show="frmNoticia.titulo.$error.minlength">
+                   <strong>Muy Corto!</strong>
+               </span>
+               <span class="text-danger" ng-show="frmNoticia.titulo.$error.maxlength">
+                   <strong>Muy Largo</strong>
+               </span>
+             </div>
+          </div>
+
+          <div class="col-md-2 col-md-offset-1">
+              <label for="fecha">Fecha</label>
+                <div class="input-group date" >
+
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                  <input type="date"
+                    class="form-control"
+                    name="fecha"
+                    ng-minlength="9"
+                    ng-maxlength="10"
+                    placeholder="YYYY-MM-DD"
+                    ng-model="noticia.fecha"
+                    required>
+              </div>
+              <span class="text-danger" ng-show="!frmNoticia.$pristine && frmNoticia.fecha.$error.required">
+                  <strong> Fecha es Requerido!!!</strong>
+              </span>
+              <span class="text-danger" ng-show="frmNoticia.fecha.$error.minlength">
+                  <strong>Muy Corta!</strong>
+              </span>
+              <span class="text-danger" ng-show="frmNoticia.fecha.$error.maxlength">
+                  <strong>Muy Larga</strong>
+              </span>
+              <span class="text-danger" ng-show="errorFecha">
+                  <strong>Fecha Incorrecta !!!</strong>
+              </span>
+            <!--  <span class="text-danger" ng-show="!frmNoticia.fecha.$valid">
+                  Fecha Incorrecta yyyy-mm-dd
+              </span> -->
+          </div>
+        </div>
+        <br><br>
+
+        <div class="row">
+
+          <div class="col-md-6 col-md-offset-3 ">
+              <label for="noticia" class="control-label">Noticia </label>
+              <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-list-alt"></i></span>
+                  <textarea
+                     class="form-control"
+                     placeholder="Ingrese Noticia"
+                     name="cuerpo"
+                     ng-model="noticia.cuerpo"
+                     cols="12"
+                     rows="20"
+                     required>
+                </textarea>
+              </div>
+              <div class="">
+               <span class="text-danger" ng-show="!frmNoticia.$pristine && frmNoticia.cuerpo.$error.required">
+                   <strong> Noticia es Requerido!!!</strong>
+               </span>
+             </div>
+         </div>
+       </div>
+       <br><br>
+
+
+
+	             <br>
+		        <div class="text-success" ng-show="actualizado">
+		          <h3>Registro Guardado</h3>
+		        </div>
+            <div class="text-danger" ng-show="error">
+		          <h3>Error al Guardar</h3>
+		        </div>
+
+
+	            </div><!-- /.box-body -->
+
+	            <div class="panel-footer">
+	            	<div class="row">
+
+		             	<div class="col-xs-4 col-xs-offset-4">
+		             		<button type="submit" ng-click="guardarNoticia(noticia)" class="btn btn-success"ng-disabled="!frmNoticia.$valid" ><i class="fa fa-save"></i>  Guardar </button>
+                    <button  class="btn btn-success" ng-click="reset(frmNoticia)" ng-show="buscar"><i class="fa fa-times"></i>  Cancelar </button>
+                  </div>
+
+
+
+		            </div>
+	            </div>
+
+        </form>
+
+</div>

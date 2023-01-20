@@ -1,0 +1,149 @@
+<div class="panel panel-">
+    <div class="panel-heading with-border">
+        <h2 class="text-success "><i class="fa fa-plus-circle"></i> Proveedor</h2>
+    </div>
+    <form name="frmProv" novalidate>
+<div class="panel-body"><br>
+
+<div class="row">
+    <div class="col-md-3 col-md-offset-1">
+        <label for="empresa">Empresa</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-industry"></i></span>
+            <input type="text" class="form-control" placeholder="Ingrese Empresa" name="empresa" ng-model="proveedor.empresa" ng-minlength="4" ng-maxlength="70" required>
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmProv.$pristine && frmProv.empresa.$error.required">
+                <strong> Empresa es Requerido!!!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmProv.empresa.$error.minlength">
+                <strong>Muy Corto!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmProv.empresa.$error.maxlength">
+                <strong>Muy Largo</strong>
+            </span>
+        </div>
+    </div>
+    <div class="col-md-3 col-md-offset-0">
+        <label for="corte">Área</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-info"></i></span>
+            <select class="form-control" name="area" ng-model="proveedor.area" required>
+                <option value="PRODUCCIÓN">PRODUCCIÓN</option>
+                <option value="COSECHA">COSECHA</option>
+                <option value="EMPAQUE">EMPAQUE</option>
+                <option value="EMPAQUE">SERVICIOS</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-md-offset-0">
+        <label for="localizacion">Número de Certificación</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
+            <input type="text" class="form-control" placeholder="Ingrese código de certificación del proveedor" name="certificacion" ng-model="proveedor.certificacion">
+        </div>
+    </div>
+
+
+</div>
+<br>
+
+<div class="row">
+    <div class="col-md-3 col-md-offset-1">
+        <label for="localizacion">Dirección</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
+            <input type="text" class="form-control" placeholder="Ingrese localizacion" name="localizacion" ng-model="proveedor.localizacion" ng-minlength="4" ng-maxlength="60" required>
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmProv.$pristine && frmProv.localizacion.$error.required">
+                <strong> Dirección es Requerido!!!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmProv.localizacion.$error.minlength">
+                <strong>Muy Corto!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmProv.localizacion.$error.maxlength">
+                <strong>Muy Largo</strong>
+            </span>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-md-offset-0">
+        <label for="telefono">Teléfono</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+            <input type="text" class="form-control" placeholder="Ingrese telefono" name="telefono" ng-model="proveedor.telefono" ng-minlength="7" ng-maxlength="10" ng-pattern="/^[0-9]{1,10}$/" required>
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmProv.$pristine && frmProv.telefono.$error.required">
+                <strong> Teléfono es Requerido!!!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmProv.telefono.$error.minlength">
+                <strong>Muy Corto!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmProv.telefono.$error.maxlength">
+                <strong>Muy Largo</strong>
+            </span><br>
+            <span class="text-danger" ng-show="!frmProv.telefono.$valid">
+                Dato Invalido !
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-md-offset-0">
+        <label for="correo">Correo Electrónico</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+            <input type="email" class="form-control" placeholder="Ingrese Dirección Electronica" name="correo" ng-model="proveedor.direccion_elect" ng-minlength="6" ng-maxlength="80">
+        </div>
+        <div class="">
+            <span class="text-danger" ng-show="!frmProv.$pristine && frmProv.correo.$error.required">
+                <strong>Correo es Requerido!!!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmProv.correo.$error.minlength">
+                <strong>Muy Corto!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmProv.correo.$error.email">
+                <strong>Correo Invalido!</strong>
+            </span>
+            <span class="text-danger" ng-show="frmProv.correo.$error.maxlength">
+                <strong>Muy Largo</strong>
+            </span>
+        </div>
+    </div>
+
+</div>
+<br>
+				<div class="col-md-12">
+				    <div class="panel panel-default">
+				        <div class="panel-heading">Contrato con el Proveedor</div>
+				        <div class="panel-body">
+				            <div class="row">
+				                <div class="col-md-4">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+				                        <input multiple type="file" class="form-control" onchange="angular.element(this).scope().eviUpload(event)" file-input="filesEvi">
+				                        <div class="col-md-4" ng-repeat="evi in eviPrev">
+				                            <img class="thumbnail" ng-src="{{evi}}" height="200px" width="200px" />
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+
+</div><!-- /.box-body -->
+    
+        <div class="panel-footer">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button ng-disabled="guardando" ng-disabled="!frmProv.$valid" type="submit" ng-click="guardarProveedor(proveedor)" class="btn btn-success float-left btn-lg">
+                        <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin" ></i> Guardando</span> 
+                        <span ng-hide="guardando" class="button-text"> <i class="fa fa-save" ></i>  Guardar</span>
+                    </button>
+                    <button style="float: right" type="submit" ng-show="buscar" ng-click="reset(frmProv)" class="btn btn-danger btn-lg"><i class="fa fa-times"></i> <span class="button-text"> Cancelar</span></button>
+                </div>
+            </div>
+        </div>

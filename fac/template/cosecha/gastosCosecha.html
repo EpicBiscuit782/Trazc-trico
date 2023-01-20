@@ -1,0 +1,71 @@
+<div class="panel ">
+        <div class="panel-heading with-border">
+            <h2 class="text-success"> <i class="fa fa-plus-circle" ></i> Gastos Cosecha Anual</h2>
+        </div>
+
+        <div class="panel-body">
+
+
+					<div class="row">
+						      <div class="col-md-2 col-md-offset-4">
+		                	<label for="tg">Año</label>
+			                <div class="input-group">
+
+			                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			                	<select class="form-control"
+			                			ng-model="fecha.year"
+			                			ng-change="consulta(fecha)" required>
+        								  <option value="2017"> 2017 </option>
+        								  <option value="2018"> 2018 </option>
+        								  <option value="2019"> 2019 </option>
+								        </select>
+			            	</div>
+			        	 </div>
+
+			        </div>
+
+
+			<br><br>
+
+
+				<div class="row">
+					<div class="col-md-2 col-md-offset-4">
+					  <table class="table  table-bordered table-hover">
+					    <thead>
+					      <tr class="success">
+
+					        <th class="text-right">Mes</th>
+					        <th class="text-right">CORTE</th>
+					        <th class="text-right">ACARREO</th>
+					        <th class="text-right">CARGA</th>
+
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr ng-repeat="repCosec in gastos ">
+					        <td class="text-right">{{ repCosec.mes }}</td>
+					        <td class="text-right">{{ repCosec.corte | currency }}</td>
+					        <td class="text-right">{{ repCosec.acarreo | currency }}</td>
+					        <td class="text-right">{{ repCosec.carga | currency }}</td>
+					      </tr>
+                <tr class="success">
+                  <th class="text-right">Total</th>
+					        <th class="text-right success">{{ corteT | currency}}</th>
+					        <th class="text-right success">{{ acarreoT | currency}}</th>
+					        <th class="text-right success">{{ cargaT | currency}}</th>
+                </tr>
+					    </tbody>
+					  </table>
+					</div>
+				</div>
+
+				<br><br>
+
+
+
+    	</div><!-- /.box-body -->
+    	<div class="panel-footer">
+
+    	</div>
+
+	</div>

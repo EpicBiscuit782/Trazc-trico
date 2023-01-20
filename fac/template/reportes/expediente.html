@@ -1,0 +1,512 @@
+<div class="box box-success ">
+    <div class="box-header with-border">
+        <h2 class="text-success "> <i class="fa fa-plus-circle"></i> Expediente Técnico</h2>
+    </div>
+    <div class="box-body body-text">
+        <form name="frmRepGral">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="tg">Seleccione Parcela</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lemon-o"></i></span>
+                        <select class="form-control" ng-model="repGral.id_parcela" ng-change="excel()" required selected>
+                            <option ng-repeat="parcela in parcelas" value="{{ parcela.id_parcela}}"> {{parcela.pcl_alias}} </option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                    <label for="fecha">Fecha Inicio</label>
+                    <div class="input-group date">
+
+                        <input type="date" class="form-control" name="fechaInicio" placeholder="YYYY-MM-DD" ng-model="repGral.inicio">
+                    </div>
+                    <div class="">
+                        <span class="text-danger" ng-show="errorInicio">
+                            <strong>Fecha Invalida!!!</strong>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="fecha">Fecha Fin</label>
+                    <div class="input-group date">
+                        <input type="date" class="form-control" name="fechaFin" placeholder="YYYY-MM-DD" ng-model="repGral.fin">
+                    </div>
+                    <div class="">
+                        <span class="text-danger" ng-show="errorFin">
+                            <strong>Fecha Invalida!!!</strong>
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-1 ">
+                    <button type="submit" title="Se requiere seleccionar una parcela para buscar infromación" ng-click="prev()" ng-disabled="frmRepGral.$invalid" class="btn btn-success"><i class="fa fa-search "></i> Buscar</button>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="submit" title="Se requiere seleccionar una parcela para crear el documento técnico" ng-disabled="frmRepGral.$invalid" ng-click="crearDocExcel()" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Descargar documento técnico </button>
+                </div>
+            </div>
+
+            <br>
+        </form>
+        <div class="container col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseOne">
+                        Balance Anual
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table  table-bordered table-hover">
+                                        <thead>
+                                            <tr class="success">
+
+                                                <th class="text-left">Mes</th>
+                                                <th class="text-right">Total Rejas</th>
+                                                <th class="text-right">Total Kilos</th>
+                                                <th class="text-right">Sub-Total ($)</th>
+                                                <th class="text-right">Gastos-Cosecha ($)</th>
+                                                <th class="text-right">Total ($)</th>
+                                                <th class="text-right">Aplicación ($)</th>
+                                                <th class="text-right">Insumos ($)</th>
+                                                <th class="text-right">Balance Mensual ($)</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-init="total2 = 0;total3 = 0;total4 = 0;total5 = 0;total6 = 0;total_ap = 0;total_insumos = 0;balance = 0">
+                                            <tr ng-repeat="(key, value) in balance_anual" class="text-center">
+                                                <td class="text-left">{{ key }}</td>
+                                                <td class="text-right" ng-init="$parent.total3 = $parent.total3 + value.rejas_total">{{ value.rejas_total }}</td>
+                                                <td class="text-right" ng-init="$parent.total4 = $parent.total4 + (value.kilos_total)">{{ value.kilos_total }}</td>
+                                                <td class="text-right" ng-init="$parent.total5 = $parent.total5 + (value.sub_total)">{{ value.sub_total | currency }}</td>
+                                                <td class="text-right" ng-init="$parent.total6 = $parent.total6 + (value.CARGA_DESCARGA + value.CORTE + value.ACARREO)">{{ (value.CARGA_DESCARGA + value.CORTE + value.ACARREO)  | currency }}</td>
+                                                <td class="text-right" ng-init="$parent.total2 = $parent.total2 + (value.sub_total-(value.CARGA_DESCARGA + value.CORTE + value.ACARREO))">{{ value.sub_total-(value.CARGA_DESCARGA + value.CORTE + value.ACARREO)  | currency }}</td>
+                                                <td class="text-right" ng-init="$parent.total_ap = $parent.total_ap + (value.costo_macheteo + value.costo_ap_herb + value.costo_ap_foliar+ value.costo_riego + value.desmamone+ value.poda + value.costo_ap_suelo+ value.costo_rastreo)">{{ (value.costo_macheteo + value.costo_ap_herb + value.costo_ap_foliar+ value.costo_riego + value.desmamone+ value.poda + value.costo_ap_suelo+ value.costo_rastreo)  | currency }}</td>
+                                                <td class="text-right" ng-init="$parent.total_insumos = $parent.total_insumos + (value.disel + value.gasolina + value.refacciones+ value.energia + value.costo_herb + value.costo_insec + value.costo_fungi + value.costo_foliar + value.costo_suelo)">{{ (value.disel + value.gasolina + value.refacciones+ value.energia + value.costo_herb + value.costo_insec + value.costo_fungi + value.costo_foliar + value.costo_suelo)  | currency }}</td>
+                                                <td class="text-right" ng-init="$parent.balance = $parent.balance + (value.sub_total-(value.CARGA_DESCARGA + value.CORTE + value.ACARREO))-(value.costo_macheteo + value.costo_ap_herb + value.costo_ap_foliar+ value.costo_riego + value.desmamone+ value.poda + value.costo_ap_suelo+ value.costo_rastreo)-(value.disel + value.gasolina + value.refacciones+ value.energia + value.costo_herb + value.costo_insec + value.costo_fungi + value.costo_foliar + value.costo_suelo)" ng-class="{ 'text-danger': (value.sub_total-(value.CARGA_DESCARGA + value.CORTE + value.ACARREO))-(value.costo_macheteo + value.costo_ap_herb + value.costo_ap_foliar+ value.costo_riego + value.desmamone+ value.poda + value.costo_ap_suelo+ value.costo_rastreo)-(value.disel + value.gasolina + value.refacciones+ value.energia + value.costo_herb + value.costo_insec + value.costo_fungi + value.costo_foliar + value.costo_suelo) < 0 }">{{ (value.sub_total-(value.CARGA_DESCARGA + value.CORTE + value.ACARREO))-(value.costo_macheteo + value.costo_ap_herb + value.costo_ap_foliar+ value.costo_riego + value.desmamone+ value.poda + value.costo_ap_suelo+ value.costo_rastreo)-(value.disel + value.gasolina + value.refacciones+ value.energia + value.costo_herb + value.costo_insec + value.costo_fungi + value.costo_foliar + value.costo_suelo)  | currency }}</td>
+                                            </tr>
+
+                                            <tr class="success">
+                                                <td class="text-left"><strong>Total</strong></td>
+                                                <td class="text-right"><strong>{{ total3 }}</strong></td>
+                                                <td class="text-right"><strong>{{ total4 }}</strong></td>
+                                                <td class="text-right"><strong>{{ total5 | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total6 | currency }}</strong></td>
+                                                <td class="text-right" ng-class="{ 'text-danger': total6 < 0 }"><strong>{{ total2 | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_ap | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_insumos | currency }}</strong></td>
+                                                <td class="text-right" ng-class="{ 'text-danger': balance < 0 }"><strong>{{ balance | currency }}</strong></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container col-md-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseThree">
+                        Costos de la labor o aplicación
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+
+                                <table class="table  table-bordered table-hover" id="beneficio">
+                                    <thead>
+                                        <tr class="success">
+                                            <th class="text-left">Mes</th>
+                                            <th class="text-right">Macheteada</th>
+                                            <th class="text-right">Aplic. Herb.</th>
+                                            <th class="text-right">Aplic. Foliar</th>
+                                            <th class="text-right">Riego</th>
+                                            <th class="text-right">Q. Chupones</th>
+                                            <th class="text-right">Poda</th>
+                                            <th class="text-right">Fer. Edafica</th>
+                                            <th class="text-right">Rastreada/Desvare</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-init="total_macheteo = 0;total_ap_herb = 0;total_ap_foliar = 0;total_riego = 0;total_desmamone = 0;total_poda = 0;total_ap_suelo = 0;total_rastreo = 0;total_costos=0;">
+                                        <tr ng-repeat="(key, value) in costos_labor" class="text-center">
+                                            <td class="text-left">{{ key }}</td>
+                                            <td class="text-right" ng-init="$parent.total_macheteo = $parent.total_macheteo + value.costo_macheteo">{{ value.costo_macheteo | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_ap_herb = $parent.total_ap_herb + (value.costo_ap_herb)">{{ value.costo_ap_herb | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_ap_foliar = $parent.total_ap_foliar + (value.costo_ap_foliar)">{{ value.costo_ap_foliar | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_riego = $parent.total_riego + (value.costo_riego)">{{ value.costo_riego | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_desmamone = $parent.total_desmamone + (value.desmamone)">{{ value.desmamone | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_poda = $parent.total_poda + (value.poda)">{{ value.poda | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_ap_suelo = $parent.total_ap_suelo + (value.costo_ap_suelo)">{{ value.costo_ap_suelo | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_rastreo = $parent.total_rastreo + (value.costo_rastreo)">{{ value.costo_rastreo | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_costos = $parent.total_costos + (value.costo_macheteo + value.costo_ap_herb + value.costo_ap_foliar+ value.costo_riego + value.desmamone+ value.poda + value.costo_ap_suelo+ value.costo_rastreo)">{{ (value.costo_macheteo + value.costo_ap_herb + value.costo_ap_foliar+ value.costo_riego + value.desmamone+ value.poda + value.costo_ap_suelo+ value.costo_rastreo)  | currency }}</td>
+                                        </tr>
+                                            <tr class="success">
+                                                <td class="text-left"><strong>Total</strong></td>
+                                                <td class="text-right"><strong>{{ total_macheteo | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_ap_herb | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_ap_foliar | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_riego | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_desmamone | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_poda | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_ap_suelo | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_rastreo | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_costos | currency }}</strong></td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container col-md-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseFour">
+                        Costo de los insumos
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered table-hover" id="beneficio">
+                                    <thead>
+                                        <tr class="success">
+                                            <th class="text-left">Mes</th>
+                                            <th class="text-right">Diesel</th>
+                                            <th class="text-right">Gasolina</th>
+                                            <th class="text-right">Refacciones</th>
+                                            <th class="text-right">Energía</th>
+                                            <th class="text-right">Herbicida</th>
+                                            <th class="text-right">Insecticida</th>
+                                            <th class="text-right">Funguicida</th>
+                                            <th class="text-right">Fer. Foliar</th>
+                                            <th class="text-right">Fer. Edafica</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-init="total_diesel = 0;total_gasolina = 0;total_refa = 0;total_energia = 0;total_herb = 0;total_insec = 0;total_fungi = 0;total_foliar = 0;total_suelo = 0;total_costos_insu=0">
+                                        <tr ng-repeat="(key, value) in costos_insumos" class="text-center">
+                                            <td class="text-left">{{ key }}</td>
+                                            <td class="text-right" ng-init="$parent.total_diesel = $parent.total_diesel + value.disel">{{ value.disel | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_gasolina = $parent.total_gasolina + (value.gasolina)">{{ value.gasolina | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_refa = $parent.total_refa + (value.refacciones)">{{ value.refacciones | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_energia = $parent.total_energia + (value.energia)">{{ value.energia | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_herb = $parent.total_herb + (value.costo_herb)">{{ value.costo_herb | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_insec = $parent.total_insec + (value.costo_insec)">{{ value.costo_insec | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_fungi = $parent.total_fungi + (value.costo_fungi)">{{ value.costo_fungi | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_foliar = $parent.total_foliar + (value.costo_foliar)">{{ value.costo_foliar | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_suelo = $parent.total_suelo + (value.costo_suelo)">{{ value.costo_suelo | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_costos_insu = $parent.total_costos_insu + (value.disel + value.gasolina + value.refacciones+ value.energia + value.costo_herb + value.costo_insec + value.costo_fungi + value.costo_foliar + value.costo_suelo)">{{ (value.disel + value.gasolina + value.refacciones+ value.energia + value.costo_herb + value.costo_insec + value.costo_fungi + value.costo_foliar + value.costo_suelo)  | currency }}</td>
+                                        </tr>
+                                            <tr class="success">
+                                                <td class="text-left"><strong>Total</strong></td>
+                                                <td class="text-right"><strong>{{ total_diesel | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_gasolina | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_refa | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_energia | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_herb | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_insec | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_fungi | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_foliar | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_suelo | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_costos_insu | currency }}</strong></td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseTwo">
+                        Producción y Cosecha
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+
+                            <table class="table  table-bordered table-hover">
+                                <thead>
+                                    <tr class="success">
+                                        <th class="text-left" >Mes</th>
+                                        <th class="text-center" colspan="2">Producción</th>
+                                        <th class="text-center" colspan="2">Precio del limón</th>
+                                        <th class="text-center" >Subtotal</th>
+                                        <th class="text-center" colspan="3">Gastos</th>
+                                        <th class="text-center" >Total</th>
+
+                                    </tr>
+                                    
+                                    <tr class="success">
+                                        <th></th>
+                                        <th class="text-right">Rejas</th>
+                                        <th class="text-right">Kg</th>
+                                        <th class="text-right">$/Rejas</th>
+                                        <th class="text-right">$/Kg</th>
+                                        <th></th>
+                                        <th class="text-right">Corte</th>
+                                        <th class="text-right">Acarreo</th>
+                                        <th class="text-right">Carga/Descarga</th>
+                                        <th></th>
+
+                                        
+                                    </tr>
+                                </thead>
+                            <tbody ng-init="rejas_total = 0;kilos_total = 0;preja_total = 0;pkilo_total = 0;sub_total = 0;corte = 0;acarreo = 0;carga = 0;prod_total=0">
+                                <tr ng-repeat="(key, value) in balance_anual" class="text-center">
+                                    <td class="text-left">{{ key }}</td>
+                                    <td class="text-right" ng-init="$parent.rejas_total = $parent.rejas_total + value.rejas_total">{{ value.rejas_total }}</td>
+                                    <td class="text-right" ng-init="$parent.kilos_total = $parent.kilos_total + (value.kilos_total)">{{ value.kilos_total }}</td>
+                                    <td class="text-right" ng-init="$parent.preja_total = $parent.preja_total + value.preja_total">{{ value.preja_total | currency}}</td>
+                                    <td class="text-right" ng-init="$parent.pkilo_total = $parent.pkilo_total + (value.pkilo_total)">{{ value.pkilo_total | currency}}</td>
+                                    <td class="text-right" ng-init="$parent.sub_total = $parent.sub_total + (value.sub_total)">{{ value.sub_total | currency }}</td>
+                                    <td class="text-right" ng-init="$parent.corte = $parent.corte + ( value.CORTE)">{{ (value.CORTE)  | currency }}</td>
+                                    <td class="text-right" ng-init="$parent.acarreo = $parent.acarreo + (value.ACARREO)">{{ (value.ACARREO)  | currency }}</td>
+                                    <td class="text-right" ng-init="$parent.carga = $parent.carga + (value.CARGA_DESCARGA)">{{ (value.CARGA_DESCARGA)  | currency }}</td>
+                                    <td class="text-right" ng-init="$parent.prod_total = $parent.prod_total + (value.sub_total-(value.CARGA_DESCARGA + value.CORTE + value.ACARREO))">{{ value.sub_total-(value.CARGA_DESCARGA + value.CORTE + value.ACARREO)  | currency }}</td>
+
+                                </tr>
+
+                                <tr class="success">
+                                    <td class="text-left"><strong>Total</strong></td>
+                                    <td class="text-right"><strong>{{ rejas_total }}</strong></td>
+                                    <td class="text-right"><strong>{{ kilos_total }}</strong></td>
+                                    <td class="text-right"><strong>{{calculateAverageReja(balance_anual) | currency}}</strong></td>
+                                    <td class="text-right"><strong>{{calculateAverageKilo(balance_anual) | currency}}</strong></td>
+                                    <td class="text-right" ng-class="{ 'text-danger': sub_total < 0 }"><strong>{{ sub_total | currency }}</strong></td>
+                                    <td class="text-right"><strong>{{ corte | currency }}</strong></td>
+                                    <td class="text-right"><strong>{{ acarreo | currency }}</strong></td>
+                                    <td class="text-right"><strong>{{ carga | currency }}</strong></td>
+                                    <td class="text-right" ng-class="{ 'text-danger': prod_total < 0 }"><strong>{{ prod_total | currency }}</strong></td>
+                                </tr>
+
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        
+        <div class="container col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-target="#ins-fu-fert">
+                        Insecticida - Fungicida - Fertilización Foliar/Suelo
+                    </h4>
+                </div>
+                <div id="ins-fu-fert" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+
+                            <table class="table  table-bordered table-hover">
+                                <thead>
+                                    <tr class="success">
+                                        <th class="text-left" >Mes</th>
+                                        <th class="text-center" colspan="2">Insecticida</th>
+                                        <th class="text-center" colspan="2">Fungicida</th>
+                                        <th class="text-center" colspan="2">Fertilización Foliar</th>
+                                        <th class="text-center" colspan="2">Fertilización Suelo</th>
+
+                                    </tr>
+                                    
+                                    <tr class="success">
+                                        <th></th>
+                                        <th class="text-right">Cantidad</th>
+                                        <th class="text-right">Costo</th>
+                                        <th class="text-right">Cantidad</th>
+                                        <th class="text-right">Costo</th>
+                                        <th class="text-right">Cantidad</th>
+                                        <th class="text-right">Costo</th>
+                                        <th class="text-right">Cantidad</th>
+                                        <th class="text-right">Costo</th>
+                                    </tr>
+                                    </thead>
+                        <tbody ng-init="total_costo_insec = 0;total_cant_insec = 0;total_costo_fungi = 0;total_cant_fungi = 0;total_costo_foliar = 0;total_cant_foliar = 0;total_costo_suelo = 0;total_cant_suelo = 0;">
+                            <tr ng-repeat="(key, value) in costos_insumos" class="text-center">
+                                <td class="text-left">{{ key }}</td>
+                                <td class="text-right" ng-init="$parent.total_cant_insec = $parent.total_cant_insec + (value.cantidad_insec)">{{ value.cantidad_insec | currency }}</td>
+                                <td class="text-right" ng-init="$parent.total_costo_insec = $parent.total_costo_insec + (value.costo_insec)">{{ value.costo_insec | currency }}</td>
+                                <td class="text-right" ng-init="$parent.total_costo_fungi = $parent.total_costo_fungi + (value.cantidad_fungi)">{{ value.cantidad_fungi | currency }}</td>
+                                <td class="text-right" ng-init="$parent.total_costo_fungi = $parent.total_costo_fungi + (value.costo_fungi)">{{ value.costo_fungi | currency }}</td>
+                                <td class="text-right" ng-init="$parent.total_cant_foliar = $parent.total_cant_foliar + (value.cantidad_foliar)">{{ value.cantidad_foliar | currency }}</td>
+                                <td class="text-right" ng-init="$parent.total_costo_foliar = $parent.total_costo_foliar + (value.costo_foliar)">{{ value.costo_foliar | currency }}</td>
+                                <td class="text-right" ng-init="$parent.total_cant_suelo = $parent.total_cant_suelo + (value.cantidad_suelo)">{{ value.cantidad_suelo | currency }}</td>
+                                <td class="text-right" ng-init="$parent.total_costo_suelo = $parent.total_costo_suelo + (value.costo_suelo)">{{ value.costo_suelo | currency }}</td>
+
+                            </tr>
+                            <tr class="success">
+                                <td class="text-left"><strong>Total</strong></td>
+
+                                <td class="text-right"><strong>{{ total_cant_insec | currency }}</strong></td>
+                                <td class="text-right"><strong>{{ total_costo_insec | currency }}</strong></td>
+                                <td class="text-right"><strong>{{ total_cant_fungi | currency }}</strong></td>
+                                <td class="text-right"><strong>{{ total_costo_fungi | currency }}</strong></td>
+                                <td class="text-right"><strong>{{ total_cant_foliar | currency }}</strong></td>
+                                <td class="text-right"><strong>{{ total_costo_foliar | currency }}</strong></td>
+                                <td class="text-right"><strong>{{ total_cant_suelo | currency }}</strong></td>
+                                <td class="text-right"><strong>{{ total_costo_suelo | currency }}</strong></td>
+
+                            </tr>
+                        </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        
+        <div class="container col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-target="#comb_refa">
+                        Combustible y Refacciones
+                    </h4>
+                </div>
+                <div id="comb_refa" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+
+                            <table class="table  table-bordered table-hover">
+                                <thead>
+                                    <tr class="success">
+                                        <th class="text-left" >Mes</th>
+                                        <th class="text-center" >Diesel</th>
+                                        <th class="text-center" >Gasolina</th>
+                                        <th class="text-center" >Energía</th>
+                                        <th class="text-center" >Refacciones</th>
+                                        <th class="text-center" >Total</th>
+
+                                    </tr>
+                                    
+                                    <tr class="success">
+                                        <th></th>
+                                        <th class="text-right">Costo</th>
+                                        <th class="text-right">Costo</th>
+                                        <th class="text-right">Costo</th>
+                                        <th class="text-right">Costo</th>
+                                        <th></th>
+
+                                        
+                                    </tr>
+                                </thead>
+                                    <tbody ng-init="total_diesel2 = 0;total_gasolina2 = 0;total_refa2 = 0;total_energia2 = 0;total_costos_insu2 =0 ">
+                                        <tr ng-repeat="(key, value) in costos_insumos" class="text-center">
+                                            <td class="text-left">{{ key }}</td>
+                                            <td class="text-right" ng-init="$parent.total_diesel2 = $parent.total_diesel2 + value.disel">{{ value.disel | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_gasolina2 = $parent.total_gasolina2 + (value.gasolina)">{{ value.gasolina | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_energia2 = $parent.total_energia2 + (value.energia)">{{ value.energia | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_refa2 = $parent.total_refa2 + (value.refacciones)">{{ value.refacciones | currency }}</td>
+                                           
+                                            <td class="text-right" ng-init="$parent.total_costos_insu2 = $parent.total_costos_insu2 + (value.disel + value.gasolina + value.refacciones+ value.energia)">{{ (value.disel + value.gasolina + value.refacciones+ value.energia)  | currency }}</td>
+                                        </tr>
+                                            <tr class="success">
+                                                <td class="text-left"><strong>Total</strong></td>
+                                                <td class="text-right"><strong>{{ total_diesel2 | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_gasolina2 | currency }}</strong></td>
+
+                                                <td class="text-right"><strong>{{ total_energia2 | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_refa2 | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_costos_insu2 | currency }}</strong></td>
+                                            </tr>
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-target="#rie_fert_poda">
+                        Riego - Fertilización - Poda
+                    </h4>
+                </div>
+                <div id="rie_fert_poda" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+
+                            <table class="table  table-bordered table-hover">
+                                <thead>
+                                    <tr class="success">
+                                        <th class="text-left" >Mes</th>
+                                        <th class="text-center" >Riego</th>
+                                        <th class="text-center" colspan="2">Fertilización Suelo</th>
+                                        <th class="text-center" >Aplicación</th>
+                                        <th class="text-center" >Desmamone</th>
+                                        <th class="text-center" >Poda</th>
+
+                                    </tr>
+                                    
+                                    <tr class="success">
+                                        <th></th>
+                                        <th class="text-right">Costo</th>
+                                        <th class="text-right">Cantidad</th>
+                                        <th class="text-right">Costo</th>
+                                        <th class="text-right">Costo</th>
+                                        <th class="text-right">Costo</th>
+                                        <th class="text-right">Costo</th>
+                                        
+                                    </tr>
+                                </thead>
+                                    <tbody ng-init="total_macheteo2 = 0;total_riego2 = 0;total_desmamone2 = 0;total_poda2 = 0;total_ap_suelo2 = 0;total_cant_suelo2 = 0;total_cost_suelo2 = 0;">
+                                        <tr ng-repeat="(key, value) in costos_labor" class="text-center">
+                                            <td class="text-left">{{ key }}</td>
+                                            <td class="text-right" ng-init="$parent.total_riego2 = $parent.total_riego2 + (value.costo_riego)">{{ value.costo_riego | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_cant_suelo2 = $parent.total_cant_suelo2 + (value.cantidad_suelo)">{{ value.cantidad_suelo | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_cost_suelo2 = $parent.total_cost_suelo2 + (value.costo_suelo)">{{ value.costo_suelo | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_ap_suelo2 = $parent.total_ap_suelo2 + (value.costo_ap_suelo)">{{ value.costo_ap_suelo | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_desmamone2 = $parent.total_desmamone2 + (value.desmamone)">{{ value.desmamone | currency }}</td>
+                                            <td class="text-right" ng-init="$parent.total_poda2 = $parent.total_poda2 + (value.poda)">{{ value.poda | currency }}</td>
+            
+                                        </tr>
+                                            <tr class="success">
+                                                <td class="text-left"><strong>Total</strong></td>
+                                                <td class="text-right"><strong>{{ total_riego2 | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_cant_suelo2 | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_cost_suelo2 | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_ap_suelo2 | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_desmamone2 | currency }}</strong></td>
+                                                <td class="text-right"><strong>{{ total_poda2 | currency }}</strong></td>
+
+
+                                            </tr>
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.box-body -->
+</div>

@@ -1,0 +1,160 @@
+<div class="panel panel-">
+    <div class="panel-heading with-border">
+        <h2 class="text-success "><i class="fa fa-plus-circle"></i> Responsable </h2>
+    </div>
+        <form name="frmResp" novalidate>
+            <div class="panel-body"><br>
+
+					<div class="row">
+              <div class="col-md-3 col-md-offset-3">
+                	<label for="nombre">Nombre</label>
+	                <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+	                    <input type="text"
+	                    	   class="form-control"
+	                    	   placeholder="Ingrese nombre"
+	                    	   name="nombre"
+	                    	   ng-model="responsable.nombre"
+	                    	   ng-minlength="4"
+	                    	   ng-maxlength="70"
+	                    	   required>
+	               </div>
+  	              <div class="">
+      								<span class="text-danger" ng-show="!frmResp.$pristine && frmResp.nombre.$error.required">
+      										<strong>Campo nombre es Requerido!!!</strong>
+      								</span>
+      								<span class="text-danger" ng-show="frmResp.nombre.$error.minlength">
+              								<strong>Muy Corto!</strong>
+              				</span>
+        							<span class="text-danger" ng-show="frmResp.nombre.$error.maxlength">
+          								<strong>Muy Largo</strong>
+          						</span>
+  							 </div>
+	            </div>
+
+              <div class="col-md-3 col-md-offset-0">
+                	<label for="direccion">Direccion</label>
+	                <div class="input-group">
+	                   <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
+	                   <input type="text"
+	                    	  class="form-control"
+	                    	  placeholder="Ingrese direccion"
+	                    	  name="direccion"
+	                    	  ng-model="responsable.direccion"
+	                    	  ng-minlength="4"
+	                    	  ng-maxlength="80"
+	                    	  required>
+	                </div>
+	                <div class="">
+    								<span class="text-danger" ng-show="!frmResp.$pristine && frmResp.direccion.$error.required">
+    										<strong>Campo direccion es Requerido!!!</strong>
+    								</span>
+    								<span class="text-danger" ng-show="frmResp.direccion.$error.minlength">
+            						<strong>Muy Corto!</strong>
+            				</span>
+      							<span class="text-danger" ng-show="frmResp.direccion.$error.maxlength">
+        								<strong>Muy Largo</strong>
+        						</span>
+							    </div>
+	           </div>
+
+	      </div>
+				<br>
+
+				<div class="row">
+            <div class="col-md-3 col-md-offset-3">
+                <label for="telefono">Teléfono</label>
+	              <div class="input-group">
+	                  <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+	                  <input type="text"
+	                    	 class="form-control"
+	                    	 placeholder="Ingrese telefono"
+	                    	 name="telefono"
+	                    	 ng-model="responsable.telefono"
+                         ng-pattern="/^[0-9]{1,10}$/"
+	                    	 ng-minlength="7"
+	                    	 ng-maxlength="10"
+	                    	 required>
+	              </div>
+	              <div class="">
+								   <span class="text-danger" ng-show="!frmResp.$pristine && frmResp.telefono.$error.required">
+										   <strong>Campo Telefono es Requerido!!!</strong>
+								   </span>
+								   <span class="text-danger" ng-show="frmResp.telefono.$error.minlength">
+        							<strong>Muy Corto!</strong>
+        					 </span>
+      						 <span class="text-danger" ng-show="frmResp.telefono.$error.maxlength">
+        							<strong>Muy Largo</strong>
+        					 </span><br>
+                   <span class="text-danger" ng-show="!frmResp.telefono.$valid">
+                       Dato Invalido !
+                   </span>
+							 </div>
+	        </div>
+
+          <div class="col-md-3 col-md-offset-0">
+              <label for="correo">Correo Electrónico </label>
+	            <div class="input-group">
+	                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+	                <input type="email"
+	                     class="form-control"
+	                     placeholder="Ingrese Dirección Electronica"
+	                     name="correo"
+	                     ng-model="responsable.correo"
+	                     ng-minlength="8"
+	                     ng-maxlength="80">
+	           </div>
+	           <div class="">
+                <span class="text-danger" ng-show="frmResp.correo.$error.email">
+                    <strong>Correo Invalido!</strong>
+                </span>
+								<span class="text-danger" ng-show="frmResp.correo.$error.minlength">
+        						<strong>Muy Corto!</strong>
+        				</span>
+      					<span class="text-danger" ng-show="frmResp.correo.$error.maxlength">
+        						<strong>Muy Largo</strong>
+        				</span>
+						</div>
+	       </div>
+
+	    </div>
+			<br>
+
+				<div class="row">
+						<div class="col-md-3 col-md-offset-3">
+		                	<label for="puesto">Puesto</label>
+			                <div class="input-group">
+
+			                	<span class="input-group-addon"><i class="fa fa-lemon-o"></i></span>
+			                	<select class="form-control"
+			                			ng-model="responsable.puesto"
+			                			required>
+								                    <option value="INOCUIDAD"> INOCUIDAD </option>
+								                    <option value="COSECHA"> COSECHA </option>
+								         </select>
+			            	</div>
+			        	</div>
+			    </div>
+			    <br><br><br>
+
+          <div class="text-success" ng-show="actualizado">
+            <h3>Registro Guardado</h3>
+          </div>
+          <div class="text-danger" ng-show="error">
+            <h3>Error al Guardar</h3>
+          </div>
+
+
+        </div><!-- /.box-body -->
+
+        <div class="panel-footer">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button ng-disabled="guardando" ng-disabled="!frmResp.$valid" type="submit" ng-click="guardarResponsable(responsable)" class="btn btn-success float-left btn-lg">
+                        <span ng-show="guardando" class="button-text"><i class="fa fa-spinner fa-spin" ></i> Guardando</span> 
+                        <span ng-hide="guardando" class="button-text"> <i class="fa fa-save" ></i>  Guardar</span>
+                    </button>
+                    <button style="float: right" type="submit" ng-show="buscar" ng-click="reset(frmResp)" class="btn btn-danger btn-lg"><i class="fa fa-times"></i> <span class="button-text"> Cancelar</span></button>
+                </div>
+            </div>
+        </div>

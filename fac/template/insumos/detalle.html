@@ -1,0 +1,75 @@
+<div class="panel ">
+    <div class="panel-heading with-border">
+        <h2 class="text-success"> <i class="fa fa-circle" ></i> Compra</h2>
+    </div>
+  <div class="panel-body">
+
+          <div class="row"> <br><br>
+
+		            <div class="col-md-2 col-md-offset-7">
+		                <label for="fecha">Fecha</label>
+			              <div class="input-group">
+
+			                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			                	<input type="text"
+			                			class="form-control"
+			                			name="fecha"
+			                			ng-model = "detalle[0].fecha";
+                            disabled>
+			            	</div>
+
+			        </div>
+
+			    </div>
+
+
+						<br><br><br><br>
+
+<div class="row">
+    <div class="col-md-7 col-md-offset-2">
+        <table class="table  table-bordered table-hover">
+            <thead>
+                <tr class="success">
+                    <th class="text-center">Insumo</th>
+                    <th class="text-right">proveedor</th>
+                    <th class="text-center">Presentación</th>
+                    <th class="text-center">Medida</th>
+                    <th class="text-center">Precio</th>
+                    <th class="text-center">Cantidad Insumos</th>
+                    <th class="text-right">Importe</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="detalle in detalle">
+                    <td class="text-center">{{ detalle.ingrediente_act }}</td>
+                    <td class="text-center">{{ detalle.empresa }}</td>
+                    <td class="text-center">{{ detalle.cantidad }}</td>
+                    <td class="text-center">{{ detalle.medida }}</td>
+                    <td class="text-center">{{ detalle.precio | currency }}</td>
+                    <td class="text-center">{{ detalle.cant_insumos }}</td>
+                    <td class="text-right">{{ detalle.precio * detalle.cant_insumos | currency}}</td>
+
+                <tr class="success">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right"><strong>Total</strong></td>
+                    <td class="text-right"><strong>{{ total  | currency }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+</div><!-- /.box-body -->
+    	<div class="panel-footer">
+
+    	</div>
+</div>

@@ -1,0 +1,81 @@
+<div class="panel ">
+    <div class="panel-heading with-border">
+        <h2 class="text-success"> <i class="fa fa-file" ></i> Bitácora de Aplicaciones</h2>
+    </div>
+
+    <div class="panel-body">
+
+<form name="frmCompras" novalidate>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-0">
+            <label for="tg">Seleccione Parcela</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-flask"></i></span>
+                <select class="form-control" ng-model="buscarparcela" ng-options="det.pcl_alias for det in aplicaciones | unique: 'pcl_alias'" required>
+                    <option value="">TODAS</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1 ">
+	       <button ng-click="export(filtrados)" type="submit" class="btn btn-success" ><i class="fa fa-file "></i> Imprimir</button>
+	   </div>
+    </div>
+    
+        <div class="col-md-3 form-group">
+            <label for="f_i">Fecha Inicio</label>
+            <input id="f_i" type="date" class="form-control" ng-model="fecha_inicio" date-format="DD-MM-YYYY">
+        </div>
+        <div class="col-md-3 form-group">
+            <label for="f_f">Fecha Fin</label>
+            <input id="f_f" type="date" class="form-control" ng-model="fecha_final" date-format="DD-MM-YYYY">
+        </div>
+
+</form>
+<br><br>
+<div class="col-md-12">
+<div class="row">
+    <div class="col-md-12" id="exportthis">
+        <table class="table  table-bordered table-hover">
+            <thead>
+                <tr class="success">
+                    <th class="text-center" style="width: 10%;"><a ng-click="col='fecha'; reverse = !reverse;">Fecha</a></th>
+                    <th class="text-center">Unidad Productiva</th>
+                    <th class="text-center">Sección</th>
+                    <th class="text-center">Insumo</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-center">Medida</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="det in (filtrados = (aplicaciones | filter:buscarparcela.pcl_alias:true | rango_fechas4:fecha_inicio:fecha_final | orderBy:col:reverse))">
+                    <td class="text-center">{{ det.fecha | date:'dd-MM-yyyy'}}</td>
+                    <td class="text-center">{{ det.pcl_alias }}</td>
+                    <td class="text-center">001</td>
+                    <td class="text-center">{{ det.nombre_com }}</td>
+                    <td class="text-center">{{ det.cantidad }}</td>
+                    <td class="text-center">{{ det.medida }}</td>
+
+
+                <tr class="success">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+</div>
+<br><br>
+</div><!-- /.box-body -->
+<div class="panel-footer">
+
+</div>
+
+</div>

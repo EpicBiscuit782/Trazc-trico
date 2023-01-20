@@ -1,0 +1,62 @@
+
+	<div class="panel panel-">
+      <div class="panel-heading with-border">
+        <h2 class="text-success "><i class="fa fa-plus-circle"></i> Tipo de Actividad</h2>
+      </div>
+      <form name="frmTipGasto" novalidate>
+
+         <div class="panel-body">
+
+						<div class="row"> <br>
+                <div class="col-md-5 col-md-offset-3">
+                		<label for="descrip">Descripción</label>
+	                  <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-list"></i></span>
+	                    <input type="text"
+	                    		class="form-control"
+	                    		placeholder="Ingrese tipo de Actividad"
+	                    		name="descrip"
+	                    		ng-model="tipo_gasto.tpgst_act_descripcion"
+													ng-minlength="4"
+													ng-maxlength="50"
+	                    		required>
+	                  </div>
+
+	                  <div class="">
+											<span class="text-danger" ng-show="!frmTipGasto.$pristine && frmTipGasto.descrip.$error.required">
+													<strong>Descripción es Requerido!</strong>
+											</span>
+											<span class="text-danger" ng-show="frmTipGasto.descrip.$error.minlength">
+	        								<strong>Muy Corto!</strong>
+	        						</span>
+	      							<span class="text-danger" ng-show="frmTipGasto.descrip.$error.maxlength">
+	        								<strong>Muy Largo!</strong>
+	        						</span>
+										</div>
+	               </div>
+
+	         	</div>
+				<br>
+
+				<div class="text-success" ng-show="actualizado">
+						<h3>Registro Guardado</h3>
+				</div>
+				<div class="text-danger" ng-show="error">
+						<h3>Error al Guardar</h3>
+				</div>
+
+    			</div><!-- /.box-body -->
+
+           	<div class="panel-footer">
+           		<div class="row">
+
+	             	<div class="col-xs-4 col-xs-offset-4">
+	             		<button type="submit" ng-click="guardarTipoGasto(tipo_gasto)" class="btn btn-success" ng-disabled="!frmTipGasto.$valid"><i class="fa fa-save "></i> Guardar</button>
+	             		<button  class="btn btn-success" ng-click="reset(frmTipGasto)" ng-show="buscar"><i class="fa fa-times"></i> Cancelar</button>
+	            </div>
+           	</div>
+
+
+  </form>
+
+</div>

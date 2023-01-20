@@ -1,0 +1,263 @@
+<div class="panel panel-">
+    <div class="panel-heading with-border">
+        <h2 class="text-success "><i class="fa fa-user-plus"></i> Productor </h2>
+    </div>
+    <form name="frmProductor" novalidate>
+        <div class="panel-body">
+
+
+            <div class="row"><br>
+                <div class="col-md-4 col-md-offset-2">
+                  <label for="nombre">Nombre Completo</label>
+                  <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="text"
+                           class="form-control"
+                           name="nombre"
+                           placeholder="Ingrese Nombre Completo"
+                           ng-model="productor.pdt_nombre_completo"
+                           ng-minlength="5"
+                           ng-maxlength="70"
+                           required>
+                </div>
+                <div class="">
+                    <span class="text-danger" ng-show="!frmProductor.$pristine && frmProductor.nombre.$error.required">
+                        <strong>Nombre es Requerido!!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.nombre.$error.minlength">
+                            <strong>Muy Corto!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.nombre.$error.maxlength">
+                            <strong>Muy Largo</strong>
+                    </span>
+              </div>
+            </div>
+
+             <div class="col-md-4 ">
+                  <label for="domicil">Domicilio</label>
+                  <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-street-view"></i></span>
+                    <input type="text"
+                          class="form-control"
+                          name="domicilio"
+                          placeholder="Ingrese Domicilio"
+                          ng-model="productor.pdt_domicilio_completo"
+                          ng-minlength="5"
+                          ng-maxlength="70"
+                          required>
+                </div>
+                 <div class="">
+                    <span class="text-danger" ng-show="!frmProductor.$pristine && frmProductor.domicilio.$error.required">
+                        <strong>Domicilio es Requerido!!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.domicilio.$error.minlength">
+                            <strong>Muy Corto!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.domicilio.$error.maxlength">
+                            <strong>Muy Largo</strong>
+                    </span>
+              </div>
+            </div>
+
+          </div>
+        <br>
+
+        <div class="row">
+                <div class="col-md-4 col-md-offset-2">
+                  <label for="curp">Curp</label>
+                  <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                    <input type="text"
+                           class="form-control"
+                           name="curp"
+                           placeholder="Ingrese Curp"
+                           ng-model="productor.pdt_curp"
+                           ng-minlength="17"
+                           ng-maxlength="19"
+                           required>
+                </div>
+                 <div class="">
+                    <span class="text-danger" ng-show="!frmProductor.$pristine && frmProductor.curp.$error.required">
+                        <strong>Curp es Requerido!!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.curp.$error.minlength">
+                            <strong>Muy Corto!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.curp.$error.maxlength">
+                            <strong>Muy Largo</strong>
+                    </span>
+              </div>
+            </div>
+
+             <div class="col-md-4 ">
+                  <label for="rfc">RFC</label>
+                  <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                    <input type="text"
+                           class="form-control"
+                           name="rfc"
+                           placeholder="Ingrese RFC"
+                           ng-model="productor.pdt_rfc"
+                           ng-minlength="12"
+                           ng-maxlength="13"
+                           required>
+                </div>
+                 <div class="">
+                    <span class="text-danger" ng-show="!frmProductor.$pristine && frmProductor.rfc.$error.required">
+                        <strong>RFC es Requerido!!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.rfc.$error.minlength">
+                            <strong>Muy Corto!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.rfc.$error.maxlength">
+                            <strong>Muy Largo</strong>
+                    </span>
+              </div>
+            </div>
+
+          </div>
+        <br>
+
+      <div class="row">
+                <div class="col-md-4 col-md-offset-2">
+                  <label for="correo">Correo</label>
+                  <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="email"
+                           class="form-control"
+                           name="correo"
+                           placeholder="ejemplo@gmail.com"
+                           ng-model="productor.pdt_email"
+                           ng-minlength="5"
+                           ng-maxlength="70"
+                           required>
+                </div>
+                 <div class="">
+                    <span class="text-danger" ng-show="!frmProductor.$pristine && frmProductor.correo.$error.required">
+                        <strong>Correo es Requerido!!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.correo.$error.email">
+                        <strong>Correo Invalido!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.correo.$error.minlength">
+                        <strong>Muy Corto!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.correo.$error.maxlength">
+                        <strong>Muy Largo</strong>
+                    </span>
+                    <span class="text-danger" ng-show="email">
+                        <strong>Correo ya Registrado</strong>
+                    </span>
+
+              </div>
+            </div>
+             <div class="col-md-4 " ng-if="buscar">
+                  <label for="pass">Contraseña</label>
+                  <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span>
+                    <input type="password"
+                           class="form-control"
+                           name="pass"
+                           ng-model="productor.pdt_password"
+                           ng-minlength="7"
+                           ng-maxlength="250"
+                           required>
+                </div>
+                <div class="">
+                    <span class="text-danger" ng-show="!frmProductor.$pristine && frmProductor.pass.$error.required">
+                        <strong>Contraseña es Requerido!!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.pass.$error.minlength">
+                            <strong>Muy Corto!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.pass.$error.maxlength">
+                            <strong>Muy Largo</strong>
+                    </span>
+              </div>
+            </div>
+
+          </div>
+
+        <br>
+
+
+      <div class="row">
+                <div class="col-md-4 col-md-offset-2">
+                  <label for="tel">Telefono</label>
+                  <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                    <input type="tel"
+                           class="form-control"
+                           placeholder="000-000-0000"
+                           name="tel"
+                           ng-model="productor.pdt_telefono"
+                           ng-pattern="/^[0-9]{1,10}$/"
+                           ng-minlength="7"
+                           ng-maxlength="10"
+                           required>
+                </div>
+                <div class="">
+                    <span class="text-danger" ng-show="!frmProductor.$pristine && frmProductor.tel.$error.required">
+                        <strong>Telefono es Requerido!!!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.tel.$error.minlength">
+                            <strong>Muy Corto!</strong>
+                    </span>
+                    <span class="text-danger" ng-show="frmProductor.tel.$error.maxlength">
+                            <strong>Muy Largo</strong>
+                    </span><br>
+                    <span class="text-danger" ng-show="!frmProductor.tel.$valid">
+                        Dato Invalido !
+                    </span>
+              </div>
+            </div>
+             <div class="col-md-4 ">
+                  <label for="estado">Estatus</label>
+                  <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-circle"></i></span>
+                    <select class="form-control"
+                            ng-model="productor.pdt_activo"
+                            required>
+
+                      <option value="activo">Activo</option>
+                      <option value="inactivo">Inactivo</option>
+                    </select>
+
+                </div>
+            </div>
+
+
+          </div>
+
+        <br><br>
+
+        <div class="text-success" ng-show="actualizado">
+          <h3>Registro Guardado</h3>
+        </div>
+        <div class="text-danger" ng-show="error">
+          <h3>Error al Guardar</h3>
+        </div>
+
+        </div><!-- /.box-body -->
+
+        <div class="panel-footer">
+
+          <div class="row">
+
+              <div class="col-xs-4 col-xs-offset-4">
+                <button type="submit" ng-click="guardarProductor(productor)" class="btn btn-success"  ng-disabled="!frmProductor.$valid"><i class="fa fa-save"></i> Guardar </button>
+                <button ng-click="reset(frmProductor)" ng-show="buscar" class="btn btn-success"><i class="fa fa-times"></i> Cancelar</button>
+          </div>
+        </div>
+
+
+    </form>
+</div>
